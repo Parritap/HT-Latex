@@ -1,20 +1,31 @@
-\documentclass[12pt]{article}
+% !TEX program = lualatex
+% OSMA! Estoy compilando mediante lualatex para que tener funcionlidades extendidas.
+% Además nos brinda la posibilidad de usar polyglossia compilar  español :D 
 
+\documentclass[12pt]{article}
 % Packages
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{titling}
+
+% For using spanish
+\usepackage{polyglossia}
+\setdefaultlanguage{spanish}
+
+% Customising fonts 
 
 % Title information
+
 \title{
-    Estudio de Mapeo Sistemático sobre el Impacto de los
-    Universos HTCondor en los dominios de la Computación
-    Distribuida y Paralela 
+    \includegraphics[width=0.2\textwidth]{resources/images/uniquindio_logo.png}~\\[1cm]
+    Solución arquitectónica para la gestión de cargas de trabajo en HTCondor
+     para el Grupo de investigación en Redes, Información y Distribución (GRID): Implementación del universo GRIDf
     } 
 \author{
-    Juan Esteban Castaño Osma \and 
-    Juan Esteban Parra Parra
+    Juan Esteban Castaño Osma$^1$ \and 
+    Juan Esteban Parra Parra$^2$
     }
 
 
@@ -24,14 +35,13 @@
 
 \maketitle
 
+\newpage
+% Agradecimientos y dedicatoria
+\input{secciones/preambulo.tex}
 
-\begin{abstract}
-This is a simple example of a LaTeX article demonstrating basic formatting, sections, mathematical equations, and references.
-\end{abstract}
+% INTRO
+\input{secciones/introduccion.tex}
 
-\input{secciones/introduccion}
-
-\section{Motivación}
 
 
 \end{document}
