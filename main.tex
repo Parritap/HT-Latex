@@ -8,7 +8,6 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage{titling}
 
 % For using spanish
 \usepackage{polyglossia}
@@ -33,15 +32,22 @@
 
 \begin{document}
 
+\vfill
 \maketitle
-
+\vfill
 \newpage
+
+\tableofcontents
+\newpage
+
 % Agradecimientos y dedicatoria
 \input{secciones/preambulo.tex}
 
 % INTRO
 \input{secciones/introduccion.tex}
+\newpage
 
 
+\input{secciones/desarrollo/desarollo.tex}
 
 \end{document}
