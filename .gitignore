@@ -5,5 +5,10 @@
 !*.tex
 !.gitignore
 
+# Neither ignore .png, .jpg or .jpeg
+!*.png
+!*.jpg
+!*.jpeg
+
 # Don't ignore directories (so Git can recurse into them)
 !*/
