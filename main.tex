@@ -1,8 +1,8 @@
 % !TEX program = lualatex
-% OSMA! Estoy compilando mediante lualatex para que tener funcionlidades extendidas.
+% OSMA! Estoy compilando mediante lualatex para que tener funcionalidades extendidas.
 % Además nos brinda la posibilidad de usar polyglossia compilar  español :D 
 
-\documentclass[12pt]{article}
+\documentclass[12pt]{report}
 % Packages
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
@@ -12,6 +12,10 @@
 % For using spanish
 \usepackage{polyglossia}
 \setdefaultlanguage{spanish}
+
+\setlength{\parindent}{0pt}   % Sin sangría al inicio del párrafo
+\setlength{\parskip}{1em}     % Espacio vertical entre párrafos (puedes ajustar el valor)
+
 
 % Import custom commands
 \input{resources/custom/commands}
@@ -38,9 +42,6 @@
 \input{secciones/portada}
 \newpage
 
-\input{secciones/aceptacion}
-\newpage
-
 % Agradecimientos y dedicatoria
 \input{secciones/preambulo}
 \newpage
@@ -48,8 +49,8 @@
 \tableofcontents
 \newpage
 
-% INTRO
-\input{secciones/introduccion.tex}
+% Presentación
+\input{secciones/presentacion/presentacion}
 \newpage
 
 
