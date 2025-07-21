@@ -13,6 +13,9 @@
 \usepackage{polyglossia}
 \setdefaultlanguage{spanish}
 
+% Import custom commands
+\input{resources/custom/commands}
+
 % Customising fonts 
 
 % Title information
@@ -33,14 +36,17 @@
 %\vfill
 
 \input{secciones/portada}
+\newpage
 
+\input{secciones/aceptacion}
+\newpage
+
+% Agradecimientos y dedicatoria
+\input{secciones/preambulo}
 \newpage
 
 \tableofcontents
 \newpage
-
-% Agradecimientos y dedicatoria
-\input{secciones/preambulo.tex}
 
 % INTRO
 \input{secciones/introduccion.tex}
