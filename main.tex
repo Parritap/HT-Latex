@@ -22,8 +22,14 @@
 \usepackage{polyglossia}
 \setdefaultlanguage{spanish}
 
-\setlength{\parindent}{0pt}   % Sin sangría al inicio del párrafo
-\setlength{\parskip}{1em}     % Espacio vertical entre párrafos (puedes ajustar el valor)
+% For bibliography generation
+\usepackage[backend=biber,style=apa]{biblatex}
+\addbibresource{referencias.bib} % Archivo .bib
+\usepackage{csquotes} % Recomendado con biblatex
+
+% Formato para los parrafos convencionales
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
 
 
 % Import custom commands
@@ -64,5 +70,7 @@
 
 
 \input{secciones/01-estudio-empirico/estudio-empirico.tex}
+
+\printbibliography
 
 \end{document}
