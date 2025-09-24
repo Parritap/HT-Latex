@@ -1,0 +1,43 @@
+\AddToShipoutPicture*{\BackgroundPic}
+\begin{titlepage}
+    \thispagestyle{empty} % quita encabezados/pies de página
+
+    % Aquí sí usamos TikZ correctamente
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=west] at ([xshift=6cm,yshift=-5cm]current page.north west)
+            {\LARGE\bfseries \mytitlea};
+    \end{tikzpicture}
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=west] at ([xshift=3.5cm,yshift=-5.7cm]current page.north west)
+            {\LARGE\bfseries \mytitleb};
+    \end{tikzpicture}
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=west] at ([xshift=2.8cm,yshift=-6.4cm]current page.north west)
+            {\LARGE\bfseries \mytitlec};
+    \end{tikzpicture}
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=west] at ([xshift=4.5cm,yshift=-7.1cm]current page.north west)
+            {\LARGE\bfseries \mytitled};
+    \end{tikzpicture}
+
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=west] at ([xshift=8cm,yshift=-19cm]current page.north west)
+            {\normalsize \myname };
+    \end{tikzpicture}
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=west] at ([xshift=9cm,yshift=-19.5cm]current page.north west)
+            {\small Cc: \matricle};
+    \end{tikzpicture}
+
+   \begin{tikzpicture}[remember picture,overlay] 
+        \node[anchor=west] at ([xshift=8cm,yshift=-21cm]current page.north west)
+            {\normalsize \mynameb};
+    \end{tikzpicture}
+    
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=west] at ([xshift=9cm,yshift=-21.5cm]current page.north west)
+            {\small Cc: \matricleb};
+    \end{tikzpicture}
+    \clearpage % fuerza nueva página después
+\end{titlepage}
+\ClearShipoutPicture

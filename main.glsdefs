@@ -1,0 +1,28 @@
+\glsdefs@newdocentry{cmmi}%
+{%
+name={\acronymfont {\glsentryshort {cmmi}}},%
+sort={CMMI},%
+type={acronym},%
+first={CMMI},%
+firstplural={CMMIs},%
+text={CMMI},%
+plural={CMMIs},%
+description={Capability Maturity Model Integration},%
+descriptionplural={Capability Maturity Model Integration},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Capability Maturity Model Integration},%
+longplural={Capability Maturity Model Integrations},%
+short={CMMI},%
+shortplural={CMMIs},%
+counter={page},%
+parent={},%
+%
+}%
+

@@ -1,0 +1,55 @@
+# Archivos auxiliares de LaTeX
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+*.run.xml
+
+# Archivos generados por editores (TeXShop, TeXworks, etc.)
+*.synctex(busy)
+*.synctex.gz(busy)
+*.pdfsync
+
+# Archivos temporales de compilación
+*.tmp
+*.temp
+*.bak
+
+# Archivos de salida
+*.pdf
+*.dvi
+*.ps
+
+# Archivos creados por BibTeX y similares
+*.lof
+*.lot
+*.lol
+*.idx
+*.ilg
+*.ind
+*.glg
+*.glo
+*.gls
+*.ist
+*.acn
+*.acr
+*.alg
+
+# Carpetas comunes de LaTeX
+latex.out/
+build/
+output/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db

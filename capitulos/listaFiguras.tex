@@ -1,0 +1,13 @@
+% portada bonita
+\ChapterImagePrelim{Índice de figuras}{./images/fondo.png}
+
+\mbox{}\\
+% pegamos la lista sin salto extra
+\begingroup
+  \renewcommand{\addcontentsline}[3]{} % no añade entrada
+  \let\clearpage\relax
+  \let\cleardoublepage\relax
+  \makeatletter
+    \@starttoc{lof}% genera la lista de figuras directamente
+  \makeatother
+\endgroup

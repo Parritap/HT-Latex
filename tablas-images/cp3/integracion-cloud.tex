@@ -1,0 +1,45 @@
+\begin{table}[H]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\textwidth}{|p{0.2\textwidth}|X|}
+\hline
+\textbf{Tecnología} & \textbf{Integración con Proveedores de Cloud} \\
+\hline
+Docker & Integración con \AWS\ (ECR, ECS), Google Cloud (GCR, GKE), Azure (ACR, AKS), y otros proveedores a través de herramientas como Docker Compose, Docker Swarm y Docker Desktop. \\
+\hline
+Podman & Compatible con \AWS\ (ECR), Google Cloud (GCR), Azure (ACR), aunque su integración con orquestadores como Kubernetes es más reciente y menos prevalente que Docker. \\
+\hline
+Udocker & Generalmente se usa en entornos sin privilegios de root y en plataformas como \HPC\ . No tiene una integración directa con proveedores de nube a gran escala. \\
+\hline
+Wasm (WebAssembly) & Integración principalmente con servicios de computación en la nube como \AWS\ Lambda, Google Cloud Functions, y Azure Functions, ya que permite la ejecución eficiente de código en la nube sin dependencia del sistema operativo subyacente. \\
+\hline
+LXC & Se puede integrar en plataformas de nube privada y algunas soluciones híbridas. Se usa en servidores de nube como OpenStack, pero no tiene una integración directa con plataformas públicas principales. \\
+\hline
+Containerd & Integración fuerte con Kubernetes, que a su vez se integra con proveedores de nube como \AWS\ (EKS), Google Cloud (GKE), Azure (AKS) y otros. \\
+\hline
+LXD & Puede integrarse con plataformas de nube privada, como OpenStack, para ofrecer contenedores ligeros que emulan máquinas virtuales. No tiene integración directa con los proveedores de nube pública principales, pero puede ser utilizado en soluciones personalizadas. \\
+\hline
+Rkt & Aunque estaba integrado con Kubernetes y otras plataformas, su descontinuación limita la integración con proveedores de nube. En el pasado, soportaba plataformas como \AWS\ y Google Cloud. \\
+\hline
+Singularity & Utilizado principalmente en entornos de computación científica y HPC. Puede integrarse con proveedores como \AWS\ (HPC, Batch) y Google Cloud (Compute Engine) para tareas específica de alto rendimiento. \\
+\hline
+runC & Integración con Kubernetes, que se usa ampliamente en proveedores de nube como \AWS\ (EKS), Google Cloud (GKE), y Azure (AKS) para la orquestación de contenedores. \\
+\hline
+CRI-O & Integración directa con Kubernetes, lo que le permite ser utilizado en proveedores de nube como \AWS\ (EKS), Google Cloud (GKE), Azure (AKS), y otros servicios de orquestación de contenedores. \\
+\hline
+Hyper-V containers & Integración exclusiva con Microsoft Azure, especialmente con Azure Kubernetes Service (AKS) y otras soluciones basadas en Hyper-V. \\
+\hline
+OpenVZ & Tradicionalmente usado en proveedores de hosting como OVH, aunque su uso ha disminuido frente a soluciones más modernas. La integración con nubes públicas es limitada y generalmente personalizada. \\
+\hline
+Linux VServer & Utilizado principalmente en proveedores de hosting dedicados y servidores privados, sin integración directa con proveedores de nube pública como \AWS\, Google Cloud o Azure. \\
+\hline
+Google gVisor & Integración con Google Cloud, especialmente en Google Kubernetes Engine (GKE), para agregar una capa adicional de seguridad a los contenedores. \\
+\hline
+Kata Containers & Soporta proveedores de nube pública como \AWS\, Google Cloud, y Azure a través de Kubernetes, proporcionando aislamiento similar a máquinas virtuales en entornos de contenedores. \\
+\hline
+\end{tabularx}
+\caption{Integración cloud de cada VBC}
+\label{tab:integracion-cloud-vbc}
+\end{table}

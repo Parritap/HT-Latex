@@ -1,0 +1,48 @@
+\begin{table}[H]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\textwidth}{|p{0.18\textwidth}|>{\raggedright\arraybackslash}X|}
+\hline
+\textbf{Tecnología} & \textbf{Interfaz de Uso} \\
+\hline
+Docker & \CLI\ principalmente, con Docker Desktop para interfaz gráfica. \\
+\hline
+Podman & \CLI\ similar a Docker, sin daemon. Opcional Podman Desktop. \\
+\hline
+Udocker & \CLI\ específica para ejecutar contenedores sin privilegios root. \\
+\hline
+Wasm  & Ejecución través de navegadores web, \API\ de JavaScript. \\
+\hline
+LXC & \CLI\ mediante comando lxc, sin interfaz gráfica oficial. \\
+\hline
+Containerd & \CLI\ con herramientas como ctr, backend para otras herramientas. \\
+\hline
+LXD & \CLI\ mediante lxd/lxc, con interfaz web LXD Web \UI. \\
+\hline
+Rkt & \CLI\ mediante comandos como rkt run (descontinuado). \\
+\hline
+Singularity & \CLI\ mediante comandos singularity para gestión de contenedores. \\
+\hline
+runC & \CLI\ mediante comandos runc, runtime bajo Docker y Kubernetes. \\
+\hline
+CRI-O & \CLI, interactúa con Kubernetes, sin interfaz gráfica dedicada. \\
+\hline
+Hyper-V containers & \CLI\ (PowerShell) o Hyper-V Manager para \VM . \\
+\hline
+OpenVZ & \CLI\ mediante comandos vzctl, con interfaces gráficas de terceros. \\
+\hline
+Linux VServer & \CLI\ mediante comandos vserver para gestión. \\
+\hline
+Google gVisor & \CLI\ mediante comandos estándar de Docker con seguridad adicional. \\
+\hline
+Kata Containers & \CLI\ mediante kata-runtime, integración con Kubernetes. \\
+\hline
+Firecracker & \CLI\ mediante \API\ RESTful y herramientas firecracker. \\
+\hline
+Sarus & \CLI\ mediante comando sarus para entornos \HPC. \\
+\hline
+\end{tabularx}
+\caption{Interfaz de uso de cada VBC}\label{tab:interfaz-vbc}
+\end{table}
