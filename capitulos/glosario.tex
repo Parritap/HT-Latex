@@ -2,34 +2,47 @@
 \mbox{}\\
 En este apartado se encuentran términos clave y conceptos relevantes utilizados a lo largo de este proyecto.
 
-\section*{B}
+\section*{A}
 \begin{description}
-  \item[Benchmarking:] Mide el rendimiento o el grado de éxito alcanzado en comparación con otras empresas para una actividad, flujo de valor u otros factores de interés determinados. Estas medidas se convierten en la base para el análisis y el rediseño \citep{PeterWootton2024}.
+	\item[Asignación de recursos:] También referido en inglés como \textit{resource allocation}, en el contexto del \textit{cloud computing}, la asignación de recursos puede entenderse como el proceso en el cual los recursos adecuados se asignan a las tareas requeridas por el consumidor para que estas sean completadas de manera eficiente \citep{Manzoor2020}. Otro término muy similar cobra relevancia en el contexto de la computación distribuida: la asignación de tareas (en vez de recursos), la cual es definida por \cite{Oldham1995} como aquel proceso cuyo objetivo es la maximización de la utilización de los recursos computacionales al mismo tiempo que se garantiza que el trabajo se ejecute al nivel más productivo posible. Esta relación entre asignación de tareas y asignación de recursos es materializada por el framework ClassAd \citep{Thain2005}.
 \end{description}
 
 \section*{C}
 \begin{description}
-  \item[Cloud Computing:] La computación en la nube es un modelo que permite el acceso a la red, ubicuo, práctico y bajo demanda, a un conjunto compartido de recursos informáticos configurables que pueden aprovisionarse y liberarse rápidamente con un mínimo esfuerzo de gestión o interacción con el proveedor de servicios \citep{Mell2011}.
+	\item[ClassAd:] Término originado en el trabajo de \cite{Raman1998}. Estos definen los \textit{Classified Advertisement} como un framework para: (\textbf{1}) el anuncio de solicitudes de recursos de cómputo y (\textbf{2}) la disponibilidad de recursos de cómputo, originado para solucionar las problemáticas surgidas en antiguas versiones de Condor.
+
+	\item[Computación científica:] Como lo exponen \cite{Landau2005}, la computación científica es un campo multidisciplinario que combina una disciplina tradicional, como la física o las finanzas, con la ciencia de la computación y la matemática, sin ignorar la rigurosidad de cada una de ellas. El objetivo último de la computación científica es la resolución de problemas complejos para los seres humanos de analizar.
+
+	\item[Computación distribuida:] Según lo expuesto por \cite{Lamport1990}, la computación distribuida es una actividad de un sistema distribuido espacialmente, esto es, la realización de computación extendida a través del espacio.
+
+	\item[Computación de alta productividad (\HTC):] En un artículo publicado por~\cite{Juve2015}, en el cual se encuentra dentro sus autores a Miron Livny, uno de los artífices del software Condor, se define a las aplicaciones \HTC~como aquellas que buscan maximizar la cantidad de resultados producidos en un periodo prolongado de tiempo, como meses o años.
+
+	\item[Computación paralela:] Según \cite{Morgan2009}, la paralelización tiene dos acepciones: el paralelismo ``verdadero'' y ``computación de alto rendimiento''. En otros términos, el concepto de paralelismo se puede dividir en dos categorías: potencial (\textit{capability}) de paralelismo y la capacidad (\textit{capacity}) de paralelismo, donde el potencial de paralelismo vendría siendo paralelismo verdadero, mientras la capacidad de paralelismo representaría la computación de alto rendimiento. En términos prácticos, el paralelismo verdadero sería una única instancia de una aplicación cuya ejecución sucede en varias máquinas al mismo tiempo; en contraste, la capacidad de paralelismo estaría representada por múltiples instancias de una aplicación corriendo en distintas computadoras al mismo tiempo.
+
+	\item[Computación de alto rendimiento (\HPC):] Se refiere a aquella computación dedicada al procesamiento paralelo de cálculos complejos a altas velocidades a través de múltiples servidores usando grandes volúmenes de datos \citep{SK2023}. \HPC~también tiene la particularidad de que usa paralelismo verdadero \citep{Morgan2009}.
+\end{description}
+
+\section*{D}
+\begin{description}
+	\item[Distribución de tareas:] En el trabajo de \cite{Oldham1995} se nos brinda una contextualización en la distribución de tareas en el entorno de los sistemas de computación distribuida. Para estos autores, un sistema de computación distribuido está definido por un conjunto de nodos (o procesadores) ubicados en distintos lugares y conectados por una red. En este sentido, las tareas para un ambiente de computación distribuida están definidas como llamados a procedimientos que pueden ser ejecutados de manera remota o local.
 \end{description}
 
 \section*{E}
 \begin{description}
-  \item[Escalabilidad:] Capacidad de un sistema de ajustar automáticamente sus recursos informáticos en función de la carga de trabajo, mediante la asignación de servidores, memoria o red de manera dinámica \citep{TARI2024100650}.
+	\item[Estudio de mapeo sistemático (\SMS):] Un estudio de mapeo sistemático es el proceso de identificar, categorizar y analizar la bibliografía existente relevante para un determinado tema de investigación. El objetivo de un \SMS~es obtener una visión global de un tema de investigación concreto, presentar una evaluación imparcial de la bibliografía actual, identificar las lagunas en la investigación y recopilar pruebas para futuras investigaciones \citep{Salama2017}.
+\end{description}
+
+\section*{G}
+\begin{description}
+	\item[Gestión de recursos:] \cite{Tanenbaum2015} ofrecen una definición clara de este proceso, señalándole como la multiplexación de recursos, la cual puede realizarse de dos maneras distintas: en el tiempo y en el espacio. Los autores explican que cuando un recurso es multiplexado en el tiempo, múltiples programas pueden acceder a él de manera secuencial, tomando turnos para su uso. Asimismo, destacan la multiplexación en el espacio, que se refiere a la coexistencia simultánea de múltiples programas en memoria.
 \end{description}
 
 \section*{H}
 \begin{description}
-  \item[Hypervisor:] Es responsable de crear, administrar y programar máquinas virtuales, que representan máquinas reales para los sistemas operativos que se ejecutan en ellas \citep{Cinque2024}.
+	\item[HTCondor:] Como está expuesto en su página web \citep{HTCondor}, este es un sistema especializado de gestión de cargas de trabajo para tareas de cómputo intensivo. Al igual que otros sistemas de procesamiento por lotes completos, HTCondor proporciona un mecanismo de encolado de trabajos, una política de planificación, un esquema de prioridades, monitoreo de recursos y gestión de recursos. Los usuarios envían sus trabajos, ya sean seriales o paralelos, a HTCondor; HTCondor los coloca en una cola, elige cuándo y dónde ejecutarlos según una política, monitorea cuidadosamente su progreso y, finalmente, informa al usuario una vez que se han completado.
 \end{description}
 
-\section*{P}
+\section*{U}
 \begin{description}
-  \item[Private Cloud:] Una nube privada virtual se refiere a una nube privada alojada en un entorno de nube pública o compartida. Permite la conexión entre la infraestructura heredada y los servicios en la nube mediante una conexión de red virtual segura \citep{Collins2016}.
-  
-  \item[Producto mínimo viable:] El producto mínimo viable es aquella versión de un nuevo producto que permite a un equipo recopilar la máxima cantidad de aprendizaje validado sobre los clientes con el menor esfuerzo \citep{Ries2020}.
-\end{description}
-
-\section*{V}
-\begin{description}
-  \item[Virtualización:] Proceso de crear versiones virtuales de recursos físicos, como servidores, sistemas operativos o redes, con el fin de mejorar la eficiencia y flexibilidad en la gestión de la infraestructura \citep{Meena2021}.
+	\item[Universo:] Así como está expresado en su página oficial \citep{HTCondor}, un universo HTCondor está definido como aquel ambiente de ejecución en el cual una tarea es procesada. Los universos existentes a la fecha son los siguientes: \textit{vanilla}, \textit{grid}, \textit{java}, \textit{scheduler}, \textit{local}, \textit{parallel}, \textit{vm}, \textit{container} y \textit{Docker}.
 \end{description}
