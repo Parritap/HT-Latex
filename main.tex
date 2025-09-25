@@ -20,7 +20,6 @@
 \titleformat{\subsubsection}
   {\normalsize\bfseries}{\thesubsubsection}{1em}{}
 
-\input{config/paquetes.tex}
 \input{config/variables.tex} 
 
 % Configuración de encabezados y pies de página
@@ -54,7 +53,7 @@
 \newcommand{\siglaref}{\hyperref[cap:siglas]{\nameref{cap:siglas}}}
 
 % Ahora definimos cada sigla con enlace hacia la lista
-\newcommand{\API}{\hyperref[cap:siglas]{API}\xspace}
+\newcommand{\HTC}{\hyperref[cap:siglas]{HTC}\xspace}
 \newcommand{\CMMI}{\hyperref[cap:siglas]{CMMI}\xspace}
 \newcommand{\CPU}{\hyperref[cap:siglas]{CPU}\xspace}
 \newcommand{\DAR}{\hyperref[cap:siglas]{DAR}\xspace}
@@ -181,7 +180,7 @@
 \thispagestyle{empty}
 \vspace*{\fill}
 \begin{center}
-\small\textit{Página en blanco intencionalmente}
+	\small\textit{Página en blanco intencionalmente}
 \end{center}
 \vspace*{\fill}
 \newpage
@@ -195,7 +194,7 @@
 \thispagestyle{empty}
 \vspace*{\fill}
 \begin{center}
-\small\textit{Página en blanco intencionalmente}
+	\small\textit{Página en blanco intencionalmente}
 \end{center}
 \vspace*{\fill}
 \newpage
@@ -210,7 +209,7 @@
 \setcounter{chapter}{0}
 \renewcommand{\thechapter}{\arabic{chapter}}
 \input{capitulos/introduccion.tex}
-\input{capitulos/glosario.tex} 
+\input{capitulos/glosario.tex}
 \input{capitulos/siglas.tex}
 \input{capitulos/objetivos.tex}
 \input{capitulos/justificacion.tex}
@@ -219,23 +218,23 @@
 \input{capitulos/marcoTeorico.tex}
 \input{capitulos/desarrolloMetodologico.tex}
 
-\input{capitulos/desarrolloMetodologico/caracterizacionGRID.tex}
-\input{capitulos/desarrolloMetodologico/mapeoSMS.tex}
-\input{capitulos/desarrolloMetodologico/caracterizacionVBC.tex}
-\input{capitulos/benchmarking.tex}
-\input{capitulos/DAR.tex}
-\input{capitulos/disenio.tex}
+%\input{capitulos/desarrolloMetodologico/caracterizacionGRID.tex}
+%\input{capitulos/desarrolloMetodologico/mapeoSMS.tex}
+%\input{capitulos/desarrolloMetodologico/caracterizacionVBC.tex}
+%\input{capitulos/benchmarking.tex}
+%\input{capitulos/DAR.tex}
+%\input{capitulos/disenio.tex}
 
-\input{capitulos/resultados.tex}
-\input{capitulos/conclusiones.tex}
-\input{capitulos/trabajos-futuros.tex}
+%\input{capitulos/resultados.tex}
+%\input{capitulos/conclusiones.tex}
+%\input{capitulos/trabajos-futuros.tex}
 
-\input{capitulos/cumplimientoObjetivos.tex}
+%\input{capitulos/cumplimientoObjetivos.tex}
 
 
 
-\input{capitulos/referencias.tex}
+%\input{capitulos/referencias.tex}
 
-\input{apendices/apendices.tex}
+%\input{apendices/apendices.tex}
 
 \end{document}

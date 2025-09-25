@@ -1,0 +1,114 @@
+
+\renewcommand{\headrulewidth}{0pt} % Sin línea en el encabezado
+\renewcommand{\footrulewidth}{0pt} % Sin línea en el pie
+
+% Configuración del banner inferior desde la página 1
+% Ajustes de posición en puntos (1pt ≈ 1 pixel a 72 DPI)
+\newcommand{\bannerHeight}{68.16pt} % 2.4cm = 68.16pt
+\newcommand{\bannerXOffset}{0pt} % Desplazamiento horizontal del banner
+\newcommand{\bannerYOffset}{0pt} % Desplazamiento vertical del banner
+\newcommand{\pageNumXOffset}{28.35pt} % 1cm = 28.35pt - posición X del número
+\newcommand{\pageNumYOffset}{35.05pt} % 3cm = 85.05pt - posición Y del número
+
+% Marcador para la sección de Siglas
+\newcommand{\siglaref}{\hyperref[cap:siglas]{\nameref{cap:siglas}}}
+
+% ################## DEFINICIÓN DE SIGLAS ######################
+\newcommand{\HTC}{\hyperref[cap:siglas]{HTC}\xspace}
+
+
+
+
+% ##############################################################
+
+% Comando para capítulos SIN numeración de página (páginas especiales)
+\newcommand{\ChapterImageEmpty}[3][]{%
+	\cleardoublepage
+	\thispagestyle{fancy}%
+	\refstepcounter{chapter}%
+	\AddToShipoutPictureBG*{%
+		\begin{tikzpicture}[remember picture,overlay]
+			% Imagen de fondo al ancho de la página
+			\node[inner sep=0pt, anchor=north west] at (current page.north west)
+			{\includegraphics[width=\paperwidth]{#3}};
+			% Caja blanca que se adapta al ancho del texto
+			\node[
+				anchor=north west,
+				xshift=1.5cm, yshift=-1.0cm,
+				text=black,
+				fill=white, fill opacity=0.8,
+				rounded corners=6pt,
+				inner xsep=10pt, inner ysep=6pt
+			] at (current page.north west)
+			{\Large\bfseries \thechapter\quad #2\strut};
+		\end{tikzpicture}
+	}%
+}
+
+% Comando para secciones preliminares (sin numeración pero en índice)
+\newcommand{\ChapterImagePrelim}[3][]{%
+	\cleardoublepage%
+	\phantomsection%
+	\addcontentsline{toc}{chapter}{#2}%
+	\AddToShipoutPictureBG*{%
+		\begin{tikzpicture}[remember picture,overlay]
+			% Imagen de fondo al ancho de la página
+			\node[inner sep=0pt, anchor=north west] at (current page.north west)
+			{\includegraphics[width=\paperwidth]{#3}};
+			% Caja blanca que se adapta al ancho del texto
+			\node[
+				anchor=north west,
+				xshift=1.5cm, yshift=-1.0cm,
+				text=black,
+				fill=white, fill opacity=0.8,
+				rounded corners=6pt,
+				inner xsep=10pt, inner ysep=6pt
+			] at (current page.north west)
+			{\Large\bfseries #2\strut};
+		\end{tikzpicture}
+	}%
+}
+
+% Comando para capítulos CON numeración de página (capítulos normales)
+\newcommand{\ChapterImageStar}[3][]{%
+	\cleardoublepage%
+	\refstepcounter{chapter}%
+	\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#2}%
+	\AddToShipoutPictureBG*{%
+		\begin{tikzpicture}[remember picture,overlay]
+			% Imagen de fondo al ancho de la página
+			\node[inner sep=0pt, anchor=north west] at (current page.north west)
+			{\includegraphics[width=\paperwidth]{#3}};
+			% Caja blanca que se adapta al ancho del texto
+			\node[
+				anchor=north west,
+				xshift=1.5cm, yshift=-1.0cm,
+				text=black,
+				fill=white, fill opacity=0.8,
+				rounded corners=6pt,
+				inner xsep=10pt, inner ysep=6pt
+			] at (current page.north west)
+			{\Large\bfseries \thechapter\quad #2\strut};
+		\end{tikzpicture}
+	}%
+}
+
+\newcommand\BackgroundPic{%
+	\put(-25,-2){%
+		\parbox[b][\paperheight]{\paperwidth}{%
+			\vfill
+			\centering
+			\includegraphics[scale=1,height=\paperheight]{./images/fondo-anteportada.png}%
+			\vfill
+		}}}
+
+\newcommand\PortadaPic{%
+	\put(0,0){%
+		\parbox[b][\paperheight]{\paperwidth}{%
+			\vfill
+			\centering
+			\includegraphics[width=\paperwidth,height=\paperheight]{images/portada.png}%
+			\vfill
+		}}}
+
+
