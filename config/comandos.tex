@@ -1,4 +1,17 @@
 
+% Configuración del tamaño de secciones y subsecciones
+\titleformat{\section}
+{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+{\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+\input{config/variables.tex}
+
+% Configuración de encabezados y pies de página
+\pagestyle{fancy}
+\fancyhf{} % Limpia todos los encabezados y pies
 \renewcommand{\headrulewidth}{0pt} % Sin línea en el encabezado
 \renewcommand{\footrulewidth}{0pt} % Sin línea en el pie
 
@@ -10,16 +23,53 @@
 \newcommand{\pageNumXOffset}{28.35pt} % 1cm = 28.35pt - posición X del número
 \newcommand{\pageNumYOffset}{35.05pt} % 3cm = 85.05pt - posición Y del número
 
+\fancyfoot[C]{%
+	\begin{tikzpicture}[remember picture, overlay]
+		% Banner que ocupa todo el ancho de la página
+		\node[anchor=south, inner sep=0pt] at ([xshift=\bannerXOffset, yshift=\bannerYOffset]current page.south) {%
+			\includegraphics[width=\paperwidth, height=\bannerHeight]{./images/banner-inferior.png}%
+		};
+		% Número de página sobre la imagen en la esquina inferior izquierda
+		\node[anchor=south west, text=black, font=\bfseries]
+		at ([xshift=\pageNumXOffset, yshift=\pageNumYOffset]current page.south west) {\thepage};
+	\end{tikzpicture}%
+}
+
+
+% ################## SIGLAS ##################
+
 % Marcador para la sección de Siglas
 \newcommand{\siglaref}{\hyperref[cap:siglas]{\nameref{cap:siglas}}}
 
-% ################## DEFINICIÓN DE SIGLAS ######################
+% Ahora definimos cada sigla con enlace hacia la lista
 \newcommand{\HTC}{\hyperref[cap:siglas]{HTC}\xspace}
+\newcommand{\CMMI}{\hyperref[cap:siglas]{CMMI}\xspace}
+\newcommand{\CPU}{\hyperref[cap:siglas]{CPU}\xspace}
+\newcommand{\DAR}{\hyperref[cap:siglas]{DAR}\xspace}
+\newcommand{\GRID}{\hyperref[cap:siglas]{GRID}\xspace}
+\newcommand{\IT}{\hyperref[cap:siglas]{IT}\xspace}
+\newcommand{\SMS}{\hyperref[cap:siglas]{SMS}\xspace}
+\newcommand{\VBC}{\hyperref[cap:siglas]{VBC}\xspace}
+\newcommand{\TI}{\hyperref[cap:siglas]{TI}\xspace}
+\newcommand{\PMV}{\hyperref[cap:siglas]{PMV}\xspace}
+\newcommand{\PMBOK}{\hyperref[cap:siglas]{PMBOK}\xspace}
+\newcommand{\ISO}{\hyperref[cap:siglas]{ISO}\xspace}
+\newcommand{\CNCF}{\hyperref[cap:siglas]{CNCF}\xspace}
+\newcommand{\TOGAF}{\hyperref[cap:siglas]{TOGAF}\xspace}
+\newcommand{\IEC}{\hyperref[cap:siglas]{IEC}\xspace}
+\newcommand{\CS}{\hyperref[cap:siglas]{CS}\xspace}
+\newcommand{\CLI}{\hyperref[cap:siglas]{CLI}\xspace}
+\newcommand{\UI}{\hyperref[cap:siglas]{UI}\xspace}
+\newcommand{\HPC}{\hyperref[cap:siglas]{HPC}\xspace}
+\newcommand{\AWS}{\hyperref[cap:siglas]{AWS}\xspace}
+\newcommand{\OCI}{\hyperref[cap:siglas]{OCI}\xspace}
+\newcommand{\VM}{\hyperref[cap:siglas]{VM}\xspace}
+\newcommand{\OS}{\hyperref[cap:siglas]{OS}\xspace}
+\newcommand{\PMI}{\hyperref[cap:siglas]{PMI}\xspace}
+\newcommand{\CPD}{\hyperref[cap:siglas]{CPD}\xspace}
 
 
-
-
-% ##############################################################
+% ####################################################
 
 % Comando para capítulos SIN numeración de página (páginas especiales)
 \newcommand{\ChapterImageEmpty}[3][]{%
@@ -110,5 +160,4 @@
 			\includegraphics[width=\paperwidth,height=\paperheight]{images/portada.png}%
 			\vfill
 		}}}
-
 
