@@ -42,6 +42,12 @@ En este apartado se encuentran términos clave y conceptos relevantes utilizados
 	\item[HTCondor:] Como está expuesto en su página web \citep{HTCondor}, este es un sistema especializado de gestión de cargas de trabajo para tareas de cómputo intensivo. Al igual que otros sistemas de procesamiento por lotes completos, HTCondor proporciona un mecanismo de encolado de trabajos, una política de planificación, un esquema de prioridades, monitoreo de recursos y gestión de recursos. Los usuarios envían sus trabajos, ya sean seriales o paralelos, a HTCondor; HTCondor los coloca en una cola, elige cuándo y dónde ejecutarlos según una política, monitorea cuidadosamente su progreso y, finalmente, informa al usuario una vez que se han completado.
 \end{description}
 
+\section*{T}
+\begin{description}
+	\item [Trabajo:] En el contexto de HTCondor, un trabajo (referido originalmente como \textit{job} en inglés) constituye la unidad atómica de trabajo computacional \citep{HTCondor-what-is-a-job}. Un trabajo puede utilizar uno o múltiples núcleos de una sola máquina, o uno o múltiples núcleos de diversas maquinas como en el caso del universo \textit{parallel}. El trabajo se ve en todos los casos como un programa que bien puede ser compilado (como por ejemplo binarios del lenguaje C o C++) o interpretado (como un archivo python o incluso un shell script). La naturaleza de cada trabajo viene dada por el universo y las preferencia de los usuarios.
+\end{description}
+
+
 \section*{U}
 \begin{description}
 	\item[Universo:] Así como está expresado en su página oficial \citep{HTCondor}, un universo HTCondor está definido como aquel ambiente de ejecución en el cual una tarea es procesada. Los universos existentes a la fecha son los siguientes: \textit{vanilla}, \textit{grid}, \textit{java}, \textit{scheduler}, \textit{local}, \textit{parallel}, \textit{vm}, \textit{container} y \textit{Docker}.
