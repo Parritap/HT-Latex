@@ -1,27 +1,36 @@
 \ChapterImageStar[cap:desarrollo-metodologico]{Desarrollo metodológico}{./images/fondo.png}\label{cap:desarrolloMetodologico}
 \mbox{}\\
-A continuación, se describe el procedimiento metodológico seguido para alcanzar los objetivos planteados en esta investigación. La metodología se estructuró en fases sucesivas y complementarias que permiten pasar de la caracterización del contexto institucional y tecnológico, hacia la selección, diseño, implementación y validación de una arquitectura basada en tecnologías de virtualización por contenedores (\VBC).
+\noindent
+A continuación, se describe el procedimiento metodológico seguido para alcanzar los objetivos planteados en esta investigación. La metodología se estructuró en fases sucesivas y complementarias que permiten pasar de la caracterización del contexto institucional y tecnológico, hacia la selección, diseño, implementación y validación de la expansión de la infraestructura HTCondor del \GRID.
 
 \section{Caracterización del GRID}
-El Grupo de Investigación en Redes, Información y Distribución (\GRID) de la Universidad del Quindío desarrolla actividades en los ejes misionales de la institución: educación, investigación y extensión. En el marco de esta investigación, se caracterizó el \GRID\ con el propósito de identificar sus capacidades actuales, necesidades y oportunidades relacionadas con la adopción de tecnologías de virtualización. Este diagnóstico inicial permitió contextualizar la pertinencia de las \VBC\ como una alternativa tecnológica para fortalecer los servicios académicos y de investigación, especialmente en beneficio de los estudiantes de Ingeniería de Sistemas y Computación.
+\noindent
+El Grupo de Investigación en Redes, Información y Distribución (\GRID) de la Universidad del Quindío desarrolla actividades en los ejes misionales de la institución: educación, investigación y extensión. En el marco de esta investigación, se caracterizó el~\GRID~con el propósito de identificar sus capacidades actuales, necesidades y oportunidades relacionadas con la adopción de tecnologías de virtualización. Este diagnóstico inicial permitió contextualizar la pertinencia de la expansión de un universo HTCondor en la infraestructura actual del \GRID como un nuevo contexto de ejecución que permitiría para fortalecer los servicios académicos y de investigación, no solo en beneficio de los estudiantes de Ingeniería de Sistemas y Computación, sino también para estudiantes e investigadores tanto de otros programas de la Universidad del Quindío sino también para los de otras instituciones educativas y centros de investigación.
+
 
 \section{Revisión de la literatura}
-Con el fin de fundamentar la investigación, se realizó un mapeo sistemático de estudios (\SMS). Este consistió en la búsqueda, filtrado, selección y análisis de literatura académica, artículos técnicos y reportes de caso relacionados con las \VBC. El objetivo fue obtener una visión global y estructurada sobre las tecnologías disponibles, sus tendencias de adopción y las principales dimensiones de análisis empleadas en la comunidad científica y profesional.
+\noindent
+Con el fin de fundamentar el presente proyecto, se realizó un estudio de mapeo sistemático (\SMS). Este consistió en la búsqueda, filtrado, selección y análisis de literatura académica, artículos técnicos y reportes de caso relacionados con los universos HTCondor. El objetivo fue obtener una visión global y estructurada sobre el uso de estos universos, así como también tener una noción del impacto en la comunidad científica, sus tendencias de adopción y las principales dimensiones de análisis empleadas en la comunidad científica y profesional y los principales campos de aplicación.
 
-\section{Identificación y caracterización de tecnologías VBC}
-A partir de los resultados del \SMS, se seleccionaron las tecnologías de \VBC\ con mayor relevancia e impacto en la literatura y la práctica. Para cada una de ellas se realizó una caracterización técnica, evaluando aspectos como arquitectura interna, facilidad de integración, integración con la nube y comunidad de soporte. Esta fase permitió construir un marco comparativo preliminar que orienta la elección de herramientas candidatas para el \GRID.
+\section{Identificación y caracterización de los universos\\HTCondor}
+\noindent
+Con el propósito de sustentar el presente proyecto, se llevó a cabo un estudio de mapeo sistemático (\SMS), que incluyó la búsqueda, filtrado, selección y análisis de literatura académica, específicamente artículos de investigación indexados relacionados con los universos HTCondor. El objetivo principal fue obtener una visión integral y estructurada sobre el uso de estos universos, así como comprender su impacto en la comunidad científica, las tendencias de adopción y las principales dimensiones de análisis empleadas tanto en el ámbito científico como industrial.
 
-\section{Benchmarking de tecnologías VBC}
-Posteriormente, se diseñó y ejecutó un proceso de \textit{benchmarking} enfocado en medir y contrastar el desempeño de un conjunto de tecnologías seleccionadas bajo condiciones controladas. Los criterios de evaluación incluyeron consumo de \CPU, uso de memoria, throughput de red y operaciones de entrada/salida (I/O). Los resultados permitieron establecer métricas que evidencian fortalezas y limitaciones de cada tecnología, facilitando la selección informada de la alternativa adecuada para el contexto institucional.
 
-\section{Análisis de Decisión y Resolución (DAR)}
-Con base en los resultados del \textit{benchmarking}, se aplicó un análisis de Decisión y Resolución (\DAR). Este método permitió ponderar los beneficios, riesgos y oportunidades asociados con la adopción de las \VBC\ en el \GRID. El \DAR\ integró tanto los criterios técnicos como los organizacionales, priorizando aquellos que propenden por la sostenibilidad de la solución a mediano y largo plazo.
+\section{Análisis de Decisión y Resolución (\DAR)}
+\noindent
+El análisis \DAR del \CMMI es un proceso formal de toma de decisiones que evalúa alternativas mediante criterios ponderados para seleccionar la mejor opción en situaciones complejas. En este contexto, se empleó como mecanismo para seleccionar entre los distintos universos de HTCondor, evaluando cada alternativa con base en criterios tales como interoperabilidad, relevancia en la investigación y capacidades técnicas. Este tipo de análisis \DAR se utiliza en gestión de proyectos y mejora de procesos para fundamentar decisiones estratégicas con evidencia objetiva, reducir la subjetividad en la selección de tecnologías o arquitecturas, y documentar el raciocinio detrás de elecciones críticas que impactarán el desarrollo e implementación de sistemas. El proceso incluye identificación de alternativas, establecimiento de criterios de evaluación, asignación de pesos y puntajes, y selección justificada de la mejor opción, garantizando transparencia y trazabilidad en la toma de decisiones técnicas importantes.
+
 
 \section{Diseño de la solución arquitectónica}
-En esta fase se elaboró la propuesta de arquitectura tecnológica que articula la infraestructura existente en el \GRID\ con las capacidades de la tecnología seleccionada. El diseño incluyó la definición de componentes, interacciones, flujos de información y políticas de gestión, buscando escalabilidad, resiliencia y facilidad de administración de la solución.
+\noindent
+Un diseño arquitectónico es fundamental para visualizar y planificar cómo los diferentes componentes de un sistema interactuarán antes de su implementación, permitiendo identificar roles, flujos de comunicación y dependencias técnicas de manera clara y estructurada. En este proyecto, se creó un diagrama de arquitectura que representa visualmente la infraestructura HTCondor del GRID, descomponiendo la solución en tres partes principales: primero se documentó la arquitectura existente del universo vanilla como base de referencia; luego se diseñó la arquitectura para el Universo Parallel, que requiere comunicación entre procesos mediante \MPI y coordinación entre nodos ejecutores; finalmente, se propuso la arquitectura del Universo Grid con un componente central llamado \textbf{Grid Manager} que actúa como \textit{middleware}.
 
 \section{Implementación de la solución}
-Con el diseño arquitectónico como guía, se procedió a implementar un producto mínimo viable (\PMV) que materializa la adopción de la tecnología seleccionada. La implementación se llevó a cabo en el entorno del \GRID, integrando las configuraciones necesarias y desplegando servicios básicos que permiten evaluar la funcionalidad del sistema en condiciones reales.
+\noindent
+Con el diseño arquitectónico como guía, se procedió a implementar un producto mínimo viable (\PMV) que materializa la adopción de los universos seleccionados. La implementación se llevó a cabo en el entorno del \GRID, integrando las configuraciones necesarias y desplegando servicios básicos que permitirán a los usuarios su uso en casos de pruebas reales. % !NOTE Con servicios basicos me refiero a las interfaces web que produjimos. 
 
+% !TODO 
 \section{Validación de la solución}
+\noindent
 Finalmente, se realizó la validación del \PMV\ mediante pruebas de desempeño, disponibilidad y escalabilidad, contrastando los resultados con los requerimientos definidos en la fase de caracterización del \GRID. Adicionalmente, se consideraron percepciones de los usuarios del grupo de investigación como insumo para verificar la pertinencia y aplicabilidad de la solución propuesta.
