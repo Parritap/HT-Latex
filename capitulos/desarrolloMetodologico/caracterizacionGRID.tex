@@ -1,11 +1,24 @@
 \ChapterImageStar[cap:caracterizacionGRID]{Caracterización del GRID}{./images/fondo.png}\label{cap:caracterizacionGRID}
 \mbox{}\\
-El Grupo de Investigación en Redes, Información y Distribución (\GRID) de la Universidad del Quindío se enmarca en los objetivos misionales de la institución: educación, investigación y extensión. Su propósito central es impulsar el desarrollo a través de proyectos de investigación aplicada, formación académica y transferencia de conocimiento. En particular, el \GRID\ busca ofrecer servicios tecnológicos avanzados a la comunidad académica, con énfasis en los estudiantes de Ingeniería de Sistemas y Computación, quienes encuentran en este grupo un espacio de formación e innovación en temas de infraestructura, software y tecnologías emergentes.\\
-La caracterización del \GRID\ resulta esencial para comprender su estructura, capacidades y necesidades en relación con la adopción de tecnologías de virtualización basadas en contenedores (\VBC). A continuación, se presenta un análisis de los diferentes aspectos que definen el contexto institucional y tecnológico del grupo.
+\noindent
+El Grupo de Investigación en Redes, Información y Distribución (\GRID) de la Universidad del Quindío se enmarca en los objetivos misionales de la institución: educación, investigación y extensión. Uno del los intereses particulares del \GRID es ofrecer servicios tecnológicos avanzados a la comunidad académica, con énfasis en los estudiantes de Ingeniería de Sistemas y Computación, quienes encuentran en este grupo un espacio de formación e innovación en temas de infraestructura, ingeniería de software y tecnologías emergentes.\\
+La caracterización del \GRID\ resulta esencial para comprender su estructura, capacidades y necesidades en relación con la expansión de un nuevo universo HTCondor. A continuación, se presenta un análisis de los diferentes aspectos que definen el contexto institucional y tecnológico del grupo.
 
 \section{Análisis de stakeholders del GRID}
-Con el fin de identificar los actores internos y externos que influyen en el desarrollo de las actividades del grupo, se realizó un análisis de \textit{stakeholders}. Este ejercicio permitió reconocer los diferentes intereses, roles y niveles de influencia que cada actor tiene en relación con la posible implementación de una solución de virtualización por contenedores. Los principales \textit{stakeholders} identificados incluyen: investigadores del grupo, estudiantes de pregrado y posgrado, docentes de la Facultad de Ingeniería, y en un nivel más amplio, la comunidad académica de la Universidad del Quindío.\\
-La tabla~\ref{tab:stakeholders} presenta el análisis de los principales interesados en la adopción de tecnologías de virtualización dentro del contexto institucional. Se identifican actores internos y externos, especificando su rol, el tipo de relación con el proyecto, el nivel de impacto esperado, así como su poder de influencia, interés y compromiso frente a la iniciativa. Este análisis permite reconocer que el Grupo de Investigación \GRID\ constituye el beneficiario principal y el decisor estratégico, mientras que los docentes y estudiantes de Ingeniería de Sistemas representan usuarios clave y finales que validarán la utilidad de la solución en actividades académicas y de investigación. A nivel institucional, el programa de ingeniería de sistemas y computación actúa como facilitador de recursos y lineamientos, mientras que los proveedores de tecnología aportan las herramientas de virtualización requeridas. De forma complementaria, los investigadores externos y otros grupos de investigación pueden beneficiarse indirectamente de los resultados, y el sector empresarial se perfila como un potencial socio estratégico si percibe ventajas competitivas en la solución.
+\noindent
+Con el fin de identificar los actores internos y externos que influyen en el desarrollo de las actividades del grupo, se realizó un análisis de \textit{stakeholders}. Este ejercicio permitió reconocer los diferentes intereses, roles y niveles de influencia que cada actor tiene en relación con la expansión de un nuevo universo HTCondor. Los principales \textit{stakeholders} identificados incluyen: investigadores del grupo, estudiantes de pregrado y posgrado, docentes de la Facultad de Ingeniería, y en un nivel más amplio, la comunidad académica de la Universidad del Quindío.
+\\
+\noindent
+La tabla~\ref{tab:stakeholders} presenta el análisis de los principales interesados en la expansión de los universos HTCondor dentro del contexto institucional. Se identifican actores internos y externos, especificando su rol, el tipo de relación con el proyecto, el nivel de impacto esperado, así como su poder de influencia, interés y compromiso frente a la iniciativa.
+
+El análisis de interesados revela una estructura compleja de actores con distintos niveles de influencia y compromiso frente al proyecto. El Grupo de Investigación GRID emerge como el interesado crítico, concentrando simultáneamente el mayor impacto, poder de influencia, interés y compromiso. Esta posición central le otorga un rol determinante como beneficiario principal y tomador de decisiones, lo que subraya la necesidad de mantener una comunicación estrecha y continua con este grupo para asegurar la alineación del proyecto con sus expectativas estratégicas y operativas.
+
+Los docentes de Ingeniería de Sistemas y los investigadores locales y externos constituyen el segundo nivel de importancia, caracterizándose por un alto interés en la solución y un potencial significativo como usuarios finales. Aunque su poder de decisión es limitado, su adopción efectiva de la tecnología será fundamental para validar el éxito del proyecto. Este segmento requiere especial atención en términos de usabilidad, documentación y capacitación, dado que su compromiso está condicionado a la utilidad práctica y los beneficios tangibles que puedan obtener. La diferencia principal entre ambos grupos radica en que los investigadores externos representarían el segmento de usuarios más activo e intensivo de la infraestructura.
+
+El Programa de Ingeniería de Sistemas y Computación desempeña un rol estratégico como facilitador institucional con alto poder de influencia, particularmente en la provisión de recursos y la posibilidad de escalar la solución hacia otros programas académicos. Sin embargo, su compromiso relativamente bajo sugiere que será necesario demostrar claramente el valor estratégico e institucional del proyecto para asegurar su respaldo sostenido. Por otro lado, los estudiantes de pregrado presentan bajo impacto, poder e interés debido a la naturaleza especializada de la computación distribuida en el contexto académico de pregrado, lo que los posiciona como beneficiarios secundarios que validarán la solución más por uso ocasional que por dependencia operativa.
+
+Finalmente, la comunidad HTCondor y los investigadores en HTC y HPC representan un interesado externo con una relación simbiótica particular: aunque no tienen poder de decisión sobre el proyecto y su compromiso es bajo, su rol como proveedores de conocimiento técnico es de alto impacto. La documentación y experiencias generadas por el proyecto podrían contribuir al fortalecimiento del ecosistema HTCondor, creando un valor agregado que trasciende los objetivos locales del proyecto. Esta relación sugiere la conveniencia de establecer canales de comunicación con esta comunidad para compartir hallazgos y mejores prácticas.
+
 \input{tablas-images/cp1/definicionStakeholders.tex}
 
 \section{Priorización de stakeholders}
@@ -16,13 +29,13 @@ Una vez realizada la identificación de los \textit{stakeholders}, se emprendió
 \section{Integrantes y áreas de trabajo del GRID}
 El \GRID\ está conformado por un equipo multidisciplinario de investigadores y profesionales que, desde sus diferentes áreas de experticia, contribuyen al avance en campos como computación de alto rendimiento, \textit{big data}, inteligencia artificial, redes de computadoras y desarrollo de software. A continuación, se presenta una lista de los integrantes actuales del grupo, junto con sus respectivas líneas de trabajo y áreas de especialización:
 \begin{itemize}
-  \item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000210897}{\underline{{\textbf{Christian Andrés Candela Uribe}}}}: Microservicios, desarrollo de software, minería de datos, infraestructura TI.\@
-  \item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001383939}{\underline{{\textbf{Luis Eduardo Sepúlveda Rodríguez}}}}: Infraestructura de TI, HPC, computación paralela.
-  \item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001638854}{\underline{{\textbf{Carlos Andrés Flórez Villarraga}}}}: Programación y algoritmia, inteligencia artificial.
-  \item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001343801}{\underline{{\textbf{Carlos Eduardo Gómez Montoya}}}}: Redes, ingeniería de software, cloud computing.
-  \item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001398775}{\underline{{\textbf{Sergio Augusto Cardona Torres}}}}: Big data y análisis de datos, ingeniería de software, sistemas adaptativos, informática educativa.
-  \item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000193550}{\underline{{\textbf{Sonia Jaramillo Valbuena}}}}: Big data, electroquímica, inteligencia artificial.
-  \item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000283495}{\underline{{\textbf{Julián Esteban Gutiérrez Posada}}}}: Microservicios, desarrollo de software, minería de datos, infraestructura TI, HPC, computación paralela, redes, ingeniería de software.
+	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000210897}{\underline{{\textbf{Christian Andrés Candela Uribe}}}}: Microservicios, desarrollo de software, minería de datos, infraestructura TI.\@
+	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001383939}{\underline{{\textbf{Luis Eduardo Sepúlveda Rodríguez}}}}: Infraestructura de TI, HPC, computación paralela.
+	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001638854}{\underline{{\textbf{Carlos Andrés Flórez Villarraga}}}}: Programación y algoritmia, inteligencia artificial.
+	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001343801}{\underline{{\textbf{Carlos Eduardo Gómez Montoya}}}}: Redes, ingeniería de software, cloud computing.
+	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001398775}{\underline{{\textbf{Sergio Augusto Cardona Torres}}}}: Big data y análisis de datos, ingeniería de software, sistemas adaptativos, informática educativa.
+	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000193550}{\underline{{\textbf{Sonia Jaramillo Valbuena}}}}: Big data, electroquímica, inteligencia artificial.
+	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000283495}{\underline{{\textbf{Julián Esteban Gutiérrez Posada}}}}: Microservicios, desarrollo de software, minería de datos, infraestructura TI, HPC, computación paralela, redes, ingeniería de software.
 \end{itemize}
 
 La diversidad de líneas de trabajo de los integrantes fortalece la capacidad del grupo para abordar proyectos de carácter transversal y multidisciplinario, lo cual resulta particularmente relevante para el diseño e implementación de soluciones arquitectónicas soportadas en tecnologías de virtualización.
@@ -31,47 +44,47 @@ La diversidad de líneas de trabajo de los integrantes fortalece la capacidad de
 La misión del GRID es heredada de la Universidad del Quindío. A continuación se presenta la misión del GRID:\@
 
 \begin{quote}
-\textit{La Universidad del Quindío contribuye a la transformación de la sociedad, mediante la formación integral desde el ser, el saber y el hacer, de líderes reflexivos y gestores del cambio; con estándares de calidad, a través de una oferta de formación en diferentes metodologías, que responda a una sociedad basada en el conocimiento; una investigación pertinente, que aporte a la solución de las problemáticas del desarrollo e integrada con la extensión y proyección social; educando en tiempos del posconflicto y de la consolidación de la paz, apoyada en una gestión creativa y con estándares de calidad.}
+	\textit{La Universidad del Quindío contribuye a la transformación de la sociedad, mediante la formación integral desde el ser, el saber y el hacer, de líderes reflexivos y gestores del cambio; con estándares de calidad, a través de una oferta de formación en diferentes metodologías, que responda a una sociedad basada en el conocimiento; una investigación pertinente, que aporte a la solución de las problemáticas del desarrollo e integrada con la extensión y proyección social; educando en tiempos del posconflicto y de la consolidación de la paz, apoyada en una gestión creativa y con estándares de calidad.}
 \end{quote}
 
 A partir de esta misión, se identifican los siguientes pilares fundamentales:
 
 \begin{itemize}
-    \item \textbf{Docencia:} La Universidad del Quindío contribuye a la transformación de la sociedad, mediante la formación integral desde el ser, el saber y el hacer, de líderes reflexivos y gestores del cambio; con estándares de calidad, a través de una oferta de formación en diferentes metodologías, que responda a una sociedad basada en el conocimiento.
+	\item \textbf{Docencia:} La Universidad del Quindío contribuye a la transformación de la sociedad, mediante la formación integral desde el ser, el saber y el hacer, de líderes reflexivos y gestores del cambio; con estándares de calidad, a través de una oferta de formación en diferentes metodologías, que responda a una sociedad basada en el conocimiento.
 
-    \item \textbf{Investigación:} Una investigación pertinente, que aporte a la solución de las problemáticas del desarrollo e integrada con la extensión y proyección social.
+	\item \textbf{Investigación:} Una investigación pertinente, que aporte a la solución de las problemáticas del desarrollo e integrada con la extensión y proyección social.
 
-    \item \textbf{Extensión y Desarrollo Social:} Apoyada en una gestión creativa y con estándares de calidad.
+	\item \textbf{Extensión y Desarrollo Social:} Apoyada en una gestión creativa y con estándares de calidad.
 
-    \item \textbf{Responsabilidad Social:} Educando en tiempos del posconflicto y de la consolidación de la paz.
+	\item \textbf{Responsabilidad Social:} Educando en tiempos del posconflicto y de la consolidación de la paz.
 \end{itemize}
 
 \section{Visión del GRID}
 La misión de la Universidad del Quindío se complementa con su visión institucional, la cual también es adoptada por el \GRID. A continuación se presenta la visión del \GRID:\@
 
 \begin{quote}
-\textit{En el año 2025, la Universidad del Quindío estará consolidada como una institución \textit{Pertinente --- Creativa --- Integradora}, acreditada de alta calidad, con reconocimiento nacional e internacional en sus procesos de formación a través de diferentes metodologías, de investigación, extensión, proyección y responsabilidad social.}
+	\textit{En el año 2025, la Universidad del Quindío estará consolidada como una institución \textit{Pertinente --- Creativa --- Integradora}, acreditada de alta calidad, con reconocimiento nacional e internacional en sus procesos de formación a través de diferentes metodologías, de investigación, extensión, proyección y responsabilidad social.}
 \end{quote}
 
 A partir de esta visión, se destacan los siguientes enfoques estratégicos:
 
 \begin{itemize}
-    \item \textbf{Gestión:} La Universidad del Quindío estará consolidada como una institución \textit{Pertinente --- Creativa --- Integradora}.
+	\item \textbf{Gestión:} La Universidad del Quindío estará consolidada como una institución \textit{Pertinente --- Creativa --- Integradora}.
 
-    \item \textbf{Docencia:} Acreditada de alta calidad en sus procesos de formación a través de diferentes metodologías.
+	\item \textbf{Docencia:} Acreditada de alta calidad en sus procesos de formación a través de diferentes metodologías.
 
-    \item \textbf{Investigación:} Consolidada como pertinente y de alta calidad en sus procesos de investigación.
+	\item \textbf{Investigación:} Consolidada como pertinente y de alta calidad en sus procesos de investigación.
 
-    \item \textbf{Extensión y Desarrollo Social:} Procesos creativos e integradores en proyección social.
+	\item \textbf{Extensión y Desarrollo Social:} Procesos creativos e integradores en proyección social.
 
-    \item \textbf{Responsabilidad Social:} Reconocimientos en sus procesos de responsabilidad social.
+	\item \textbf{Responsabilidad Social:} Reconocimientos en sus procesos de responsabilidad social.
 \end{itemize}
 
 \section{Impacto del proyecto en el GRID}
 
 El proyecto tiene como objetivo apoyar los procesos de docencia, investigación
-y extensión mediante la especificación de una arquitectura de tecnologías de 
-virtualización basada en contenedores (\VBC). 
+y extensión mediante la especificación de una arquitectura de tecnologías de
+virtualización basada en contenedores (\VBC).
 Este trabajo se enfoca en la identificación de una tecnología de contenerización que \textbf{agregue valor a los procesos del grupo}, beneficiando a docentes, estudiantes y cualquier parte interesada que participe en los proyectos y actividades desarrolladas por este grupo de investigación.
 
 \section{Caracterización de la infraestructura tecnológica del GRID}
@@ -87,58 +100,58 @@ El \GRID\ ofrece una variedad de servicios tecnológicos a la comunidad académi
 Los servicios actuales del GRID se centran en la provisión de infraestructura de \TI\, incluyendo máquinas virtuales, almacenamiento y redes. Estos servicios son utilizados principalmente por estudiantes y docentes, los cuales se especifican en el cuadro~\ref{tab:servicios-actuales}.
 
 \begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.2}
-\setlength{\tabcolsep}{3pt}
-\tiny
-\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{0.25\textwidth}|X|}
-\hline
-\textbf{NOMBRE DEL SERVICIO} & Máquinas Virtuales para estudiantes y docentes \\
-\hline
-\textbf{TIPO DE SERVICIO} & Servicio educativo \\
-\hline
-\textbf{PROPÓSITO} & Proveer máquinas virtuales a profesores, estudiantes y administrativos para prácticas académicas mediante XCP-ng. \\
-\hline
-\textbf{HORARIO DISPONIBILIDAD} & 24/7 \\
-\hline
-\textbf{TIEMPO FUNCIONAMIENTO} & 3 años \\
-\hline
-\textbf{RECURSOS} & Servidores torre y rack \\
-\hline
-\textbf{TECNOLOGÍAS} & Hipervisor tipo I (XCP-ng) \\
-\hline
-\textbf{IMPACTO} & Indisponibilidad afecta actividades misionales del grupo de investigación y programa de Ingeniería de sistemas. \\
-\hline
-\end{tabularx}
-\caption{Caracterización de los servicios actuales del GRID}\label{tab:servicios-actuales}
+	\centering
+	\renewcommand{\arraystretch}{1.2}
+	\setlength{\tabcolsep}{3pt}
+	\tiny
+	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{0.25\textwidth}|X|}
+		\hline
+		\textbf{NOMBRE DEL SERVICIO}    & Máquinas Virtuales para estudiantes y docentes                                                                    \\
+		\hline
+		\textbf{TIPO DE SERVICIO}       & Servicio educativo                                                                                                \\
+		\hline
+		\textbf{PROPÓSITO}              & Proveer máquinas virtuales a profesores, estudiantes y administrativos para prácticas académicas mediante XCP-ng. \\
+		\hline
+		\textbf{HORARIO DISPONIBILIDAD} & 24/7                                                                                                              \\
+		\hline
+		\textbf{TIEMPO FUNCIONAMIENTO}  & 3 años                                                                                                            \\
+		\hline
+		\textbf{RECURSOS}               & Servidores torre y rack                                                                                           \\
+		\hline
+		\textbf{TECNOLOGÍAS}            & Hipervisor tipo I (XCP-ng)                                                                                        \\
+		\hline
+		\textbf{IMPACTO}                & Indisponibilidad afecta actividades misionales del grupo de investigación y programa de Ingeniería de sistemas.   \\
+		\hline
+	\end{tabularx}
+	\caption{Caracterización de los servicios actuales del GRID}\label{tab:servicios-actuales}
 \end{table}
 
 \subsection{Servicios esperados}
 Los servicios esperados por el GRID se orientan al aprovisionamiento de contenedores a traves de tecnologias VBC. Se espera que los usuarios de distintos dominios ( educación, investigación, extensión ) puedan beneficiarse de este nuevo servicio que se especifica en el cuadro ~\ref{tab:servicios-esperados}
 
 \begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.2}
-\setlength{\tabcolsep}{3pt}
-\tiny
-\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{0.25\textwidth}|X|}
-\hline
-\textbf{NOMBRE DEL SERVICIO} & Ambientes computacionales basados en \VBC\\
-\hline
-\textbf{TIPO DE SERVICIO} & Servicio de educación, investigación y extensión \\
-\hline
-\textbf{PROPÓSITO} & Proveer ambientes computacionales mediante tecnologías \VBC\ y mecanismo de orquestación \\
-\hline
-\textbf{HORARIO DISPONIBILIDAD} & 24/7 \\
-\hline
-\textbf{RECURSOS} & Servidores torre y rack \\
-\hline
-\textbf{TECNOLOGÍAS} & Por determinar \\
-\hline
-\textbf{IMPACTO} & Indisponibilidad afecta actividades misionales del grupo de investigación y programa de Ingeniería de sistemas. \\
-\hline
-\end{tabularx}
-\caption{Caracterización de los servicios esperados del GRID}\label{tab:servicios-esperados}
+	\centering
+	\renewcommand{\arraystretch}{1.2}
+	\setlength{\tabcolsep}{3pt}
+	\tiny
+	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{0.25\textwidth}|X|}
+		\hline
+		\textbf{NOMBRE DEL SERVICIO}    & Ambientes computacionales basados en \VBC                                                                       \\
+		\hline
+		\textbf{TIPO DE SERVICIO}       & Servicio de educación, investigación y extensión                                                                \\
+		\hline
+		\textbf{PROPÓSITO}              & Proveer ambientes computacionales mediante tecnologías \VBC\ y mecanismo de orquestación                        \\
+		\hline
+		\textbf{HORARIO DISPONIBILIDAD} & 24/7                                                                                                            \\
+		\hline
+		\textbf{RECURSOS}               & Servidores torre y rack                                                                                         \\
+		\hline
+		\textbf{TECNOLOGÍAS}            & Por determinar                                                                                                  \\
+		\hline
+		\textbf{IMPACTO}                & Indisponibilidad afecta actividades misionales del grupo de investigación y programa de Ingeniería de sistemas. \\
+		\hline
+	\end{tabularx}
+	\caption{Caracterización de los servicios esperados del GRID}\label{tab:servicios-esperados}
 \end{table}
 
 \section{Descripción de la oportunidad}
@@ -158,11 +171,11 @@ Las tecnologías de \VBC\ representan una opción de virtualización que requier
 Para comprender mejor las necesidades y expectativas del \GRID\, se realizó una entrevista con el cliente.
 
 \begin{itemize}
-  \item \textbf{Entrevistado:} Luis Eduardo Sepúlveda Rodríguez
-  \item \textbf{Fecha:} 6 de febrero de 2025
-  \item \textbf{Duración:} 25 minutos
-  \item \textbf{Link:} \href{https://drive.google.com/file/d/1rIc9xOsyDqumlTV-QXcw0inPyIbSEHLz/view?usp=sharing}{click aquí}
-  \item \textbf{Asistentes:} Anubis Haxard Correa Urbano, José Alejandro Arias Pinzón
+	\item \textbf{Entrevistado:} Luis Eduardo Sepúlveda Rodríguez
+	\item \textbf{Fecha:} 6 de febrero de 2025
+	\item \textbf{Duración:} 25 minutos
+	\item \textbf{Link:} \href{https://drive.google.com/file/d/1rIc9xOsyDqumlTV-QXcw0inPyIbSEHLz/view?usp=sharing}{click aquí}
+	\item \textbf{Asistentes:} Anubis Haxard Correa Urbano, José Alejandro Arias Pinzón
 \end{itemize}
 
 \subsection{Misión del grupo \GRID}

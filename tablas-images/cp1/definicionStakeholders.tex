@@ -1,32 +1,31 @@
 \begin{table}[H]
-\centering
-\scriptsize % reduce el tamaño de la letra en 2 puntos aprox.
-\renewcommand{\arraystretch}{1.3} % espacio entre filas
-\begin{tabularx}{\textwidth}{%
-    >{\raggedright\arraybackslash}X
-    >{\raggedright\arraybackslash}X
-    >{\raggedright\arraybackslash}X
-    >{\raggedright\arraybackslash}X
-    >{\raggedright\arraybackslash}X
-    >{\raggedright\arraybackslash}X
-    >{\raggedright\arraybackslash}X}
-\toprule
-\textbf{Interesado} & \textbf{Rol} & \textbf{Relación} & \textbf{Impacto} & \textbf{Poder de influencia} & \textbf{Interés} & \textbf{Compromiso} \\
-\midrule
-Grupo de Investigación GRID & Beneficiario principal & Provee infraestructura, evalúa la solución y su impacto & Alto & Alto, decide la adopción de la tecnología & Alto, busca mejorar sus servicios & Alto, ya que su infraestructura será potenciada \\
-\midrule
-Docentes de Ingeniería de Sistemas & Usuarios clave & Harán uso de los entregables para proyectos y enseñanza & Medio-Alto & Medio, pueden sugerir mejoras pero no decidir implementación & Medio-Alto, esperan decisiones sobre tecnología para enseñanza e investigación & Medio, dependerá de la utilidad de la solución \\
-\midrule
-Estudiantes de Ingeniería de Sistemas & Usuarios finales & Usarán los servicios en sus cursos y proyectos. Podrán informarse sobre el estudio. & Medio & Bajo, no tienen poder de decisión, pero su uso validará la solución & Alto, necesitan un entorno estable y eficiente & Medio-Alto, dependiendo de la accesibilidad y usabilidad \\
-\midrule
-Programa de ingeniería de sistemas y computación & Facilitador & Puede apoyar con recursos y normativas para la adopción & Alto & Alto, puede aprobar recursos & Medio, su interés es institucional y estratégico & Bajo-Medio, si la solución no afecta directamente a su gestión \\
-\midrule
-Proveedores de tecnología (Docker, Kubernetes, etc.) & Proveedores de herramientas & Proveen la tecnología de virtualización a utilizar & Bajo & Bajo, la decisión de uso recae en el GRID y la universidad & Bajo aunque buscan ampliar su base de usuarios & Bajo, su involucramiento es indirecto \\
-\midrule
-Investigadores y otros grupos de investigación & Potenciales beneficiarios & Pueden usar los resultados en búsqueda de mejoras para sus proyectos & Medio & Medio, pueden influir con solicitudes de mejora & Medio, dependiendo de su relación con GRID & Bajo, solo si ven beneficios concretos \\
-\midrule
-Sector empresarial & Potencial inversor o socio & Podría apoyar la solución si ve ventajas en la adopción de TVBC & Bajo-Medio & Bajo, no decide en la universidad, pero puede ofrecer incentivos & Bajo-Medio, si la tecnología ofrece valor comercial & Bajo, depende de la alineación con sus intereses \\
-\bottomrule
-\end{tabularx}
-\caption{Análisis de stakeholders}\label{tab:stakeholders}
+	\centering
+	\fontsize{7}{7}\selectfont % Cambia el primer número (9) al tamaño deseado, el segundo es el interlineado
+	\setlength{\tabcolsep}{3pt} % reduce el espacio horizontal entre columnas
+	\renewcommand{\arraystretch}{1.4} % espacio entre filas
+	\begin{tabularx}{\textwidth}{%
+		>{\raggedright\arraybackslash}p{1.7cm}  % Columna 1: Interesado
+		>{\raggedright\arraybackslash}p{1.5cm}    % Columna 2: Rol
+		>{\raggedright\arraybackslash}p{2.3cm}  % Columna 3: Relación
+		>{\raggedright\arraybackslash}p{1.4cm}  % Columna 4: Impacto
+		>{\raggedright\arraybackslash}p{2.0cm}  % Columna 5: Poder de influencia
+		>{\raggedright\arraybackslash}p{2.5cm}    % Columna 6: Interés
+		>{\raggedright\arraybackslash}p{2.0cm}} % Columna 7: Compromiso
+		\toprule
+		\textbf{Interesado}                              & \textbf{Rol}                               & \textbf{Relación}                                                                                                                                      & \textbf{Impacto} & \textbf{Poder de influencia}                                                                                            & \textbf{Interés}                                                                                                                          & \textbf{Compromiso}                                                                                \\
+		\midrule
+		Docentes de Ingeniería de Sistemas               & Usuarios clave                             & Utilizarán los entregables del proyecto en actividades de enseñanza e investigación                                                                    & Medio-Alto       & Medio, pueden proponer mejoras pero no tienen poder de decisión sobre la implementación                                 & Medio-Alto, requieren soliuciones tecnológicas para integrarlas en procesos académicos e investigativos                                   & Medio, condicionado a la utilidad práctica y aplicabilidad de la solución                          \\
+		\midrule
+		Estudiantes de Ingeniería de Sistemas            & Beneficiarios potenciales                  & Podrían utilizar la infraestructura en proyectos académicos y acceder a información sobre el estudio                                                   & Bajo             & Bajo, carecen de poder de decisión aunque su adopción validará la efectividad de la solución                            & Bajo, dado que la computación distribuida es un área especializada con uso poco frecuente en el contexto académico general                & Bajo                                                                                               \\
+		\midrule
+		Grupo de Investigación GRID                      & Beneficiario principal                     & Proporciona la infraestructura base, evalúa la solución propuesta y mide su impacto                                                                    & Alto             & Alto, tiene autoridad para decidir la adopción e implementación de la tecnología                                        & Alto, busca optimizar sus servicios y fortalecer su posicionamiento en el ámbito de la investigación y la colaboración interuniversitaria & Alto, la solución potenciará directamente sus capacidades de infraestructura                       \\
+		\midrule
+		Grupos de Investigación Locales y Externos       & Beneficiarios principales                  & Identificarían oportunidades significativas para potenciar sus líneas de investigación                                                                 & Medio            & Medio-Bajo, pueden influir mediante solicitudes específicas de funcionalidades o mejoras                                & Alto, la solución podría reducir significativamente los tiempos de procesamiento y obtención de resultados en sus proyectos               & Medio-Alto, conformarían uno de los segmentos principales de usuarios finales                      \\
+		\midrule
+		Programa de Ingeniería de Sistemas y Computación & Facilitador institucional                  & Puede proveer respaldo institucional, recursos y normativas que faciliten la adopción                                                                  & Alto             & Alto, posee autoridad para aprobar asignación de recursos e invitar a otros programas académicos a utilizar la solución & Medio, su interés se centra en aspectos institucionales y estratégicos más que operativos                                                 & Bajo-Medio, especialmente si la solución no impacta directamente sus procesos de gestión académica \\
+		\midrule
+		Comunidad HTCondor e investigadores en HTC y HPC & Proveedores y consumidores de conocimiento & Suministran documentación técnica esencial para la implementación y se benefician de la documentación generada a partir de la experiencia del proyecto & Alto             & Bajo, no participan en decisiones sobre el proyecto                                                                     & Bajo-Medio, la implementación exitosa fortalecería la adopción de HTCondor y ampliaría el impacto de la tecnología                        & Bajo, sujeto a la alineación de resultados con sus objetivos comunitarios                          \\
+		\bottomrule
+	\end{tabularx}
+	\caption{Análisis de stakeholders}\label{tab:stakeholders}
 \end{table}
