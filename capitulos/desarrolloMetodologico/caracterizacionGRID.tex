@@ -99,9 +99,9 @@ En la presente sección se especificarán las características técnicas actuale
 \subsection{Clúster de máquinas Raspberry-Pi}
 \noindent
 
-En la actualidad, el grupo \GRID cuenta con un clúster compuesto por computadoras Raspberry Pi, organizadas en siete torres identificadas como \textbf{Torre 1} a \textbf{Torre 7}, cada una con siete equipos. Además, dispone de dos máquinas adicionales: una opera como nodo maestro y la otra como nodo de envío de tareas. En el contexto de HTCondor, los equipos de las torres funcionan como nodos ejecutores, mientras que las dos máquinas restantes desempeñan los roles de nodo master y nodo submit, respectivamente.
+Actualmente, el grupo \GRID cuenta con un clúster compuesto por computadoras Raspberry Pi, distribuidas en nueve torres identificadas como \textbf{Torre 1} a \textbf{Torre 9}. Cada torre contiene siete equipos, con excepción de la Torre 1, que posee únicamente dos: uno opera como nodo maestro y el otro como nodo de envío de tareas. Los equipos restantes de las demás torres funcionan como nodos ejecutores.
 \\
-\\
+Si bien el \GRID posee nueve torres de equipos Raspberry-Pi, la torre novena se encuentra en funcionamiento. \\
 \input{tablas-images/raspberries/specs.tex}
 
 % Tabla con especificacioens de técnicas de las Raspberry-Pi
@@ -110,7 +110,6 @@ En la tabla \ref{table:raspberries-pi-specs} se pueden evidenciar las especifica
 
 
 %%#################################  FOTOS TORRES  #########################################
-
 %Image de las Raspberry-Pi
 \begin{figure}[H]
 	\centering
@@ -127,88 +126,26 @@ En la figura \ref{fig:foto-torres-rasp} se muestra la imagen de las siete torres
 %Torre BINARIA
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.07]{tablas-images/raspberries/torre-binaria.jpg}
-	\caption{Vista general de las maquinas submit y master}
+	\includegraphics[scale=0.065]{tablas-images/raspberries/torre-binaria.jpeg}
+	\caption{Vista general de las máquinas submit y master}
 	\label{fig:foto-torre-binaria}
 \end{figure}
 
 
-
-
-%Torre 1
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.07]{tablas-images/raspberries/torre-01.jpg}
-	\caption{Torre 1}
-\end{figure}
-
-\hbox{}
-\hbox{}
-\hbox{}
-\hbox{}
-
-
-%Torre 2
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.07]{tablas-images/raspberries/torre-02.jpg}
-	\caption{Torre 2}
-\end{figure}
-
-
-%Torre 3
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.07]{tablas-images/raspberries/torre-03.jpg}
-	\caption{Torre 3}
-\end{figure}
-
-\hbox{}
-\hbox{}
-\hbox{}
-\hbox{}
-
-%Torre 4
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.07]{tablas-images/raspberries/torre-04.jpg}
-	\caption{Torre 4}
-\end{figure}
-
-
-
-%Torre 5
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.07]{tablas-images/raspberries/torre-05.jpg}
-	\caption{Torre 5}
-\end{figure}
-
-\hbox{}
-\hbox{}
-\hbox{}
-\hbox{}
-
-
-%Torre 6
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.07]{tablas-images/raspberries/torre-06.jpg}
-	\caption{Torre 6}
-\end{figure}
-
-
-
-
-%Torre 7
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.07]{tablas-images/raspberries/torre-07.jpg}
-	\caption{Torre 7}
-\end{figure}
-
 % ####################################################################################################
 
+\noindent
+En la figura \ref{fig:foto-torre-binaria} se muestran las máquinas submit y master de clúster HTCondor.
+
+\noindent
+Como se puede evidenciar en las figuras \ref{fig:foto-torres-rasp} y \ref{fig:foto-torre-binaria}, cada máquina perteneciente a una torre está conectada a un switch. Las especificiones de dicho switch se mencionan en la tabla \ref{table:mini-switch}
+
+\input{tablas-images/raspberries/mini-switch.tex}
+
+\noindent
+A su vez, los switch anteriores van conectados a otro switch. Este switch es el Cisco SG200-26. Sus especificaciones pueden verse en la tablas \ref{table:big-switch}
+
+\input{tablas-images/raspberries/big-switch.tex}
 
 \subsection{Ambientes de ejecución de la infraestructura HTCondor del \GRID}
 \noindent{}
@@ -227,41 +164,102 @@ Los servicios actuales del \GRID se orientan principalmente hacia la provisión 
 %
 \subsection{Servicios de computación distribuida esperados}
 \noindent
-Dado que no se ha establecido previamente un servicio de computación distribuida basado en HTCondor con acceso abierto para la comunidad educativa, resulta necesario identificar los potenciales beneficiarios que podrían aprovechar de manera más efectiva esta tecnología. Como señalan \cite{Wilson2016}, la computación se ha consolidado como un componente crítico del proceso científico en prácticamente todas las disciplinas, independientemente de su orientación hacia la experimentación o la simulación computacional. En este contexto, los usuarios que obtendrían mayor beneficio de la implementación de un servicio de computación distribuida serían aquellos cuyas actividades académicas o investigativas demanden capacidades de procesamiento intensivo para la obtención de resultados científicos. Por consiguiente, se estima que los principales beneficiarios de esta infraestructura serían tanto los estudiantes, quienes podrían fortalecer significativamente su proceso formativo mediante el acceso a una ambiente de computación distribuida, como los grupos de investigación institucionales, que verían ampliadas sus capacidades para desarrollar proyectos de mayor envergadura computacional.
+Dado que no se ha establecido previamente un servicio de computación distribuida basado en HTCondor con acceso abierto para la comunidad educativa, resulta necesario identificar los potenciales beneficiarios que podrían aprovechar de manera más efectiva esta tecnología. Como señalan \cite{Wilson2016}, la computación se ha consolidado como un componente crítico del proceso científico en prácticamente todas las disciplinas, independientemente de su orientación hacia la experimentación o la simulación computacional. En este contexto, los usuarios que obtendrían mayor beneficio de la implementación de un servicio de computación distribuida serían aquellos cuyas actividades académicas o investigativas demanden capacidades de procesamiento intensivo para la obtención de resultados científicos. Por consiguiente, se estima que los principales beneficiarios de esta infraestructura serían tanto los estudiantes, quienes podrían fortalecer significativamente su proceso formativo mediante el acceso a una ambiente de computación distribuida, como los grupos de investigación institucionales, que verían ampliadas sus capacidades para desarrollar proyectos de mayor envergadura computacional. En la tabla \ref{table:servicio-htcondor} se especifica cómo podría verse un servicio de computación de alta productividad en  basado en HTcondor.
 
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.2}
-	\setlength{\tabcolsep}{3pt}
-	\tiny
-	\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{0.25\textwidth}|X|}
+	\sffamily\scriptsize
+	\setlength{\tabcolsep}{4pt}
+	\renewcommand{\arraystretch}{1.3}
+	\caption{Caracterización del servicio de computación distribuida HTCondor esperado para el GRID}
+	\label{table:servicio-htcondor}
+	\begin{tabular}{|p{0.28\textwidth}|p{0.67\textwidth}|}
 		\hline
-		\textbf{NOMBRE DEL SERVICIO}    & Servicio de Computación Distribuida HTCondor                                                                                                                                                                                   \\
-		\hline
-		\textbf{TIPO DE SERVICIO}       & Servicio de educación, investigación y extensión universitaria                                                                                                                                                                 \\
-		\hline
-		\textbf{PROPÓSITO}              & Proveer infraestructura de computación de alta productividad (\HTC) para la ejecución de tareas computacionales intensivas y paralelas, facilitando el procesamiento distribuido de cargas de trabajo científicas y académicas \\
-		\hline
-		\textbf{USUARIOS OBJETIVO}      & Estudiantes de pregrado y posgrado, grupos de investigación institucionales, docentes investigadores                                                                                                                           \\
-		\hline
-		\textbf{HORARIO DISPONIBILIDAD} & 24/7                                                                                                                                                                                                                           \\
-		\hline
-		\textbf{RECURSOS}               & Clúster máquinas Raspberry Pi y/o máquinas virtuales                                                                                                                                                                           \\
-		\hline
-		\textbf{TECNOLOGÍAS}            & HTCondor                                                                                                                                                                                                                       \\
-		\hline
-		\textbf{CAPACIDADES}            & Procesamiento paralelo de tareas independientes                                                                                                                                                                                \\
-		\hline
-		\textbf{CASOS DE USO}           & Simulaciones científicas, procesamiento de datos masivos, renderización video, procesamiento de imágenes, análisis bioinformático                                                                                              \\
-		\hline
-		\textbf{IMPACTO}                & Fortalecimiento de capacidades investigativas institucionales, democratización del acceso a recursos de cómputo avanzado, apoyo a formación en \HTC y computación distribuida                                                  \\
-		\hline
-	\end{tabularx}
-	\caption{Caracterización del servicio de computación distribuida HTCondor esperado para el GRID}\label{tab:servicio-htcondor}
+		\rowcolor{gray!15} \multicolumn{2}{|c|}{\textbf{DESCRIPCIÓN GENERAL DEL SERVICIO}}                                                                                                                                                                                            \\ \hline
+
+		\textbf{NOMBRE DEL SERVICIO}       & Servicio de Computación Distribuida HTCondor                                                                                                                                                                                             \\ \hline
+		\textbf{TIPO DE SERVICIO}          & Servicio de educación, investigación y extensión universitaria                                                                                                                                                                           \\ \hline
+		\textbf{HORARIO DE DISPONIBILIDAD} & 24/7 (Disponibilidad continua)                                                                                                                                                                                                           \\ \hline
+
+		\rowcolor{gray!15} \multicolumn{2}{|c|}{\textbf{OBJETIVOS Y ALCANCE}}                                                                                                                                                                                                         \\ \hline
+
+		\textbf{PROPÓSITO}                 &
+		\begin{minipage}[t]{\linewidth}
+			\vspace{2pt}
+			Proveer infraestructura de computación de alta productividad (\HTC) para la ejecución de tareas computacionales intensivas y paralelas, facilitando el procesamiento distribuido de cargas de trabajo científicas y académicas
+			\vspace{2pt}
+		\end{minipage}                                                 \\ \hline
+
+		\textbf{USUARIOS OBJETIVO}         &
+		\begin{minipage}[t]{\linewidth}
+			\vspace{2pt}
+			• Estudiantes de pregrado y posgrado \\
+			• Grupos de investigación institucionales \\
+			• Docentes investigadores \\
+			• Comunidad académica UQ
+			\vspace{2pt}
+		\end{minipage}                                                                                                                                                                                                                                     \\ \hline
+
+		\rowcolor{gray!15} \multicolumn{2}{|c|}{\textbf{ESPECIFICACIONES TÉCNICAS}}                                                                                                                                                                                                   \\ \hline
+
+		\textbf{RECURSOS DE HARDWARE}      &
+		\begin{minipage}[t]{\linewidth}
+			\vspace{2pt}
+			• Clúster de máquinas Raspberry Pi \\
+			• Máquinas virtuales especializadas \\
+			• Infraestructura de red dedicada
+			\vspace{2pt}
+		\end{minipage}                                                                                                                                                                                                                                           \\ \hline
+
+		\textbf{TECNOLOGÍAS}               &
+		\begin{minipage}[t]{\linewidth}
+			\vspace{2pt}
+			• HTCondor (High Throughput Computing) \\
+			• Sistemas de virtualización \\
+			• Administración de cola de trabajos
+			\vspace{2pt}
+		\end{minipage}                                                                                                                                                                                                                                        \\ \hline
+
+		\textbf{CAPACIDADES}               &
+		\begin{minipage}[t]{\linewidth}
+			\vspace{2pt}
+			• Procesamiento paralelo de tareas independientes \\
+			• Gestión automática de recursos \\
+			• Balanceamiento de carga dinámico \\
+			• Tolerancia a fallos
+			\vspace{2pt}
+		\end{minipage}                                                                                                                                                                                                                             \\ \hline
+
+		\rowcolor{gray!15} \multicolumn{2}{|c|}{\textbf{APLICACIONES Y BENEFICIOS}}                                                                                                                                                                                                   \\ \hline
+
+		\textbf{CASOS DE USO}              &
+		\begin{minipage}[t]{\linewidth}
+			\vspace{2pt}
+			• Simulaciones científicas y modelado matemático \\
+			• Procesamiento de datos masivos (Big Data) \\
+			• Renderización de video y gráficos \\
+			• Análisis bioinformático y genómico \\
+			\vspace{2pt}
+		\end{minipage}                                                                                                                                                                                                                              \\ \hline
+
+		\textbf{IMPACTO ESPERADO}          &
+		\begin{minipage}[t]{\linewidth}
+			\vspace{2pt}
+			• Fortalecimiento de capacidades investigativas \\
+			• Democratización del acceso a recursos HTC \\
+			• Apoyo a formación en computación distribuida \\
+			• Incremento en productividad científica \\
+			• Posicionamiento institucional en \HTC
+			\vspace{2pt}
+		\end{minipage}                                                                                                                                                                                                                               \\ \hline
+
+		\rowcolor{gray!15} \multicolumn{2}{|l|}{\textbf{CONTRIBUCIÓN:} Expansión de universos HTCondor para mayor versatilidad}                                                                                                                                                       \\ \hline
+		\multicolumn{2}{|p{0.95\textwidth}|}{\textbf{OBSERVACIONES:} Servicio orientado a democratizar el acceso a recursos de computación de alto rendimiento para la comunidad académica, fortaleciendo las capacidades investigativas y formativas de la Universidad del Quindío.} \\ \hline
+	\end{tabular}
 \end{table}
 \section{Descripción de la oportunidad}
 \noindent
-La implementación de un nuevo universo HTCondor en la infraestructura del grupo GRID representa una oportunidad estratégica de considerable valor tanto para la comunidad académica de la Universidad del Quindío como para los grupos de investigación locales y externos. En primer lugar, esta ampliación abrirá el paso para que diversos grupos de investigación de la institución accedan a capacidades computacionales especializadas más diversas, democratizando así el uso de tecnologías de computación distribuida para disciplinas que requieren procesamiento intensivo de datos, tales como la bioinformática, el análisis de big data, el aprendizaje profundo y la simulación científica. En segundo lugar, desde una perspectiva formativa, la incorporación de este nuevo universo constituye una oportunidad invaluable para que los estudiantes de pregrado y posgrado adquieran competencias prácticas en computación de alto rendimiento (HTC), un campo con creciente demanda en la industria y la academia, pero con limitada documentación y experiencias de implementación documentadas en el contexto colombiano. Adicionalmente, esta iniciativa posiciona al GRID como un referente en computación distribuida a nivel nacional, facilitando la colaboración interinstitucional y el desarrollo de proyectos conjuntos con otras universidades e instituciones de investigación. Finalmente, la consolidación de una infraestructura HTCondor más robusta y versátil contribuye directamente a la competitividad investigativa de la Universidad del Quindío, optimizando el aprovechamiento de recursos computacionales disponibles y generando capacidades técnicas diferenciadas que pueden traducirse en publicaciones científicas, proyectos de mayor envergadura y fortalecimiento de las líneas de investigación institucionales.
+La implementación de un nuevo universo HTCondor en la infraestructura del grupo GRID representa una oportunidad estratégica de considerable valor tanto para la comunidad académica de la Universidad del Quindío como para los grupos de investigación locales y externos. En primer lugar, esta ampliación abrirá el paso para que diversos grupos de investigación de la institución accedan a capacidades computacionales especializadas más diversas, democratizando así el uso de tecnologías de computación distribuida para disciplinas que requieren procesamiento intensivo de datos, tales como la bioinformática, el análisis de big data, el aprendizaje profundo y la simulación científica. En segundo lugar, desde una perspectiva formativa, la incorporación de este nuevo universo constituye una oportunidad invaluable para que los estudiantes de pregrado y posgrado adquieran competencias prácticas en computación de alto rendimiento (\HTC), un campo con limitada documentación y experiencias de implementación documentadas en el contexto colombiano. Adicionalmente, esta iniciativa ayudaría al posicionamiento del \GRID como un referente en computación distribuida a nivel nacional, facilitando la colaboración interinstitucional y el desarrollo de proyectos conjuntos con otras universidades e instituciones de investigación. Finalmente, la consolidación de una infraestructura HTCondor más robusta y versátil contribuye directamente a la competitividad investigativa de la Universidad del Quindío, optimizando el aprovechamiento de recursos computacionales disponibles y generando capacidades técnicas diferenciadas que pueden traducirse en publicaciones científicas, proyectos de mayor envergadura y fortalecimiento de las líneas de investigación institucionales.
 
 
 \section{Resumen de la entrevista con el cliente}
@@ -276,6 +274,3 @@ Para comprender mejor las necesidades y expectativas del \GRID\, se realizó una
 	\item \textbf{Link:} \href{https://drive.google.com}{click aquí}
 	\item \textbf{Asistentes:} Juan Esteban Castaño Osma, Juan Esteban Parra Parra
 \end{itemize}
-
-
-\bigskip\noindent \textit{Nota:} Este documento es solo un resumen de la entrevista. El audio incluye una explicación adicional del mapeo SMS que no se encuentra transcrita aquí.
