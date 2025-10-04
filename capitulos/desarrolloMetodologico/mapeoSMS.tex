@@ -15,11 +15,12 @@ a los universos de HTCondor en el cuadro.
 
 \subsubsection{Definición de metas para el \SMS}
 
+% Tabla METAS DEL SMS
 \begin{table}[H]
-	\
+	\centering
 	\renewcommand{\arraystretch}{1.2} % Espaciado reducido
 	\footnotesize % Texto más pequeño
-	\begin{tabular}{|>{                                                                                                                                                                                                                                                                                                                                                                         \\arraybackslash}p{1.5cm}|p{12.5cm}|}  % Total: 14cm
+	\begin{tabular}{|p{1.5cm}|p{12.5cm}|}  % Total: 14cm
 		\hline
 		\textbf{Meta} & \textbf{Descripción}                                                                                                                                                                                                                                                                                                                                         \\ \hline
 		G1            & Clasificar trabajos relacionados con los universos de HTCondor según su aplicación e impacto en los dominios de computación distribuida y paralela, HTC, desarrollo de Software, virtualización y microservicios, redes de computadoras, infraestructura computacional, inteligencia artificial, análisis de datos y pensamiento computacional, entre otros. \\ \hline
@@ -30,11 +31,12 @@ a los universos de HTCondor en el cuadro.
 \end{table}
 
 \subsubsection{Definición de preguntas de investigación}
+%TABLA GOAL VS Preguntas 
 \begin{table}[H]
-	\
+	\centering
 	\renewcommand{\arraystretch}{1.2} % Espaciado reducido
 	\scriptsize % Texto más pequeño
-	\begin{tabular}{|>{                                                                                                                                                                                                                                                                                                                                                                                                                    \\arraybackslash}p{0.7cm}|>{\centering\arraybackslash}p{1.3cm}|p{5.5cm}|p{6cm}|} % Total: 14cm
+	\begin{tabular}{|p{0.7cm}|p{1.3cm}|p{5.5cm}|p{6cm}|} % Total: 14cm
 		\hline
 		\textbf{Meta}                                                                                                                                                                                                                                                                                                                                    & \textbf{Pregunta} & \textbf{Descripción} & \textbf{Motivación}       \\ \hline
 
@@ -51,9 +53,9 @@ a los universos de HTCondor en el cuadro.
 \end{table}
 
 \subsubsection{Definición de métricas}
-
+%Tabla METRICAS
 \begin{table}[H]
-	\
+	\centering
 	\renewcommand{\arraystretch}{1.2} % Menor espaciado entre filas
 	\footnotesize % Texto más pequeño
 	\begin{tabular}{|c|p{13cm}|} % Total: 14cm
@@ -81,7 +83,6 @@ Esta etapa comprendió las siguientes secciones:
 \subsection{Estrategia de búsqueda}
 
 Este trabajo combinó las estrategias de búsqueda en bases de datos y búsqueda en bola de nieve.
-Para la estrategia de búsqueda en bases de datos, se seleccionaron las siguientes bases de datos: ACM, IEEE Xplore, Springer, Taylor \& Francis y Science Direct.
 
 \subsection{Búsqueda en bases de datos}\label{subsec:busquedaBasesDatos}
 Se seleccionaron las siguientes bases de datos para este propósito: ACM, IEEE Xplore, Springer, Taylor \& Francis y Science Direct.
@@ -90,8 +91,9 @@ Se seleccionaron las siguientes bases de datos para este propósito: ACM, IEEE X
 En esta etapa del proceso fue necesario establecer las palabras clave que serían útiles en las cadenas de búsqueda para cada una de las bases de datos seleccionadas.
 Los términos consideran los elementos identificados en la etapa de planificación, para lo cual también se utilizó el modelo PICOC ( \textit{Population}, \textit{Intervention}, \textit{Comparator}, \textit{Outcome}, and \textit{Context} ) como guía metodológica.
 
+% TABLA modelo PICOC: Población - Intervención - Comparación  - Salida - Contexto
 \begin{table}[H]
-	\
+	\centering
 	\renewcommand{\arraystretch}{1.2} % Espaciado reducido
 	\footnotesize % Texto más pequeño
 	\begin{tabular}{|c|p{12cm}|} % Total: 14cm
@@ -112,8 +114,10 @@ Los términos consideran los elementos identificados en la etapa de planificaci�
 	\caption{Modelo PICOC}
 \end{table}
 
+
+%# TABLA Palabras clave indentificadas usando el modelo PICOC.
 \begin{table}[H]
-	\
+	\centering
 	\scriptsize
 	\setlength{\tabcolsep}{2pt}
 	\renewcommand{\arraystretch}{1.2}
@@ -186,11 +190,15 @@ Los términos consideran los elementos identificados en la etapa de planificaci�
 		\hline
 	\end{tabular}
 	\caption{Palabras clave identificadas usando el modelo PICOC}
-	\label{tab:picoc}
+	\label{table:keywords-picoc}
 \end{table}
 
+Las palabras clave identificadas en el cuadro~\ref{table:keywords-picoc} se complementaron con sinónimos y términos relacionados, los cuales se presentan en el cuadro~\ref{tab:keywords}. Estas keywords se utilizaron para construir las cadenas de búsqueda en cada base de datos.
+
+
+%# TABLA Keywoords para las cadenas de búsqueda,
 \begin{table}[H]
-	\
+	\centering
 	\scriptsize
 	\setlength{\tabcolsep}{4pt}
 	\begin{tabular}{|c|p{11.5cm}|} % Total: 14cm
@@ -212,11 +220,37 @@ Los términos consideran los elementos identificados en la etapa de planificaci�
 	\label{tab:keywords}
 \end{table}
 
+
+
+\noindent
+Con el objetivo de filtrar los resultados y enfocarse en estudios relevantes, se definieron criterios de inclusión y exclusión, los cuales se presentan en el cuadro~\ref{table:criterios-inclusion-exclusion}. Estos criterios ayudaron a seleccionar artículos que se alinean con los objetivos del \SMS y a descartar aquellos que no aportan valor al análisis\dots
+
+% TABLA Criterios de inclusión y exclusión
+\begin{table}[H]
+	\centering
+	\caption{Criterios de inclusión y exclusión}
+	\begin{tabular}{|p{3cm}|p{5cm}|p{6cm}|}
+		\hline
+		\textbf{Categoría}  & \textbf{Inclusión}         & \textbf{Exclusión}                                                                                                          \\
+		\hline
+		Tipo de publicación & Artículos de investigación & Tesis, capítulos de libros, libros, revistas, conferencias, y todo lo demás que no esté en el tipo de publicación inclusiva \\
+		\hline
+		Período             & Desde 2020 hasta 2024      & -                                                                                                                           \\
+		\hline
+		Idioma              & Inglés                     & -                                                                                                                           \\
+		\hline
+	\end{tabular}
+	\label{table:criterios-inclusion-exclusion}
+\end{table}
+
+
+
 %##################
 %##################
 %##################
 %##################
 %##################
+
 
 
 
@@ -226,17 +260,50 @@ Las cadenas de búsqueda específicas para cada base de datos se encuentran en l
 
 \subsubsection{Métricas de la búsqueda sin criterios de inclusión/exclusión}\label{subsubsec:resumenBusqueda}
 \noindent
-La Tabla~\ref{table:bases-sin-criterio} presenta el número de publicaciones identificadas en las principales bases de datos consultadas durante la revisión inicial de literatura, antes de aplicar los criterios de inclusión y exclusión. En total se recuperaron 847 registros, distribuidos de la siguiente manera: ACM (518), IEEE (0), Springer (209), Science Direct (120) y Taylor \& Francis (0). Estos resultados se evidencian en el apéndice~\ref{sec:busqueda-sin-criterios}.
+La Tabla~\ref{table:bases-sin-exclusion} presenta el número de publicaciones identificadas en las principales bases de datos consultadas durante la revisión inicial de literatura, antes de aplicar los criterios de inclusión y exclusión. En total se recuperaron 847 registros, distribuidos de la siguiente manera: ACM (518), IEEE (0), Springer (209), Science Direct (120) y Taylor \& Francis (0). Estos resultados se evidencian en el apéndice~\ref{sec:busqueda-sin-criterios}.
 
-\input{tablas-images/sms/sms.tex}
+% TABLA Resultados de busqueda sin exclusión
+\begin{table}[H]
+	\centering
+	\caption{Resultados de las cadenas de búsqueda}
+	\label{table:bases-sin-exclusion}
+	\begin{tabular}{|p{4.5cm}|c|c|c|c|c|c|}
+		\hline
+		\textbf{Criterios}                               & \textbf{ACM} & \textbf{IEEE} & \textbf{ScienceDirect} & \textbf{Springer} & \textbf{Taylor\&Francis} & \textbf{Total} \\
+		\hline
+		Cadena de búsqueda con palabras clave únicamente & 518          & 0             & 120                    & 209               & 0                        & 847            \\
+		\hline
+		Contribución porcentual                          & 61.16\%      & 0\%           & 14.17\%                & 24.68\%           & 0\%                      & 100\%          \\
+		\hline
+	\end{tabular}
+\end{table}
 
 
-\input{tablas-images/cp2/bases-sin-criterio.tex}
 
 \subsubsection{Métricas de la búsqueda con criterios de inclusión/exclusión}\label{subsec:resumenBusquedaCriterios}
 \noindent
-Esta búsqueda se realizó considerando los criterios de exclusión e inclusión definidos previamente. Las cadena de búsqueda son exactamente iguales que antes, este punto se diferencia por la aplicación de filtros. Para ver las capturas de pantalla veáse el apéndice~\ref{sec:busqueda-con-criterios}.
-La Tabla~\ref{tab:bases-sin-criterio} muestra los resultados obtenidos tras aplicar los criterios de inclusión y exclusión previamente definidos. A diferencia de la búsqueda inicial, en esta fase se utilizaron filtros específicos que redujeron significativamente la cantidad de publicaciones relevantes. En total se identificaron 976 documentos, distribuidos en las bases de datos de la siguiente manera: ACM (48), IEEE (134), Springer (592), Science Direct (46) y Taylor \& Francis (156).
+Esta búsqueda se realizó considerando los criterios de exclusión e inclusión definidos previamente. Las cadenas de búsqueda son exactamente iguales que antes, este punto se diferencia por la aplicación de filtros. Para ver las capturas de pantalla veáse el apéndice~\ref{sec:busqueda-con-criterios}.
+La Tabla~\ref{table:bases-con-exclusion} muestra los resultados obtenidos tras aplicar los criterios de inclusión y exclusión previamente definidos. A diferencia de la búsqueda inicial, en esta fase se utilizaron filtros específicos que redujeron significativamente la cantidad de publicaciones relevantes. En total se identificaron 976 documentos, distribuidos en las bases de datos de la siguiente manera: ACM (48), IEEE (134), Springer (592), Science Direct (46) y Taylor \& Francis (156).
+
+% TABLA Bases de datos con inclusión
+\begin{table}[H]
+	\centering
+	\caption{Resultados de las cadenas de búsqueda con criterios de exclusión}
+	\label{table:bases-con-exclusion}
+	\begin{tabular}{|p{4.5cm}|c|c|c|c|c|c|}
+		\hline
+		\textbf{Criterios}                               & \textbf{ACM} & \textbf{IEEE} & \textbf{ScienceDirect} & \textbf{Springer} & \textbf{Taylor \& Francis} & \textbf{Total} \\
+		\hline
+		Cadena de búsqueda con palabras clave únicamente & 315          & 0             & 101                    & 63                & 0                          & 479            \\
+		\hline
+		Contribución porcentual                          & 65.76\%      & 0\%           & 21.09\%                & 13.15\%           & 0\%                        & 100\%          \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+
+
 
 \input{tablas-images/cp2/resumen-con-criterios.tex}
 \input{tablas-images/cp2/bases-con-criterio.tex}
