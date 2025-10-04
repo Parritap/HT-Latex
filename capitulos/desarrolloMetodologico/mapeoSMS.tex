@@ -16,10 +16,10 @@ a los universos de HTCondor en el cuadro.
 \subsubsection{Definición de metas para el \SMS}
 
 \begin{table}[H]
-	\centering
+	\
 	\renewcommand{\arraystretch}{1.2} % Espaciado reducido
 	\footnotesize % Texto más pequeño
-	\begin{tabular}{|>{\centering\arraybackslash}p{1.5cm}|p{12.5cm}|}  % Total: 14cm
+	\begin{tabular}{|>{                                                                                                                                                                                                                                                                                                                                                                         \\arraybackslash}p{1.5cm}|p{12.5cm}|}  % Total: 14cm
 		\hline
 		\textbf{Meta} & \textbf{Descripción}                                                                                                                                                                                                                                                                                                                                         \\ \hline
 		G1            & Clasificar trabajos relacionados con los universos de HTCondor según su aplicación e impacto en los dominios de computación distribuida y paralela, HTC, desarrollo de Software, virtualización y microservicios, redes de computadoras, infraestructura computacional, inteligencia artificial, análisis de datos y pensamiento computacional, entre otros. \\ \hline
@@ -31,10 +31,10 @@ a los universos de HTCondor en el cuadro.
 
 \subsubsection{Definición de preguntas de investigación}
 \begin{table}[H]
-	\centering
+	\
 	\renewcommand{\arraystretch}{1.2} % Espaciado reducido
 	\scriptsize % Texto más pequeño
-	\begin{tabular}{|>{\centering\arraybackslash}p{0.7cm}|>{\centering\arraybackslash}p{1.3cm}|p{5.5cm}|p{6cm}|} % Total: 14cm
+	\begin{tabular}{|>{                                                                                                                                                                                                                                                                                                                                                                                                                    \\arraybackslash}p{0.7cm}|>{\centering\arraybackslash}p{1.3cm}|p{5.5cm}|p{6cm}|} % Total: 14cm
 		\hline
 		\textbf{Meta}                                                                                                                                                                                                                                                                                                                                    & \textbf{Pregunta} & \textbf{Descripción} & \textbf{Motivación}       \\ \hline
 
@@ -53,7 +53,7 @@ a los universos de HTCondor en el cuadro.
 \subsubsection{Definición de métricas}
 
 \begin{table}[H]
-	\centering
+	\
 	\renewcommand{\arraystretch}{1.2} % Menor espaciado entre filas
 	\footnotesize % Texto más pequeño
 	\begin{tabular}{|c|p{13cm}|} % Total: 14cm
@@ -91,7 +91,7 @@ En esta etapa del proceso fue necesario establecer las palabras clave que sería
 Los términos consideran los elementos identificados en la etapa de planificación, para lo cual también se utilizó el modelo PICOC ( \textit{Population}, \textit{Intervention}, \textit{Comparator}, \textit{Outcome}, and \textit{Context} ) como guía metodológica.
 
 \begin{table}[H]
-	\centering
+	\
 	\renewcommand{\arraystretch}{1.2} % Espaciado reducido
 	\footnotesize % Texto más pequeño
 	\begin{tabular}{|c|p{12cm}|} % Total: 14cm
@@ -113,7 +113,7 @@ Los términos consideran los elementos identificados en la etapa de planificaci�
 \end{table}
 
 \begin{table}[H]
-	\centering
+	\
 	\scriptsize
 	\setlength{\tabcolsep}{2pt}
 	\renewcommand{\arraystretch}{1.2}
@@ -190,7 +190,7 @@ Los términos consideran los elementos identificados en la etapa de planificaci�
 \end{table}
 
 \begin{table}[H]
-	\centering
+	\
 	\scriptsize
 	\setlength{\tabcolsep}{4pt}
 	\begin{tabular}{|c|p{11.5cm}|} % Total: 14cm
@@ -212,9 +212,11 @@ Los términos consideran los elementos identificados en la etapa de planificaci�
 	\label{tab:keywords}
 \end{table}
 
-
-
-
+%##################
+%##################
+%##################
+%##################
+%##################
 
 
 
@@ -224,9 +226,11 @@ Las cadenas de búsqueda específicas para cada base de datos se encuentran en l
 
 \subsubsection{Métricas de la búsqueda sin criterios de inclusión/exclusión}\label{subsubsec:resumenBusqueda}
 \noindent
-La Tabla~\ref{tab:bases-sin-criterio} presenta el número de publicaciones identificadas en las principales bases de datos consultadas durante la revisión inicial de literatura, antes de aplicar los criterios de inclusión y exclusión. En total se recuperaron 6.530 registros, distribuidos de la siguiente manera: ACM (189), IEEE (426), Springer (4.562), Science Direct (353) y Taylor \& Francis (1.000). Estos resultados se evidencian en el apéndice~\ref{sec:busqueda-sin-criterios}.
+La Tabla~\ref{table:bases-sin-criterio} presenta el número de publicaciones identificadas en las principales bases de datos consultadas durante la revisión inicial de literatura, antes de aplicar los criterios de inclusión y exclusión. En total se recuperaron 847 registros, distribuidos de la siguiente manera: ACM (518), IEEE (0), Springer (209), Science Direct (120) y Taylor \& Francis (0). Estos resultados se evidencian en el apéndice~\ref{sec:busqueda-sin-criterios}.
 
-\input{tablas-images/cp2/resumen-sin-criterios.tex}
+\input{tablas-images/sms/sms.tex}
+
+
 \input{tablas-images/cp2/bases-sin-criterio.tex}
 
 \subsubsection{Métricas de la búsqueda con criterios de inclusión/exclusión}\label{subsec:resumenBusquedaCriterios}
@@ -283,10 +287,10 @@ A continuación se presentan las gráficas de los resultados de la búsqueda.
 \noindent
 En esta sección se presentan las tecnologías de \VBC\ y las tecnologías de orquestación identificadas en el proceso de revisión sistemática de la literatura. \\
 \noindent
-El gráfico presentado en la Figura~\ref{fig:tecnologias-vbc} expone la distribución de las tecnologías de \VBC\ identificadas en el estudio de mapeo sistemático. En él se observa que Docker es la tecnología con mayor representación, acumulando 94 menciones, lo que evidencia su posición dominante en el ecosistema. En contraste, alternativas como Podman, LXC y Containerd muestran una presencia moderada, mientras que tecnologías como OpenVZ y Hyper-V containers apenas alcanzan una mención. Este comportamiento refleja tanto la consolidación de Docker como estándar \textit{de facto} en el ámbito de los contenedores, como la coexistencia de múltiples soluciones que, aunque menos extendidas, representan enfoques relevantes para casos de uso específicos. \\
+El gráfico presentado en la Figura XXXXXX expone la distribución de las tecnologías de \VBC\ identificadas en el estudio de mapeo sistemático. En él se observa que Docker es la tecnología con mayor representación, acumulando 94 menciones, lo que evidencia su posición dominante en el ecosistema. En contraste, alternativas como Podman, LXC y Containerd muestran una presencia moderada, mientras que tecnologías como OpenVZ y Hyper-V containers apenas alcanzan una mención. Este comportamiento refleja tanto la consolidación de Docker como estándar \textit{de facto} en el ámbito de los contenedores, como la coexistencia de múltiples soluciones que, aunque menos extendidas, representan enfoques relevantes para casos de uso específicos. \\
 \input{tablas-images/cp2/tecnologias-vbc.tex}
 \noindent
-La Figura~\ref{fig:tecnologias-orquestacion} muestra la distribución de las tecnologías de orquestación identificadas en el estudio de mapeo sistemático. El gráfico evidencia una clara predominancia de Kubernetes, con 67 menciones, consolidándose como la solución de referencia en la gestión de contenedores. En un segundo nivel, tecnologías como Docker Swarm (9) y Apache Mesos (5) presentan una adopción moderada, mientras que opciones como OpenShift, Docker Compose, Amazon ECS y Amazon EKS aparecen con una menor representación. Estos resultados reflejan la consolidación de Kubernetes como estándar en orquestación, a la vez que destacan la diversidad de alternativas que, aunque menos extendidas, atienden necesidades específicas en determinados contextos.
+La Figura XXXXXX muestra la distribución de las tecnologías de orquestación identificadas en el estudio de mapeo sistemático. El gráfico evidencia una clara predominancia de Kubernetes, con 67 menciones, consolidándose como la solución de referencia en la gestión de contenedores. En un segundo nivel, tecnologías como Docker Swarm (9) y Apache Mesos (5) presentan una adopción moderada, mientras que opciones como OpenShift, Docker Compose, Amazon ECS y Amazon EKS aparecen con una menor representación. Estos resultados reflejan la consolidación de Kubernetes como estándar en orquestación, a la vez que destacan la diversidad de alternativas que, aunque menos extendidas, atienden necesidades específicas en determinados contextos.
 \input{tablas-images/cp2/tecnologias-orquestacion.tex}
 
 \section{Información de la herramienta}
