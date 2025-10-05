@@ -9,9 +9,8 @@ En busca de una base teórica sólida para seleccionar un nuevo universo HTCondo
 \subsection{Planeación}
 
 Esta etapa consistió en establecer el propósito general que se buscaba alcanzar con el \SMS (\textit{Systematic Mapping Study}).
-A su vez, definió aspectos como objetivos ver cuadro ~\ref{tab:metas}, preguntas de investigación ver cuadro~\ref{tab:preguntas} y métricas ver cuadro~\ref{tab:metricas}. Para ello, se siguió el modelo
-Objetivo-Pregunta-Métrica (\textit{goal-question-metric}, gqm). A continuación, se definen los objetivos del \SMS\ aplicado
-a los universos de HTCondor en el cuadro.
+A su vez, definió aspectos como objetivos (ver cuadro~\ref{tab:metas}), preguntas de investigación (ver cuadro~\ref{tab:preguntas}) y métricas (ver cuadro~\ref{tab:metricas}). Para ello, se siguió el modelo
+Objetivo-Pregunta-Métrica (\textit{goal-question-metric}, GQM).
 
 \subsubsection{Definición de metas para el \SMS}
 
@@ -30,8 +29,9 @@ a los universos de HTCondor en el cuadro.
 	\label{tab:metas}
 \end{table}
 
-\subsubsection{Definición de preguntas de investigación}
-%TABLA GOAL VS Preguntas 
+
+\subsubsection{Definición de preguntas de investigación}\label{subsubsec:RQ-def}
+%TABLA GOAL VS Preguntas
 \begin{table}[H]
 	\centering
 	\renewcommand{\arraystretch}{1.2} % Espaciado reducido
@@ -301,20 +301,36 @@ La Tabla~\ref{table:bases-con-exclusion} muestra los resultados obtenidos tras a
 	\end{tabular}
 \end{table}
 
+El fruto del proceso logrado en la búsqueda de bases de datos puede verse en la figura \ref{fig:resumen-busqueda-bases-de-datos}. Como se puede observar, luego de aplicación de los criterios de exclusión, se perdieron 368 estudios, un perdida porcentual del 43.44\% respecto los resultados de la búsqueda inicial.
+
+% FIGURA de resultados de ambos procesos de busqueda con y sin criterios.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.9] {tablas-images/sms/resumen_busqueda_bases.png}
+	\caption{Diagrama resumen del proceso de búsqueda en bases de datos}\label{fig:resumen-busqueda-bases-de-datos}
+\end{figure}
 
 
 
-
-\input{tablas-images/cp2/resumen-con-criterios.tex}
-\input{tablas-images/cp2/bases-con-criterio.tex}
 
 \section{Eliminación de duplicados}\label{sec:eliminacionDuplicados}
 \noindent
-La eliminación de duplicados se realizó haciendo uso de la herramienta de gestión de referencias Mendeley. Luego de obtener los artículos se agregaron a Mendeley y esta herramienta se encargó de eliminar duplicados. En este punto se eliminaron 274 artículos duplicados.
+La eliminación de estudios duplicados se efectuó mediante la herramienta de gestión bibliográfica Mendeley. Tras la recopilación inicial, todos los artículos fueron importados a dicha plataforma, la cual identificó y eliminó automáticamente las publicaciones redundantes. Este proceso resultó en la exclusión de \textbf{tres} artículos duplicados, reduciendo el total de estudio a 476. La figura \ref{fig:eliminacion-duplicados} presenta una visualización gráfica de estos resultados.
+
+
+% FIGURA Eliminación de duplicados
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.9] {tablas-images/sms/eliminacion-duplicados.png}
+	\caption{Diagrama del proceso de eliminación de resultados}\label{fig:eliminacion-duplicados}
+\end{figure}
+
 
 \section{Priorización de estudios}\label{sec:priorizacionEstudios}
 \noindent
-Luego de la selección inicial de los artículos, se procedió a revisar el \textit{title}, \textit{abstract} y \textit{keywords} de cada uno. Como resultado de esta revisión, se generaron métricas de calidad para cada artículo, con el fin de priorizar aquellos más relevantes para la investigación. Las métricas utilizadas fueron las siguientes:
+
+
+Luego de la selección inicial de los artículos, se procedió a examinar los campos  \textit{title}, \textit{abstract} y \textit{keywords} de cada uno. Como resultado de esta revisión se generaron métricas de calidad para cada artículo, con el fin de priorizar aquellos más relevantes para la investigación. Las métricas utilizadas fueron las siguientes:
 
 \begin{itemize}
 	\item \textbf{SCI} \textit{(Science Citation Index)}
@@ -322,48 +338,76 @@ Luego de la selección inicial de los artículos, se procedió a revisar el \tex
 	\item \textbf{IRRQ} \textit{(Index Relation Research Question)}
 \end{itemize}
 \noindent
-Este proceso inició con un total de 771 artículos, los cuales fueron evaluados según su alineamiento con los objetivos de la investigación. La evaluación temática permitió identificar un total de 110 artículos con una relación directa con el enfoque planteado.
+
+Este proceso inició con un total de 476 artículos, los cuales fueron evaluados según su alineamiento con los objetivos de la investigación. La evaluación temática permitió identificar un total de 99 artículos con una relación directa con el enfoque planteado.
 
 \section{Estrategia de búsqueda usando bola de nieve}\label{sec:bolaDeNieve}
 \noindent
-En esta etapa, se seleccionó el primer cuartil según el índice SCI, lo que resultó en un total de 24 artículos. Adicionalmente, se incluyó un artículo por criterio de inclusión directa, estableciendo así una línea base de 25 artículos.
-Partiendo de esta base, se aplicó la estrategia de bola de nieve en dos direcciones: hacia adelante y hacia atrás. Como resultado, se obtuvieron 87 artículos aplicando la técnica hacia atrás y 495 artículos aplicando la técnica hacia adelante.
-Esto definió un nuevo conjunto de artículos para un proceso de selección adicional (\textit{screening}). En esta fase, se eliminaron 14 duplicados y 452 artículos fueron descartados por no aportar valor a la investigación.
-Finalmente, se obtuvo un total de 116 artículos mediante esta estrategia de búsqueda.
 
-\section{Diagrama de búsqueda}\label{sec:diagramaBusqueda}
+En esta etapa, se seleccionó el primer cuartil según el índice \SCI, obteniendo un total de 24 artículos que constituyeron la línea base para el proceso de búsqueda por bola de nieve. A partir de esta base, se aplicó la estrategia de bola de nieve en ambas direcciones: hacia adelante (revisando referencias citadas por los artículos base) y hacia atrás (identificando artículos que citan a los de la base). En la primera iteración se obtuvieron tres artículos mediante la técnica hacia atrás y cuatro mediante la técnica hacia adelante. La segunda iteración produjo tres artículos adicionales con bola de nieve hacia atrás y cinco con bola de nieve hacia adelante. En total, el proceso de bola de nieve generó 15 artículos adicionales. Sumando estos resultados a los 99 artículos previamente filtrados por \SCI, se obtuvo un corpus final de 114 artículos para el análisis.
 
-\subsection{Usando cadenas de búsqueda}
-\noindent
-En el diagrama~\ref{tab:tabla-diagrama-cadena-busqueda} se puede apreciar la estrategia de búsqueda de artículos por medio de base de datos, aplicando las cadenas de búsqueda, se consolidaron los resultados de distintas bases de datos para obtener un total de 6530 resultados, posteriormente y aplicando criterios de exclusión se redujo esta cantidad a menos de 1000 resultados. Adicional a los criterios de exclusión, también se hizo eliminación de artículos duplicados, 205 por parte del ~\textit{Reference Manager}, y 69 por parte del ~\textit{SMS-Builder} para un total de 274 artículos removidos. Finalmente, se realiza la etapa de screening, donde se leen las secciones claves de los artículos, como ~\textit{abstract}, ~\textit{keywords} e introducción, a través de esto se pudo descargar 593 artículos que no eran pertinentes para el estudio.
-\input{tablas-images/cp2/diagrama-cadena-busqueda.tex}\label{img:busqueda-bd}
+El resumen de este proceso puede verse en la figura \ref{fig:resumen-snowball}
 
-\subsection{Usando bola de nieve}
-\noindent
-Como segunda estrategia de búsqueda dentro del SMS, se aplicó la técnica de ~\textit{Snowball}, la cual consiste en extraer artículos adicionales a partir de las referencias citadas en los estudios obtenidos en la estrategia anterior y de los estudios que citan a estos. De los 110 estudios del paso anterior, se seleccionan aquellos que tenían un SCI más alto (primer cuartil) y se agrega uno por inclusión directa, con esto se obtiene un total de 25 artículos de línea base. Aplicando la técnica hacia adelante (artículos referenciados) se obtienen 87 nuevos estudios y la misma hacia atrás (artículos que referencian el artículo base) se obtienen 495, para un total de 582. Finalmente, se filtraron duplicados para iniciar la revisión del \textit{screening}. Como resultado 116 artículos fueron incluidos por bola de nieve. Todo este proceso se puede apreciar en la gráfica~\ref{tab:tabla-diagrama-bola-nieve-busqueda}.
-\input{tablas-images/cp2/diagrama-bola-nieve-busqueda.tex}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{tablas-images/sms/resumen-snowball.png}
+	\end{center}
+	\caption{}\label{fig:resumen-snowball}
+\end{figure}
+
 
 \section{Identificación de estudios}
 
 \subsection{Artículos por año y métricas}
 \noindent
-A continuación se presentan las gráficas de los resultados de la búsqueda.
-\input{tablas-images/cp2/estudios.tex}
+A continuación se presentan las gráficas de los resultados de la búsqueda. En la figura \ref{fig:plot-anios-vs-indices-calidad} se muestra la relación entre la cantidad de estudios por año y su índice de citación.
 
-\section{Identificación de tecnologías de \VBC}\label{sec:tecnologias-vbc-identificadas}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{tablas-images/sms/plot-freq-indices.png}
+	\end{center}
+	\caption{}\label{fig:plot-anios-vs-indices-calidad}
+\end{figure}
+
+
+
+\subsection{Diferencias entre estrategias}
+
+En la figura \ref{fig:plot-estrategia_vs_articulos} se pude apreciar la cantidad de artículos obtenido por cada
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.9] {tablas-images/sms/plot-estrategia_vs_articulos.png}
+	\caption{Diagrama del proceso de eliminación de resultados}\label{fig:plot-estrategia_vs_articulos}
+\end{figure}
+
+\subsection{Tópicos frecuentes en los estudios}
 \noindent
-En esta sección se presentan las tecnologías de \VBC\ y las tecnologías de orquestación identificadas en el proceso de revisión sistemática de la literatura. \\
-\noindent
-El gráfico presentado en la Figura XXXXXX expone la distribución de las tecnologías de \VBC\ identificadas en el estudio de mapeo sistemático. En él se observa que Docker es la tecnología con mayor representación, acumulando 94 menciones, lo que evidencia su posición dominante en el ecosistema. En contraste, alternativas como Podman, LXC y Containerd muestran una presencia moderada, mientras que tecnologías como OpenVZ y Hyper-V containers apenas alcanzan una mención. Este comportamiento refleja tanto la consolidación de Docker como estándar \textit{de facto} en el ámbito de los contenedores, como la coexistencia de múltiples soluciones que, aunque menos extendidas, representan enfoques relevantes para casos de uso específicos. \\
-\input{tablas-images/cp2/tecnologias-vbc.tex}
-\noindent
-La Figura XXXXXX muestra la distribución de las tecnologías de orquestación identificadas en el estudio de mapeo sistemático. El gráfico evidencia una clara predominancia de Kubernetes, con 67 menciones, consolidándose como la solución de referencia en la gestión de contenedores. En un segundo nivel, tecnologías como Docker Swarm (9) y Apache Mesos (5) presentan una adopción moderada, mientras que opciones como OpenShift, Docker Compose, Amazon ECS y Amazon EKS aparecen con una menor representación. Estos resultados reflejan la consolidación de Kubernetes como estándar en orquestación, a la vez que destacan la diversidad de alternativas que, aunque menos extendidas, atienden necesidades específicas en determinados contextos.
-\input{tablas-images/cp2/tecnologias-orquestacion.tex}
+
+Del conjunto de 114 estudios analizados, se identificaron tópicos recurrentes mediante el análisis sistemático de los~\textit{abstracts} y~\textit{keywords} de cada publicación. Esta categorización temática reveló las áreas de investigación predominantes en el campo de estudio. Como se ilustra en la figura~\ref{fig:plot-topicos}, los tópicos más frecuentes incluyen \textbf{Grid Computing, \HPC, Cloud Computing, \HTC, y Parallel}, los cuales representan las tendencias principales en la literatura analizada.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.9] {tablas-images/sms/plot-topicos.png}
+	\caption{Diagrama del proceso de eliminación de resultados}\label{fig:plot-topicos}
+\end{figure}
+
+
+\subsection{Conformidad con las preguntas de investigación}
+Respecto al Cumplimiento con las preguntas de investigación (RQ) planteadas en la sección \ref{subsubsec:RQ-def}, todos los 114 estudios cumplían con la \textbf{RQ1}, mientras que únicamente 28 de estos cumplían con la \textbf{RQ2}. Ver figura \ref{fig:plot-venn-RQs}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.9] {tablas-images/sms/plot-venn-RQs.png}
+	\caption{Diagrama del proceso de eliminación de resultados}\label{fig:plot-venn-RQs}
+\end{figure}
+
+
 
 \section{Información de la herramienta}
 
 \noindent
-La herramienta utilizada para este proceso de revisión de la literatura fue \textbf{SMS-BUILDER}, la cual se encuentra disponible en \textit{Docker Hub}. La imagen puede consultarse en el siguiente enlace:
+La herramienta utilizada para este proceso de revisión de la literatura fue \textbf{SMS-BUILDER}, desarrollada por el Dr. Christian Andres Candela Uribe la cual se encuentra disponible en \textit{Docker Hub}. La imagen puede consultarse en el siguiente enlace:
 
 \begin{center}
 	\href{https://hub.docker.com/r/griduq/sms-builder}{\texttt{https://hub.docker.com/r/griduq/sms-builder}}
@@ -375,7 +419,7 @@ La herramienta utilizada para este proceso de revisión de la literatura fue \te
 \noindent
 Con el fin de fomentar la reproducibilidad del método de revisión, se proporcionan dos mecanismos de verificación que permiten a los revisores y lectores acceder de forma transparente a la información utilizada, generada mediante la herramienta SMS-Builder de~\cite{SMSBuilder2020}
 \begin{itemize}
-	\item Un enlace de acceso público a la instancia de SMS-Builder que contiene todos los datos del proceso de revisión sistemática: \href{https://sms-vbc.iti.grid.uniquindio.edu.co/sms.xhtml}{link}. Las credenciales de acceso son ``invitado'' tanto para el nombre de usuario como para la contraseña.
+	\item Un enlace de acceso público a la instancia de SMS-Builder que contiene todos los datos del proceso de revisión sistemática: \href{https://github.com/grid-uq/sms-builder}{link}. Las credenciales de acceso son ``invitado'' tanto para el nombre de usuario como para la contraseña.
 	\item Una imagen de Docker de acceso público que integra toda la documentación necesaria para crear un contenedor con los datos del proceso: \href{https://hub.docker.com/r/anubis1001/tg-vbc-sms-builder}{link}.
 \end{itemize}
 
