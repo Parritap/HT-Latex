@@ -18,7 +18,7 @@ Objetivo-Pregunta-Métrica (\textit{goal-question-metric}, GQM).
 \begin{table}[H]
 	\centering
 	\renewcommand{\arraystretch}{1.2} % Espaciado reducido
-	\footnotesize % Texto más pequeño
+	\fontsize{9pt}{10pt}\selectfont % Tamaño de fuente 8pt
 	\begin{tabular}{|p{1.5cm}|p{12.5cm}|}  % Total: 14cm
 		\hline
 		\textbf{Meta} & \textbf{Descripción}                                                                                                                                                                                                                                                                                                                                         \\ \hline
@@ -35,18 +35,18 @@ Objetivo-Pregunta-Métrica (\textit{goal-question-metric}, GQM).
 \begin{table}[H]
 	\centering
 	\renewcommand{\arraystretch}{1.2} % Espaciado reducido
-	\scriptsize % Texto más pequeño
+	\fontsize{9pt}{10pt}\selectfont % Tamaño de fuente 8pt
 	\begin{tabular}{|p{0.7cm}|p{1.3cm}|p{5.5cm}|p{6cm}|} % Total: 14cm
 		\hline
-		\textbf{Meta}                                                                                                                                                                                                                                                                                                                                    & \textbf{Pregunta} & \textbf{Descripción} & \textbf{Motivación}       \\ \hline
+		\textbf{Meta}                                                                                                                                                                                                                                                                                                                                    & \textbf{Pregunta} & \textbf{Descripción} & \textbf{Motivación}        \\ \hline
 
 		G1                                                                                                                                                                                                                                                                                                                                               & Q1                &
 		\textit{¿Qué trabajos relacionados con los universos de HTCondor tienen impacto en los dominios de computación distribuida y paralela, HTC, desarrollo de Software, virtualización y microservicios, redes de computadoras, infraestructura computacional, inteligencia artificial, análisis de datos y pensamiento computacional, entre otros?} &
-		Sobre los universos de HTCondor que tienen impacto en los dominios de computación distribuida y paralela, HTC, desarrollo de Software, virtualización y microservicios, redes de computadoras, infraestructura computacional, inteligencia artificial, análisis de datos, pensamiento computacional: 1 - Reconocer cómo están estructurados. 2 - Identificar sus aplicaciones. 3 - Determinar su motivación contextual. \\ \hline
+		Sobre los universos de HTCondor que tienen impacto en los dominios de computación distribuida y paralela, \HTC, desarrollo de Software, virtualización y microservicios, redes de computadoras, infraestructura computacional, inteligencia artificial, análisis de datos, pensamiento computacional: 1 - Reconocer cómo están estructurados. 2 - Identificar sus aplicaciones. 3 - Determinar su motivación contextual. \\ \hline
 
 		G2                                                                                                                                                                                                                                                                                                                                               & Q2                &
 		\textit{¿Qué trabajos vinculados con los universos de HTCondor potencian las funciones esenciales universitarias como investigación, docencia, extensión e industria?}                                                                                                                                                                           &
-		Sobre los universos de HTCondor que potencian las funciones sustantivas universitarias como investigación, docencia, extensión e industria: 1 - Reconocer cómo están estructurados. 2 - Identificar sus aplicaciones. 3 - Determinar su motivación contextual.                                                                                                                                                          \\ \hline
+		Sobre los universos de HTCondor que potencian las funciones sustantivas universitarias como investigación, docencia, extensión e industria: 1 - Reconocer cómo están estructurados. 2 - Identificar sus aplicaciones. 3 - Determinar su motivación contextual.                                                                                                                                                           \\ \hline
 	\end{tabular}
 	\caption{Definición de preguntas de investigación del SMS}
 	\label{tab:preguntas}
@@ -57,7 +57,7 @@ Objetivo-Pregunta-Métrica (\textit{goal-question-metric}, GQM).
 \begin{table}[H]
 	\centering
 	\renewcommand{\arraystretch}{1.2} % Menor espaciado entre filas
-	\footnotesize % Texto más pequeño
+	\fontsize{9pt}{10pt}\selectfont % Tamaño de fuente 8pt
 	\begin{tabular}{|c|p{13cm}|} % Total: 14cm
 		\hline
 		\textbf{Métrica} & \textbf{Descripción}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           \\ \hline
@@ -70,7 +70,9 @@ Objetivo-Pregunta-Métrica (\textit{goal-question-metric}, GQM).
 	\label{tab:metricas}
 \end{table}
 
-\section{Búsqueda de estudios}
+
+\newpage \section{Búsqueda de estudios}
+
 
 Esta etapa comprendió las siguientes secciones:
 \begin{enumerate}
@@ -87,15 +89,16 @@ Este trabajo combinó las estrategias de búsqueda en bases de datos y búsqueda
 \subsection{Búsqueda en bases de datos}\label{subsec:busquedaBasesDatos}
 Se seleccionaron las siguientes bases de datos para este propósito: ACM, IEEE Xplore, Springer, Taylor \& Francis y Science Direct.
 
+
+\newpage
 \subsubsection{Identificación de estudios mediante búsqueda en bases de datos}\label{subsubsec:identificacionEstudios}
-En esta etapa del proceso fue necesario establecer las palabras clave que serían útiles en las cadenas de búsqueda para cada una de las bases de datos seleccionadas.
-Los términos consideran los elementos identificados en la etapa de planificación, para lo cual también se utilizó el modelo PICOC ( \textit{Population}, \textit{Intervention}, \textit{Comparator}, \textit{Outcome}, and \textit{Context} ) como guía metodológica.
+En esta etapa del proceso fue necesario establecer un marco que nos ayudase a establecer las palabras clave más apropiadas para el mapeo sistemático de estudios para cada una de las bases de datos seleccionadas. Para ello se hizo uso del modelo PICOC ( \textit{Population}, \textit{Intervention}, \textit{Comparator}, \textit{Outcome}, and \textit{Context} ) como guía metodológica, sirviendo como herramienta de apoyo para este procedimiento. El resultado de este proceso puede verse en la tabla~\ref{table:modelo-picoc}
 
 % TABLA modelo PICOC: Población - Intervención - Comparación  - Salida - Contexto
 \begin{table}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.2} % Espaciado reducido
-	\footnotesize % Texto más pequeño
+	\renewcommand{\arraystretch}{1.5} % Espaciado reducido
+	\fontsize{9pt}{10pt}\selectfont % Tamaño de fuente 8pt
 	\begin{tabular}{|c|p{12cm}|} % Total: 14cm
 		\hline
 		\textbf{Componente} & \textbf{Descripción}                                                                                                                                                                                                                                                                                                                                                                                                                                                                             \\ \hline
@@ -112,16 +115,16 @@ Los términos consideran los elementos identificados en la etapa de planificaci�
 		Contexto            & Universos HTCondor en dominios de computación distribuida y paralela, HTC, desarrollo de Software, virtualización y microservicios, redes de computadoras, infraestructura computacional, inteligencia artificial, análisis de datos, pensamiento computacional, entre otros. Que potencian las funciones sustantivas universitarias de investigación, docencia y extensión.                                                                                                                     \\ \hline
 	\end{tabular}
 	\caption{Modelo PICOC}
+	\label{table:modelo-picoc}
 \end{table}
 
 
 %# TABLA Palabras clave indentificadas usando el modelo PICOC.
 \begin{table}[H]
 	\centering
-	\scriptsize
 	\setlength{\tabcolsep}{2pt}
 	\renewcommand{\arraystretch}{1.2}
-	\fontsize{6}{10}\selectfont
+	\fontsize{8}{10}\selectfont
 	\begin{tabular}{|p{2.8cm}|p{2.8cm}|p{2.0cm}|p{2.8cm}|p{2.8cm}|} % Total: 14cm
 		\hline
 		\textbf{Población}            & \textbf{Intervención} & \textbf{Criterios de aceptación} & \textbf{Salidas} & \textbf{Contexto} \\
@@ -201,7 +204,8 @@ Las palabras clave identificadas en el cuadro~\ref{table:keywords-picoc} se comp
 	\centering
 	\scriptsize
 	\setlength{\tabcolsep}{4pt}
-	\begin{tabular}{|c|p{11.5cm}|} % Total: 14cm
+	\fontsize{9pt}{10pt}\selectfont % Tamaño de fuente 8pt
+	\begin{tabular}{|c|p{12.5cm}|} % Total: 14cm
 		\hline
 		\textbf{Palabras clave} & \textbf{Sinónimos}                                                             \\
 		\hline
@@ -229,6 +233,7 @@ Con el objetivo de filtrar los resultados y enfocarse en estudios relevantes, se
 \begin{table}[H]
 	\centering
 	\caption{Criterios de inclusión y exclusión}
+	\fontsize{9pt}{10pt}\selectfont % Tamaño de fuente 8pt
 	\begin{tabular}{|p{3cm}|p{5cm}|p{6cm}|}
 		\hline
 		\textbf{Categoría}  & \textbf{Inclusión}         & \textbf{Exclusión}                                                                                                          \\
@@ -267,7 +272,8 @@ La Tabla~\ref{table:bases-sin-exclusion} presenta el número de publicaciones id
 	\centering
 	\caption{Resultados de las cadenas de búsqueda}
 	\label{table:bases-sin-exclusion}
-	\begin{tabular}{|p{4.5cm}|c|c|c|c|c|c|}
+	\fontsize{8pt}{10pt}\selectfont % Tamaño de fuente 8pt
+	\begin{tabular}{|p{3.5cm}|>{\centering\arraybackslash}p{1.0cm}|>{\centering\arraybackslash}p{1.0cm}|>{\centering\arraybackslash}p{2.0cm}|>{\centering\arraybackslash}p{1.3cm}|>{\centering\arraybackslash}p{2.3cm}|>{\centering\arraybackslash}p{1.0cm}|}
 		\hline
 		\textbf{Criterios}                               & \textbf{ACM} & \textbf{IEEE} & \textbf{ScienceDirect} & \textbf{Springer} & \textbf{Taylor\&Francis} & \textbf{Total} \\
 		\hline
@@ -277,6 +283,8 @@ La Tabla~\ref{table:bases-sin-exclusion} presenta el número de publicaciones id
 		\hline
 	\end{tabular}
 \end{table}
+
+
 
 
 
@@ -290,7 +298,8 @@ La Tabla~\ref{table:bases-con-exclusion} muestra los resultados obtenidos tras a
 	\centering
 	\caption{Resultados de las cadenas de búsqueda con criterios de exclusión}
 	\label{table:bases-con-exclusion}
-	\begin{tabular}{|p{4.5cm}|c|c|c|c|c|c|}
+	\fontsize{8pt}{10pt}\selectfont % Tamaño de fuente 8pt
+	\begin{tabular}{|p{3.5cm}|>{\centering\arraybackslash}p{1.0cm}|>{\centering\arraybackslash}p{1.0cm}|>{\centering\arraybackslash}p{2.0cm}|>{\centering\arraybackslash}p{1.3cm}|>{\centering\arraybackslash}p{2.3cm}|>{\centering\arraybackslash}p{1.0cm}|}
 		\hline
 		\textbf{Criterios}                               & \textbf{ACM} & \textbf{IEEE} & \textbf{ScienceDirect} & \textbf{Springer} & \textbf{Taylor \& Francis} & \textbf{Total} \\
 		\hline
@@ -306,7 +315,7 @@ El fruto del proceso logrado en la búsqueda de bases de datos puede verse en la
 % FIGURA de resultados de ambos procesos de busqueda con y sin criterios.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.9] {tablas-images/sms/resumen_busqueda_bases.png}
+	\includegraphics[scale=0.6] {tablas-images/sms/resumen_busqueda_bases.png}
 	\caption{Diagrama resumen del proceso de búsqueda en bases de datos}\label{fig:resumen-busqueda-bases-de-datos}
 \end{figure}
 
@@ -321,7 +330,7 @@ La eliminación de estudios duplicados se efectuó mediante la herramienta de ge
 % FIGURA Eliminación de duplicados
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.9] {tablas-images/sms/eliminacion-duplicados.png}
+	\includegraphics[scale=0.5] {tablas-images/sms/eliminacion-duplicados.png}
 	\caption{Diagrama del proceso de eliminación de resultados}\label{fig:eliminacion-duplicados}
 \end{figure}
 
@@ -350,7 +359,7 @@ El resumen de este proceso puede verse en la figura \ref{fig:resumen-snowball}
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[width=0.95\textwidth]{tablas-images/sms/resumen-snowball.png}
+		\includegraphics[width=0.6\textwidth]{tablas-images/sms/resumen-snowball.png}
 	\end{center}
 	\caption{}\label{fig:resumen-snowball}
 \end{figure}
@@ -360,13 +369,14 @@ El resumen de este proceso puede verse en la figura \ref{fig:resumen-snowball}
 
 \subsection{Artículos por año y métricas}
 \noindent
-A continuación se presentan las gráficas de los resultados de la búsqueda. En la figura \ref{fig:plot-anios-vs-indices-calidad} se muestra la relación entre la cantidad de estudios por año y su índice de citación.
+A continuación se presentan las gráficas de los resultados de la búsqueda. En la figura \ref{fig:plot-anios-vs-indices-calidad} se muestra la relación entre la cantidad de estudios por año y las métricas definidas en las sección \ref{sec:priorizacionEstudios}
 
 \begin{figure}[H]
 	\begin{center}
 		\includegraphics[width=0.95\textwidth]{tablas-images/sms/plot-freq-indices.png}
 	\end{center}
-	\caption{}\label{fig:plot-anios-vs-indices-calidad}
+	\caption{Cantidad de artículos en conformodidad con las métricas de calidad definidas en \ref{sec:priorizacionEstudios}}
+	\label{fig:plot-anios-vs-indices-calidad}
 \end{figure}
 
 
@@ -377,7 +387,7 @@ En la figura \ref{fig:plot-estrategia_vs_articulos} se pude apreciar la cantidad
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.9] {tablas-images/sms/plot-estrategia_vs_articulos.png}
+	\includegraphics[scale=0.3] {tablas-images/sms/plot-estrategia_vs_articulos.png}
 	\caption{Diagrama del proceso de eliminación de resultados}\label{fig:plot-estrategia_vs_articulos}
 \end{figure}
 
@@ -388,7 +398,7 @@ Del conjunto de 114 estudios analizados, se identificaron tópicos recurrentes m
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.9] {tablas-images/sms/plot-topicos.png}
+	\includegraphics[scale=0.3] {tablas-images/sms/plot-topicos.png}
 	\caption{Diagrama del proceso de eliminación de resultados}\label{fig:plot-topicos}
 \end{figure}
 
@@ -398,7 +408,7 @@ Respecto al Cumplimiento con las preguntas de investigación (RQ) planteadas en 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.9] {tablas-images/sms/plot-venn-RQs.png}
+	\includegraphics[scale=0.3] {tablas-images/sms/plot-venn-RQs.png}
 	\caption{Diagrama del proceso de eliminación de resultados}\label{fig:plot-venn-RQs}
 \end{figure}
 
