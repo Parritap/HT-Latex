@@ -84,10 +84,10 @@ Esta etapa comprendió las siguientes secciones:
 
 \subsection{Estrategia de búsqueda}
 
-Este trabajo combinó las estrategias de búsqueda en bases de datos y búsqueda en bola de nieve.
+Este trabajo combinó estrategias de búsqueda en bases de datos con la técnica de búsqueda en bola de nieve, lo que permitió ampliar y enriquecer la recopilación de estudios relevantes para el mapeo sistemático. Esta aproximación facilitó la identificación de investigaciones clave que podrían no haber sido detectadas mediante una búsqueda tradicional.
 
 \subsection{Búsqueda en bases de datos}\label{subsec:busquedaBasesDatos}
-Se seleccionaron las siguientes bases de datos para este propósito: ACM, IEEE Xplore, Springer, Taylor \& Francis y Science Direct.
+Se seleccionaron las siguientes bases de datos para llevar a cabo el mapeo sistemático de estudios: ACM, IEEE Xplore, Springer, Taylor \& Francis y Science Direct. Estas fuentes fueron elegidas por su relevancia y cobertura en el área de investigación, asegurando así la obtención de información actualizada y de calidad para el desarrollo del estudio.
 
 
 \newpage
@@ -119,16 +119,17 @@ En esta etapa del proceso fue necesario establecer un marco que nos ayudase a es
 \end{table}
 
 
+
 %# TABLA Palabras clave indentificadas usando el modelo PICOC.
 \begin{table}[H]
 	\centering
-	\setlength{\tabcolsep}{2pt}
-	\renewcommand{\arraystretch}{1.2}
-	\fontsize{8}{10}\selectfont
-	\begin{tabular}{|p{2.8cm}|p{2.8cm}|p{2.0cm}|p{2.8cm}|p{2.8cm}|} % Total: 14cm
+	\renewcommand{\arraystretch}{1.4}
+	\fontsize{8}{8}\selectfont
+	\begin{tabular}{|p{3cm}|p{10.0cm}|}
 		\hline
-		\textbf{Población}            & \textbf{Intervención} & \textbf{Criterios de aceptación} & \textbf{Salidas} & \textbf{Contexto} \\
+		\textbf{Categoría \hbox{PICOC}} & \textbf{Palabras clave} \\
 		\hline
+		Población                       &
 		- Trabajos relacionados \newline
 		- Universos \newline
 		- HTCondor \newline
@@ -143,7 +144,9 @@ En esta etapa del proceso fue necesario establecer un marco que nos ayudase a es
 		- Pensamiento computacional \newline
 		- Investigación \newline
 		- Docencia \newline
-		- Extensión                   &
+		- Extensión                                               \\
+		\hline
+		Intervención                    &
 		- Identificación \newline
 		- Clasificación \newline
 		- Universos \newline
@@ -159,8 +162,12 @@ En esta etapa del proceso fue necesario establecer un marco que nos ayudase a es
 		- Pensamiento computacional \newline
 		- Investigación \newline
 		- Docencia \newline
-		- Extensión                   &
-		- Casos de estudio culminados &
+		- Extensión                                               \\
+		\hline
+		Criterios de aceptación         &
+		- Casos de estudio culminados                             \\
+		\hline
+		Salidas                         &
 		- Taxonomía \newline
 		- Universos \newline
 		- HTCondor \newline
@@ -175,7 +182,9 @@ En esta etapa del proceso fue necesario establecer un marco que nos ayudase a es
 		- Pensamiento computacional \newline
 		- Investigación \newline
 		- Docencia \newline
-		- Extensión                   &
+		- Extensión                                               \\
+		\hline
+		Contexto                        &
 		- Universos \newline
 		- HTCondor \newline
 		- Computación distribuida y paralela \newline
@@ -189,7 +198,7 @@ En esta etapa del proceso fue necesario establecer un marco que nos ayudase a es
 		- Pensamiento computacional \newline
 		- Investigación \newline
 		- Docencia \newline
-		- Extensión                                                                                                                     \\
+		- Extensión                                               \\
 		\hline
 	\end{tabular}
 	\caption{Palabras clave identificadas usando el modelo PICOC}
@@ -429,13 +438,15 @@ La herramienta utilizada para este proceso de revisión de la literatura fue \te
 \noindent
 Con el fin de fomentar la reproducibilidad del método de revisión, se proporcionan dos mecanismos de verificación que permiten a los revisores y lectores acceder de forma transparente a la información utilizada, generada mediante la herramienta SMS-Builder de~\cite{SMSBuilder2020}
 \begin{itemize}
-	\item Un enlace de acceso público a la instancia de SMS-Builder que contiene todos los datos del proceso de revisión sistemática: \href{https://github.com/grid-uq/sms-builder}{link}. Las credenciales de acceso son ``invitado'' tanto para el nombre de usuario como para la contraseña.
-	\item Una imagen de Docker de acceso público que integra toda la documentación necesaria para crear un contenedor con los datos del proceso: \href{https://hub.docker.com/r/anubis1001/tg-vbc-sms-builder}{link}.
+	\item Un enlace de acceso público a la instancia de SMS-Builder que contiene todos los datos del proceso de revisión sistemática: \href{https://sms-htcondor.iti.grid.uniquindio.edu.co}{link}. Las credenciales de acceso son ``invitado'' tanto para el nombre de usuario como para la contraseña.
+	\item Una imagen de Docker de acceso público que integra toda la documentación necesaria para crear un contenedor con los datos del proceso: \href{https://hub.docker.com/r/parritap/sms-htcondor-universes}{link}.
 \end{itemize}
 
 \noindent
 Adicionalmente, se implementaron procesos de respaldo como medida de seguridad. Estos \textit{backups} fueron almacenados en ubicaciones diferentes, siguiendo la estrategia de respaldo \textbf{3--2--1}.
 
+
+
 \section{Conclusiones de la revisión sistemática de la literatura}
 \noindent
-Esta sección presenta un mapeo sistemático de la literatura sobre tecnologías de virtualización basadas en contenedores, principalmente relacionada con la educación, la investigación y la extensión. Dentro del \SMS, se definió un esquema de clasificación según los temas específicos establecidos durante la fase de planificación. Este esquema proporciona un mapeo de la información en tablas y gráficos estadísticos que ayudan a describir los datos y su relación con las preguntas de investigación. El mapeo sistemático reveló una creciente proliferación de estudios relacionados con las tecnologías de \VBC, incluyendo estudios en diferentes áreas y aplicaciones. Esta proliferación de estudios podría ser contraproducente para ciertas partes interesadas a la hora de implementar arquitecturas con estas tecnologías. Además, puede provocar una saturación de la literatura y dificultar el desarrollo, principalmente debido al abrumador volumen de información disponible. Más allá de los resultados obtenidos en este \SMS, los estudios se analizaron explorando la información subyacente y las tendencias. De este modo, se identificó una creciente adopción de la virtualización ligera en la implementación de soluciones, con especial énfasis en la computación en la nube y orquestadores como Kubernetes. Este liderazgo se ve reforzado por la necesidad de las organizaciones de proporcionar redundancia, fiabilidad y escalabilidad en sus aplicaciones y servicios.
+Esta revisión sistemática de la literatura sobre universos de HTCondor y tecnologías de computación distribuida de alto rendimiento logró identificar y analizar 114 estudios relevantes de un total inicial de 847 documentos recuperados de cinco bases de datos académicas principales. El proceso metodológico riguroso incluyó la aplicación de criterios de inclusión y exclusión que redujeron el corpus inicial en un 43.44\%, seguido de la eliminación de duplicados y la aplicación de estrategias complementarias como la búsqueda por bola de nieve. Los resultados revelan que la base de datos ACM fue la fuente más productiva con el 61.16\% de los artículos iniciales, mientras que IEEE y Taylor \& Francis no proporcionaron contribuciones significativas con las cadenas de búsqueda empleadas. El análisis temático identificó como tópicos predominantes \textbf{Grid Computing, HPC, Cloud Computing, HTC y Parallel}, evidenciando una concentración de la investigación en estas áreas específicas. Respecto al cumplimiento de las preguntas de investigación, todos los 114 estudios seleccionados respondieron a RQ1 (trabajos relacionados con universos de HTCondor en diversos dominios computacionales), mientras que solo 28 estudios (24.6\%) abordaron RQ2 (aplicaciones en funciones universitarias esenciales), lo que sugiere una brecha significativa en la literatura sobre la aplicación de estas tecnologías en contextos educativos y de extensión universitaria. La distribución temporal de las publicaciones y la diversidad de métricas de calidad aplicadas confirman la relevancia y actualidad del tema de investigación, proporcionando una base sólida para el desarrollo de taxonomías y marcos de trabajo en el dominio de HTCondor y computación distribuida.
