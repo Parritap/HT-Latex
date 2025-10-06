@@ -1,0 +1,123 @@
+\ChapterImageStar[cap:pmv]{Producto Mínimo Viable}{./images/fondo.png}\label{cap:pmv}
+\mbox{}\\
+\section{Estructura del proyecto}
+\noindent
+La figura~\ref{fig:estructura-proyecto} detalla la estructura del proyecto, el directorio functional-tests contiene los scripts y manifiestos utilizados para la validación técnica de la solución propuesta, el código fuente de esta validación puede encontrarse en la sección~\ref{sec:functional-tests}.
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.35]{tablas-images/cp6/src/tree-1.png}
+		\subcaption{Parte 1}\label{fig:estructura-proyecto-1}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[scale=0.35]{tablas-images/cp6/src/tree-2.png}
+		\subcaption{Parte 2}\label{fig:estructura-proyecto-2}
+	\end{minipage}
+	\caption{Estructura del proyecto}\label{fig:estructura-proyecto}
+\end{figure}
+
+\section{Plantillas de las máquinas virtuales}\label{sec:plantillas-vm}
+\noindent
+Las plantillas de las \VM\ son archivos que contienen la configuración y el estado de una máquina virtual en un momento específico. Estas plantillas permiten crear nuevas \VM\ con la misma configuración y estado que la original, facilitando la replicación y despliegue rápido de entornos virtualizados. En este proyecto, las plantillas de las \VM\ se encuentran en la unidad compartida de Google Drive, en la siguiente ruta: \href{https://drive.google.com/drive/folders/1Ar2ifFR9WufCqmZMt2NMJ2OzLG9Gucas?usp=sharing}{link}. A continuación, se describen las plantillas utilizadas en el proyecto:
+\subsection{internal-vm.xva}
+\noindent
+Esta plantilla corresponde a una máquina virtual configurada para actuar como nodo interno dentro del clúster de Kubernetes. Está diseñada para manejar tareas de procesamiento, además de contener los servicios esenciales para la operación del clúster, como el servidor API de Kubernetes, el controlador de gestión y el planificador.
+
+\subsection{nat-serve.xva}
+\noindent
+Esta plantilla corresponde a una máquina virtual configurada para actuar como nodo externo dentro del clúster de Kubernetes. Está diseñada para gestionar el tráfico de red entre el clúster y el mundo exterior, proporcionando servicios de \NAT\ y actuando como punto de entrada para las solicitudes externas hacia los servicios alojados en el clúster.
+
+\section{Código fuente}\label{sec:automatizacion-scripts}
+\noindent
+El código fuente del sistema, desarrollado en el lenguaje Bash, está disponible en el repositorio de GitHub \href{https://github.com/AariazP/TG-VBC.git}{\texttt{TG-VBC}} en la rama \texttt{scripted-solution}. Este repositorio contiene scripts para la automatización de tareas en la infraestructura de virtualización basada en contenedores, incluyendo la configuración de nodos, despliegue de \VM\ y configuración de Kubernetes.
+
+\subsection{Config}
+\noindent
+Este paquete contiene scripts de configuración y utilidades para la gestión de máquinas virtuales en un entorno XCP-ng.
+%=========================CONFIG=========================
+\subsubsection{Config.sh}
+\noindent
+\input{tablas-images/cp6/src/config/config.tex}
+
+%=========================SAMPLE-YAML=========================
+
+\subsection{sample-yaml}
+\noindent
+Los archivos en formato \texttt{YAML} presentados en esta sección son ejemplos utilizados en diferentes contextos del PMV, incluyendo la configuración de pods, despliegues, servicios y volúmenes persistentes en Kubernetes. Estos manifiestos sirven como referencia para la creación y gestión de recursos dentro del clúster, facilitando la implementación de aplicaciones y servicios de manera eficiente y estructurada.
+Se pueden encontrar en el apéndice~\ref{apendice:yaml-pmv}.
+
+
+%=========================SCRIPTS=========================
+\subsection{Scripts}
+
+\subsection{backup.sh}
+\noindent
+\input{tablas-images/cp6/src/scripts/backup.tex}
+
+\subsection{boot-servers.sh}
+\noindent
+\input{tablas-images/cp6/src/scripts/boot-servers.tex}
+
+\subsection{bootvm.sh}
+\noindent
+\input{tablas-images/cp6/src/scripts/bootvm.tex}
+
+\subsection{clean-cluster.sh}
+\noindent
+\input{tablas-images/cp6/src/scripts/clean-cluster.tex}
+
+\subsection{cluster-bootup.sh}
+\noindent
+\input{tablas-images/cp6/src/scripts/cluster-bootup.tex}
+
+\subsection{console.sh}
+\noindent
+\input{tablas-images/cp6/src/scripts/console.tex}
+
+\subsection{get-ip.sh}
+\noindent
+\input{tablas-images/cp6/src/scripts/get-ip.tex}
+
+\subsection{get-vm.sh}
+\noindent
+\input{tablas-images/cp6/src/scripts/get-vm.tex}
+
+\subsection{ssh-vm.sh}
+\noindent
+\input{tablas-images/cp6/src/scripts/ssh-vm.tex}
+
+\subsection{upload-yaml.sh}
+\noindent
+\input{tablas-images/cp6/src/scripts/upload-yml.tex}
+
+\subsection{vbc.sh}
+\noindent
+\input{tablas-images/cp6/src/scripts/vbc.tex}
+
+\section{Despliegue del clúster}\label{sec:despliegue-cluster}
+\noindent
+El despliegue del clúster K3S sobre Containerd en la infraestructura del \GRID\ se realiza ejecutando el script \texttt{cluster-bootup.sh} ubicado en el directorio \texttt{scripts/} de diferentes formas. Este script automatiza la creación y configuración de las máquinas virtuales necesarias, así como la instalación y configuración de K3S en los nodos del clúster.
+A continuación, se describen las tres formas disponibles para desplegar el clúster:
+\begin{itemize}
+\item \textbf{Línea de comandos:} Desplegar el clúster usando la herramientas de línea de comandos \texttt{VBC}, pasando los parámetros necesarios para cada tarea.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.15]{./tablas-images/cp6/cluster-deploy/deploy-vbc.png}
+	\caption{Despliegue del clúster mediante línea de comandos}\label{fig:linea-comandos}
+\end{figure}
+\item \textbf{Consola:} Desplegar el clúster usando la consola construida con \texttt{Whiptail}, que guía al usuario a través de un menú interactivo para realizar las tareas necesarias.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.15]{./tablas-images/cp6/cluster-deploy/deploy-console.png}
+	\caption{Despliegue del clúster mediante consola}\label{fig:consola}
+\end{figure}
+\item \textbf{Automático:} Ejecutando el script \texttt{cluster-bootup.sh} que realiza todas las tareas de manera secuencial y automática.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.15]{./tablas-images/cp6/cluster-deploy/deploy-script.png}
+	\caption{Despliegue del clúster mediante script}\label{fig:script}
+\end{figure}
+\

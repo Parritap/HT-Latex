@@ -1,0 +1,326 @@
+\ChapterImageStar[cap:caracterizacion-universos]{Caracterización de los Universos HTCondor}{./images/fondo.png}\label{cap:caracterizacion-universos}
+\mbox{}\\
+
+En esta sección se presenta una descripción detallada de los distintos universos que conforman HTCondor. Cada universo representa un entorno de ejecución específico, diseñado para satisfacer diferentes necesidades computacionales y facilitar la integración de diversas aplicaciones científicas y técnicas. Se analizan sus principales características, ventajas y limitaciones, proporcionando una visión integral que permitirá seleccionar el universo más adecuado según los requerimientos de cada proyecto.
+
+
+
+\section{Resumen Ejecutivo y Contexto Arquitectónico}
+
+HTCondor es un sofisticado sistema de software diseñado para la \textbf{Computación de Alto Rendimiento} (High-Throughput Computing o HTC) que gestiona vastos recursos computacionales al emparejar a los propietarios de recursos con los consumidores de recursos \citep{HTCondor}. Un concepto fundamental dentro de este software este software este software este software este software este software este software este software este software es el de los \textit{Universos}, los cuales definen el entorno de ejecución específico, las reglas de gestión de recursos, la semántica de fallos y los servicios operativos necesarios para un trabajo.
+
+La elección del universo se especifica en el archivo de descripción (tambien llamado \textit{submit file}) de envío del trabajo y dicta fundamentalmente cómo el trabajo interactúa con el pool, si se ejecuta local o remotamente en el caso del universo \textit{GRID}, y qué nivel de aislamiento ambiental requiere. Los principales universos soportados incluyen, a la fecha de escritura del presente documento, los siguientes \citep{HTCondor-choosing-universe}:
+
+\begin{itemize}
+	\item \textbf{Vanilla}
+	\item \textbf{Grid}
+	\item \textbf{Java}
+	\item \textbf{Scheduler}
+	\item \textbf{Local}
+	\item \textbf{Parallel}
+	\item \textbf{VM}
+	\item \textbf{Container}
+	\item \textbf{Docker}
+\end{itemize}
+
+
+\section{Universos Fundamentales: La Base y el Legado}
+
+\subsection{El Universo Vanilla}
+
+El universo Vanilla sirve como el entorno de ejecución \textbf{predeterminado} y más ampliamente utilizado en HTCondor. Está destinado específicamente a la gran mayoría de los programas de usuario, ofreciendo las menores restricciones y el más alto nivel de compatibilidad general. Si un administrador o usuario no especifica explícitamente un universo en el submit file, se asume automáticamente \texttt{universe = vanilla} \citep{CERNBatchDocs}.
+
+\subsubsection{Mecanismo e Interacción con el Daemon}
+
+Los trabajos enviados al universo Vanilla se ejecutan como procesos estándar gestionados por los daemons centrales de HTCondor. La ejecución implica la interacción entre:
+
+\begin{itemize}
+	\item El daemon \texttt{condor\_starter} en la máquina de ejecución remota
+	\item El daemon \texttt{condor\_shadow} en la máquina de envío
+\end{itemize}
+
+Esta relación establecida facilita la gestión, el seguimiento del estado y la aplicación de políticas de recursos. La flexibilidad del universo Vanilla se extiende a la compatibilidad con diversos tipos de ejecutables, incluidos programas compilados y scripts de shell complejos.
+
+\subsubsection{Gestión de Archivos de Entrada y Salida}
+
+Una consideración crítica para los trabajos Vanilla se refiere a la gestión de archivos de entrada y salida (I/O). HTCondor ofrece dos modelos principales para el acceso a datos:
+
+\begin{enumerate}
+	\item \textbf{Sistema de archivos compartido}: Basado en la disponibilidad de NFS (Network File System) o AFS (Andrew File System), permitiendo acceso directo desde la máquina de ejecución.
+
+	\item \textbf{Mecanismo de transferencia de archivos}: HTCondor automáticamente prepara los archivos de entrada en el sitio de ejecución antes del inicio del trabajo y transfiere los archivos de salida de vuelta a la máquina de envío una vez completado.
+\end{enumerate}
+
+\subsubsection{Casos de Uso Adecuados y Dominio del Ecosistema}
+
+El universo Vanilla es el entorno preferido para el procesamiento por lotes general, que abarca:
+
+\begin{itemize}
+	\item Barridos de parámetros
+	\item Simulaciones de Monte Carlo
+	\item Ejecución individual de programas en grandes conjuntos de datos
+\end{itemize}
+
+Su simplicidad lo convierte en la piedra angular del ecosistema HTCondor, impulsando la optimización de funcionalidades centrales como la transferencia de archivos y el emparejamiento ClassAd en torno a este modelo de ejecución básico.
+
+La flexibilidad inherente del universo Vanilla significa que, para cargas de trabajo nuevas o especializadas, los administradores y desarrolladores frecuentemente priorizan adaptarlas para que se ejecuten dentro de este entorno. Por ejemplo, las prácticas contemporáneas implican envolver aplicaciones paralelas o pilas de dependencias complejas dentro de contenedores (Docker o Singularity) y lanzarlas como un simple wrapper ejecutable bajo el universo Vanilla, estableciendo efectivamente el universo Vanilla como la capa de compatibilidad universal para los flujos de trabajo modernos de alto rendimiento.
+
+\subsection{El Universo Standard: Puntos de Control Históricos y Obsolescencia}
+
+El universo Standard históricamente jugó un papel fundamental en HTCondor al habilitar la migración de trabajos y la toma automática de puntos de control a nivel de sistema. Esta característica fue diseñada para permitir que un trabajo de proceso único en ejecución fuera interrumpido, guardado y luego reanudado desde su última instantánea, potencialmente en una máquina diferente, facilitando así la programación oportunista y mejorando la tolerancia a fallos.
+
+\subsubsection{Mecanismo: Interposición de Llamadas al Sistema}
+
+El mecanismo central del universo Standard requería que el ejecutable no fuera estándar. La aplicación tenía que ser específicamente compilada y enlazada con la biblioteca de llamadas al sistema de HTCondor, \texttt{libcondorsyscall}. Esta biblioteca servía como una capa de interposición, interceptando llamadas al sistema específicas entre la aplicación y la biblioteca C estándar (\texttt{libc}). Esto permitía a HTCondor gestionar la E/S remota y realizar el guardado de estado de forma transparente.
+
+Para asegurar la fiabilidad requerida para la toma de puntos de control, las aplicaciones del universo Standard tenían requisitos estrictos con respecto a la disposición de la memoria y el enlazado, a menudo requiriendo binarios ``enlazados estáticamente''. La utilidad conocida como \texttt{condor\_compile} actuaba esencialmente como un enlazador, organizando la pila binaria de la aplicación para asegurar que la capa \texttt{libsyscall} estuviera colocada correctamente para interceptar las llamadas al sistema antes de \texttt{libc}.
+
+\subsubsection{Declive y Alternativas Modernas}
+
+A pesar de su sofisticación técnica, el universo Standard se considera ahora en gran medida \textbf{obsoleto}. La necesidad de enlazar con la biblioteca de llamadas al sistema de HTCondor era altamente intrusiva, exigiendo flujos de trabajo de compilación no estándar que eran poco prácticos para pilas de software modernas complejas, propietarias o en rápida evolución.
+
+Los entornos modernos de computación de alto rendimiento ahora favorecen la ejecución de aplicaciones en el universo Vanilla y el cambio de la carga de la tolerancia a fallos al desarrollador de la aplicación. Esto generalmente implica la toma de puntos de control a nivel de aplicación, donde el propio programa guarda su estado (a menudo de forma asíncrona) para poder reiniciarse desde donde lo dejó tras una interrupción. Este enfoque, aunque requiere trabajo adicional por parte del desarrollador, suele ser más eficiente que guardar automáticamente todo el contenido de la memoria y evita los problemas de compatibilidad de plataforma y enlazado asociados con el universo Standard heredado.
+
+\section{Universos de Ejecución Localizada: Gestión del Host de Envío}
+
+Estos universos especializados se distinguen porque ejecutan trabajos directamente en el host de envío (la máquina que ejecuta \texttt{condor\_schedd}), en lugar de depender del emparejamiento de recursos con nodos de ejecución remotos. Son cruciales para tareas ligeras de gestión de flujo de trabajo o trabajos que requieren acceso inmediato a archivos locales.
+
+\subsection{Universo Local: Control Local con Ricas Funcionalidades}
+
+El universo Local es el método \textbf{actual y preferido} para ejecutar trabajos en la máquina de envío. Fue diseñado para abordar las limitaciones del universo Scheduler más antiguo al proporcionar un entorno robusto con paridad de características más cercana a la del universo Vanilla.
+
+\subsubsection{Mecanismo y Características de Gestión}
+
+Los trabajos en el universo Local presentan las siguientes características:
+
+\begin{itemize}
+	\item Se ejecutan \textbf{inmediatamente} tras el envío
+	\item No entran en el ciclo de negociación
+	\item Omiten el proceso típico de emparejamiento
+	\item Están configurados para ser \textbf{no preferibles}, garantizando la ejecución continua hasta su finalización
+\end{itemize}
+
+Estos trabajos son gestionados por un daemon \texttt{condor\_starter}, que es bifurcado directamente por \texttt{condor\_schedd}. Los desarrolladores de HTCondor se han centrado en acercar la semántica del universo Local lo más posible a la de Vanilla, incluso si introduce un ligero aumento en la sobrecarga. El objetivo es permitir un cambio fluido entre las pruebas locales y la ejecución remota sin diferencias semánticas.
+
+El universo Local moderno ofrece un conjunto más rico de características de gestión de trabajos y mayor soporte de políticas que su predecesor. Las adiciones recientes de características también permiten a los administradores aplicar límites de CPU y memoria a los trabajos del universo Local, mejorando el control de recursos en la máquina de envío.
+
+\subsubsection{Casos de Uso Adecuados}
+
+El papel principal del universo Local es facilitar la \textbf{orquestación de flujos de trabajo}. Es comúnmente utilizado por:
+
+\begin{itemize}
+	\item Meta-schedulers como \texttt{condor\_dagman}
+	\item Herramientas de gestión centralizadas que requieren ejecución fiable de tareas ligeras en el host de envío
+	\item Trabajos programados o periódicos (funcionalidad CronTab)
+\end{itemize}
+
+Los trabajos del universo Local no son susceptibles a perder tiempos de ejecución debido a los retrasos en el ciclo de negociación que pueden afectar a los trabajos Vanilla.
+
+\subsection{Universo Scheduler: Control Minimalista y de Legado}
+
+El universo Scheduler es la opción más antigua y minimalista para ejecutar trabajos en el host de envío. Originalmente estaba destinado principalmente a meta-schedulers, pero puede gestionar cualquier trabajo que deba ejecutarse en la máquina de envío.
+
+\subsubsection{Distinciones Clave y Estado Futuro}
+
+La diferencia crítica entre los universos Scheduler y Local reside en la gestión de trabajos:
+
+\begin{itemize}
+	\item El universo Scheduler \textbf{no utiliza} un daemon \texttt{condor\_starter}
+	\item El trabajo es generado \textbf{directamente} por \texttt{condor\_schedd}
+	\item Resulta en características limitadas y gestión de trabajos menos robusta
+	\item Soporte de políticas reducido en comparación con el universo Local
+\end{itemize}
+
+La sobrecarga mínima del universo Scheduler lo hace atractivo en entornos con recursos altamente limitados. Sin embargo, debido a sus limitaciones operativas, el universo Scheduler está siendo \textbf{activamente desaconsejado} y actualmente está programado para una futura retirada en favor del universo Local más nuevo.
+
+\section{Universos de Tiempo de Ejecución Especializados}
+
+Estos universos están diseñados para cargas de trabajo que requieren entornos de tiempo de ejecución de programación específicos o esquemas complejos de asignación de recursos que involucran múltiples máquinas concurrentes.
+
+\subsection{Universo Java: Fiabilidad Específica de la JVM}
+
+El universo Java proporciona un entorno de ejecución específicamente adaptado para trabajos escritos para ejecutarse en la Máquina Virtual Java (JVM). Aunque las aplicaciones Java se pueden ejecutar dentro del universo Vanilla, el universo Java ofrece características especializadas de fiabilidad necesarias para la implementación en grid y de alto rendimiento.
+
+\subsubsection{Mecanismo y Ámbito de Error Especializado}
+
+La principal ventaja arquitectónica del universo Java es su capacidad para determinar con precisión el \textbf{alcance de un error}. En un entorno de grid, es crucial distinguir entre:
+
+\begin{enumerate}
+	\item \textbf{Error del usuario}: Fallo causado por el código de la aplicación (no debería resultar en el reinicio del trabajo en una nueva máquina)
+
+	\item \textbf{Error ambiental}: Fallo causado por el entorno de ejecución, como una salida anormal de la JVM o un fallo de la máquina (justifica la migración del trabajo a un ordenador diferente)
+\end{enumerate}
+
+El universo Java aborda esto enlazando el trabajo con una biblioteca de E/S de Java que presenta la E/S remota utilizando interfaces estándar y se comunica con un proxy de E/S gestionado por el entorno de sandbox. Los usuarios pueden definir requisitos para la versión de la JVM de destino y especificar opciones para la propia JVM mediante el comando de envío \texttt{java\_vm\_args} (por ejemplo, \texttt{-Xmx1024m} para límites de memoria).
+
+\subsection{Universo Parallel: Trabajos Multimáquina Estrechamente Acoplados}
+
+El universo Parallel está diseñado arquitectónicamente para soportar trabajos que requieren ejecución síncrona en múltiples máquinas o slots de ejecución dedicados. Es esencial para aplicaciones estrechamente acopladas, más comúnmente aquellas que utilizan el paradigma \textbf{Message Passing Interface (MPI)}, y reemplaza al universo \texttt{mpi} más antiguo.
+
+\subsubsection{Coasignación y Separación de la Programación}
+
+En el universo Parallel:
+
+\begin{itemize}
+	\item El envío del trabajo especifica el número total de slots requeridos usando \texttt{machine\_count}
+	\item El Negociador de HTCondor asegura que todos los recursos necesarios se reclamen \textbf{concurrentemente} antes de que la ejecución pueda comenzar
+	\item HTCondor designa uno de los nodos como ``nodo 0'', que típicamente ejecuta el proceso maestro (por ejemplo, \texttt{mpirun})
+\end{itemize}
+
+HTCondor gestiona la configuración de la comunicación, incluida la generación y copia de claves SSH a través de los nodos asignados para permitir la comunicación sin contraseña necesaria para iniciar la aplicación paralela. También requiere una configuración específica del comportamiento de terminación del trabajo a través de atributos como \texttt{+ParallelShutdownPolicy}.
+
+\subsubsection{Separación Arquitectónica de Responsabilidades}
+
+Es importante notar la separación arquitectónica de las preocupaciones: el universo Parallel proporciona \textbf{garantías de programación de máquinas y asignación de recursos}, pero no impone un paradigma de programación específico para la aplicación subyacente. Los usuarios deben suministrar la implementación MPI y los scripts de controlador apropiados (como los configurados para MPICH u Open MPI). Esta flexibilidad permite a HTCondor mantener la modularidad y soportar diversos entornos de programación paralela.
+
+\textbf{Recomendación}: Para aplicaciones paralelas que pueden ejecutarse completamente dentro de los límites de una sola máquina con múltiples núcleos, la práctica recomendada es utilizar el universo Vanilla y especificar el número de CPU requerido a través de \texttt{request\_cpus}, evitando la sobrecarga y la complejidad de la coasignación multimáquina.
+
+\section{Entornos de Alto Aislamiento: Contenedores y Máquinas Virtuales}
+
+La necesidad de entornos de ejecución que encapsulen las dependencias de la aplicación, aseguren la reproducibilidad y proporcionen distintos niveles de aislamiento de seguridad ha llevado al desarrollo de universos dedicados para contenedores y virtualización.
+
+\subsection{Universo Docker: Integración Nativa de Docker}
+
+El universo Docker permite que un trabajo HTCondor se ejecute directamente dentro de un contenedor Docker. Este universo proporciona aislamiento de procesos a nivel de sistema operativo, utilizando la funcionalidad estándar de Docker para ejecutar imágenes definidas por el usuario.
+
+\subsubsection{Requisitos e Integración}
+
+La ejecución en el universo Docker requiere:
+
+\begin{itemize}
+	\item El servicio Docker debe estar preinstalado y configurado en todas las máquinas de ejecución
+	\item El envío del trabajo debe especificar el nombre de la imagen del contenedor usando \texttt{docker\_image}
+	\item Los trabajos se mapean fundamentalmente al marco de ejecución del universo Vanilla
+\end{itemize}
+
+Durante la ejecución, HTCondor gestiona la E/S montando el directorio scratch del trabajo dentro del contenedor, estableciendo el directorio de trabajo actual del contenedor en este sandbox. Docker extrae automáticamente la imagen requerida de los repositorios públicos si aún no está almacenada en caché localmente.
+
+\textbf{Consideración importante}: Los cambios realizados en el sistema de archivos del contenedor generalmente no son persistentes y no se transfieren de vuelta al finalizar el trabajo, lo que requiere una gestión cuidadosa de los archivos de salida a través de mecanismos de transferencia de archivos.
+
+\subsubsection{Limitaciones de Seguridad}
+
+Existen limitaciones de seguridad y operativas debido al modelo de núcleo (kernel) de host compartido de los contenedores. En algunas grandes infraestructuras (como CERN), los namespaces de red se han deshabilitado tras evaluaciones de vulnerabilidad de seguridad, limitando el \texttt{docker\_network\_type} a \texttt{host}.
+
+\subsection{Universo Container: Agnosticismo del Tiempo de Ejecución}
+
+El universo Container ofrece un enfoque más flexible que el universo Docker, abstrayendo la tecnología de tiempo de ejecución del contenedor subyacente para soportar sistemas como Singularity (ahora Apptainer). Singularity es altamente favorecido en las comunidades científica y de Computación de Alto Rendimiento (HPC) por su modelo de seguridad mejorado, que facilita la ejecución sin root y evita la dependencia de un daemon persistente y privilegiado.
+
+\subsubsection{Control Administrativo y Flexibilidad}
+
+Este universo permite:
+
+\begin{itemize}
+	\item Al usuario especificar una imagen de contenedor para varios tiempos de ejecución
+	\item HTCondor ejecuta el trabajo en el entorno de contenedor apropiado
+	\item Los nodos de trabajo de HTCondor deben tener el tiempo de ejecución instalado
+	\item El administrador controla la ejecución a través de parámetros como \texttt{SINGULARITY\_JOB} y \texttt{SINGULARITY\_IMAGE\_EXPR}
+\end{itemize}
+
+Esto permite que la decisión de ejecutar un trabajo dentro de un contenedor resida a nivel del nodo de trabajo, posibilitando la aplicación de políticas centrales. El universo Container está dirigido a aquellos que priorizan un fuerte aislamiento de seguridad sin la sobrecarga de la virtualización completa.
+
+\subsection{Universo VM: Aislamiento Completo de Hardware}
+
+El universo VM facilita la ejecución de una imagen de disco de máquina virtual (VM) como un trabajo HTCondor, logrando el \textbf{más alto nivel de aislamiento de ejecución}.
+
+\subsubsection{Mecanismo e Integración con el Hipervisor}
+
+En este universo:
+
+\begin{itemize}
+	\item El trabajo ya no es un simple ejecutable, sino una \textbf{imagen de disco completa}
+	\item HTCondor soporta la integración con hipervisores como Xen, KVM y VMware
+	\item La coordinación es gestionada por el Punto de Acceso de Grid de Máquina Virtual (VM-GAHP)
+	\item El VM-GAHP maneja el ciclo de vida de la VM: inicialización, pausa, reanudación y terminación
+\end{itemize}
+
+Dado que la VM está completamente aislada, la transferencia de archivos debe gestionarse explícitamente utilizando los mecanismos estándar de transferencia de archivos de HTCondor, listando todos los archivos necesarios usando atributos como \texttt{transfer\_input\_files}.
+
+\subsubsection{Espectro de Aislamiento y Casos de Uso}
+
+El universo VM proporciona un aislamiento crítico a nivel de núcleo (kernel), necesario al ejecutar:
+
+\begin{itemize}
+	\item Sistemas operativos de terceros completamente no confiables
+	\item Sistemas operativos altamente específicos (por ejemplo, trabajos de Windows dentro de un clúster Linux)
+\end{itemize}
+
+Esta virtualización completa contrasta con los universos de contenedores, que dependen del núcleo del host para los recursos compartidos. Mientras que los contenedores ofrecen un mejor rendimiento y una menor latencia de inicio debido a la reducción de la sobrecarga, el universo VM garantiza la máxima fidelidad de seguridad.
+
+Más allá de la seguridad, el universo VM también se utiliza como un \textbf{mecanismo de aprovisionamiento de recursos}: la máquina virtual resultante puede ejecutar una tarea dedicada o configurarse para generar recursos adicionales que, a su vez, se añaden de nuevo al pool de HTCondor, creando efectivamente un pool virtual.
+
+\section{Universos Distribuidos y Federados}
+
+Estos universos abordan la necesidad de integrar y gestionar recursos computacionales que residen fuera de los límites inmediatos del clúster HTCondor, soportando la federación y la explosión (bursting) de recursos externos.
+
+\subsection{Universo Grid: Gestión de Recursos Externos}
+
+El universo Grid permite a los usuarios de HTCondor enviar trabajos a sistemas de gestión remotos---a menudo denominados ``recursos de grid''---mientras mantienen la interfaz familiar de envío y monitoreo de HTCondor.
+
+\subsubsection{Meta-Programación y Manejo de Protocolos}
+
+El universo Grid funciona como un \textbf{meta-scheduler}, enviando trabajos a sistemas de lotes externos como Slurm, LSF u otros pools de HTCondor a través del daemon \texttt{condor\_gridmanager}. La gestión de trabajos se basa en protocolos de comunicación especializados:
+
+\begin{itemize}
+	\item \textbf{GASS (General Access Service)}: Para transferir archivos esenciales (ejecutable, flujos de E/S) hacia y desde el sitio de ejecución remoto
+
+	\item \textbf{GRAM (Grid Resource Allocation Manager)}: Para contactar al gatekeeper remoto para iniciar y monitorear el trabajo
+\end{itemize}
+
+Este universo proporciona una tolerancia a fallos esencial al monitorear el progreso del trabajo en el sistema remoto, manejando inteligentemente escenarios en los que el recurso remoto falla y manteniendo las credenciales de usuario que de otro modo podrían expirar durante un trabajo de larga duración.
+
+El universo Grid permite a las organizaciones utilizar recursos agrupados a través de dominios administrativos dispares, facilitando colaboraciones científicas a gran escala y la federación de clústeres universitarios o nacionales.
+
+\subsection{Contexto de Computación en la Nube: Adquisición Dinámica de Recursos}
+
+Aunque no es un universo de trabajo en el mismo sentido arquitectónico que Vanilla o Parallel, HTCondor ofrece herramientas especializadas para aprovechar dinámicamente la infraestructura de nube comercial. Esta funcionalidad es crucial para extender los clústeres locales o manejar explosiones inmediatas de capacidad.
+
+\subsubsection{HTCondor Annex y Explosión de Capacidad}
+
+La herramienta \texttt{htcondor annex} permite a los administradores o usuarios:
+
+\begin{itemize}
+	\item Adquirir recursos en la nube (actualmente centrándose en Amazon Web Services EC2)
+	\item Integrarlos dinámicamente en un pool HTCondor existente
+	\item Representa una adaptación estratégica de gestionar colas de Grid compartidas a gestionar capacidad de nube dedicada
+\end{itemize}
+
+Los casos de uso principales incluyen:
+
+\begin{itemize}
+	\item Escenarios donde las demandas de recursos son intermitentes o inmediatas
+	\item Cumplir plazos críticos
+	\item Adquirir hardware especializado (GPU específicas, instancias con terabytes de memoria)
+	\item Manejar escaseces repentinas de capacidad
+\end{itemize}
+
+Al aprovisionar recursos (a menudo instancias Spot de EC2 para eficiencia de costos) a través de la herramienta \texttt{annex}, las máquinas de la nube se añaden como slots de ejecución estándar de HTCondor, permitiéndoles aceptar trabajos del universo Vanilla o Container, utilizando efectivamente la nube como una extensión fluida y explosiva del entorno local.
+
+\section{Síntesis y Soporte para la Decisión Arquitectónica}
+
+El conjunto completo de universos HTCondor proporciona un marco altamente especializado y adaptable para la computación de alto rendimiento. El análisis revela varias dinámicas clave que dan forma al ecosistema moderno de HTCondor.
+
+\subsection{Análisis Comparativo de Características Técnicas}
+
+La siguiente tabla resume los mecanismos arquitectónicos centrales y las características operativas que definen cada universo HTCondor.
+
+\begin{table}[h]
+	\centering
+	\small
+	\caption{Comparación de Características Centrales de los Universos HTCondor}
+	\begin{tabular}{@{}p{2cm}p{2.2cm}p{2.2cm}p{2.5cm}p{3cm}p{2cm}@{}}
+		\toprule
+		\textbf{Universo} & \textbf{Alcance de Ejecución} & \textbf{Soporte de Políticas} & \textbf{Interacción Daemon}  & \textbf{Característica Clave}                & \textbf{Estado}          \\
+		\midrule
+		Vanilla           & Remoto, Máquina Única         & Completo                      & Starter/Shadow/Startd        & Mayor compatibilidad, predeterminado         & Predeterminado Moderno   \\
+		\addlinespace
+		Standard          & Remoto, Máquina Única         & Completo, restrictivo         & Starter/Shadow/Startd        & Toma de puntos de control automática         & Legado/Obsoleto          \\
+		\addlinespace
+		Local             & Host de Envío                 & Rico                          & Starter bifurcado            & Ejecución inmediata, no preemptible          & Preferido Actual         \\
+		\addlinespace
+		Scheduler         & Host de Envío                 & Limitado                      & Generación directa           & Sobrecarga mínima, funcionalidades limitadas & Pronta Retirada          \\
+		\addlinespace
+		Parallel          & Remoto, Multimáquina          & Completo                      & Scheduler/Múltiples Starters & Coasignación multimáquina (MPI)              & HTC Especializado        \\
+		\addlinespace
+		Docker            & Remoto, Máquina Única         & Mapeo a Vanilla               & Starter vía Docker           & Aislamiento a nivel SO                       & Aislamiento Contenedores \\
+	\end{tabular}
+\end{table}
