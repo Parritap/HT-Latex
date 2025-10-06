@@ -1,0 +1,65 @@
+\ChapterImagePrelim[cap:glosario]{Glosario}{./images/fondo.png}\label{cap:glosario}
+\mbox{}\\
+En este apartado se encuentran términos clave y conceptos relevantes utilizados a lo largo de este proyecto.
+
+\section*{A}
+\begin{description}
+	\item[Asignación de recursos:] También referido en inglés como \textit{resource allocation}, en el contexto del \textit{cloud computing}, la asignación de recursos puede entenderse como el proceso en el cual los recursos adecuados se asignan a las tareas requeridas por el consumidor para que estas sean completadas de manera eficiente \citep{Manzoor2020}. Otro término muy similar cobra relevancia en el contexto de la computación distribuida: la asignación de tareas (en vez de recursos), la cual es definida por \cite{Oldham1995} como aquel proceso cuyo objetivo es la maximización de la utilización de los recursos computacionales al mismo tiempo que se garantiza que el trabajo se ejecute al nivel más productivo posible. Esta relación entre asignación de tareas y asignación de recursos es materializada por el framework ClassAd \citep{Thain2005}.
+\end{description}
+
+\section*{C}
+\begin{description}
+	\item[ClassAd:] Término originado en el trabajo de \cite{Raman1998}. Estos definen los \textit{Classified Advertisement} como un framework para: (\textbf{1}) el anuncio de solicitudes de recursos de cómputo y (\textbf{2}) la disponibilidad de recursos de cómputo, originado para solucionar las problemáticas surgidas en antiguas versiones de Condor.
+
+	\item[Computación científica:] Como lo exponen \cite{Landau2005}, la computación científica es un campo multidisciplinario que combina una disciplina tradicional, como la física o las finanzas, con la ciencia de la computación y la matemática, sin ignorar la rigurosidad de cada una de ellas. El objetivo último de la computación científica es la resolución de problemas complejos para los seres humanos de analizar.
+
+	\item[Computación distribuida:] Según lo expuesto por \cite{Lamport1990}, la computación distribuida es una actividad de un sistema distribuido espacialmente, esto es, la realización de computación extendida a través del espacio.
+
+	\item[Computación de alta productividad (\HTC):] En un artículo publicado por~\cite{Juve2015}, en el cual se encuentra dentro sus autores a Miron Livny, uno de los artífices del software Condor, se define a las aplicaciones \HTC~como aquellas que buscan maximizar la cantidad de resultados producidos en un periodo prolongado de tiempo, como meses o años.
+
+	\item[Computación paralela:] Según \cite{Morgan2009}, la paralelización tiene dos acepciones: el paralelismo ``verdadero'' y ``computación de alto rendimiento''. En otros términos, el concepto de paralelismo se puede dividir en dos categorías: potencial (\textit{capability}) de paralelismo y la capacidad (\textit{capacity}) de paralelismo, donde el potencial de paralelismo vendría siendo paralelismo verdadero, mientras la capacidad de paralelismo representaría la computación de alto rendimiento. En términos prácticos, el paralelismo verdadero sería una única instancia de una aplicación cuya ejecución sucede en varias máquinas al mismo tiempo; en contraste, la capacidad de paralelismo estaría representada por múltiples instancias de una aplicación corriendo en distintas computadoras al mismo tiempo.
+
+	\item[Computación de alto rendimiento (\HPC):] Se refiere a aquella computación dedicada al procesamiento paralelo de cálculos complejos a altas velocidades a través de múltiples servidores usando grandes volúmenes de datos \citep{SK2023}. \HPC~también tiene la particularidad de que usa paralelismo verdadero \citep{Morgan2009}.
+\end{description}
+
+\section*{D}
+\begin{description}
+	\item[Distribución de tareas:] En el trabajo de \cite{Oldham1995} se nos brinda una contextualización en la distribución de tareas en el entorno de los sistemas de computación distribuida. Para estos autores, un sistema de computación distribuido está definido por un conjunto de nodos (o procesadores) ubicados en distintos lugares y conectados por una red. En este sentido, las tareas para un ambiente de computación distribuida están definidas como llamados a procedimientos que pueden ser ejecutados de manera remota o local.
+\end{description}
+
+\section*{E}
+\begin{description}
+	\item[Estudio de mapeo sistemático (\SMS):] Un estudio de mapeo sistemático es el proceso de identificar, categorizar y analizar la bibliografía existente relevante para un determinado tema de investigación. El objetivo de un \SMS~es obtener una visión global de un tema de investigación concreto, presentar una evaluación imparcial de la bibliografía actual, identificar las lagunas en la investigación y recopilar pruebas para futuras investigaciones \citep{Salama2017}.
+\end{description}
+
+\section*{G}
+\begin{description}
+	\item[Gestión de recursos:] \cite{Tanenbaum2015} ofrecen una definición clara de este proceso, señalándole como la multiplexación de recursos, la cual puede realizarse de dos maneras distintas: en el tiempo y en el espacio. Los autores explican que cuando un recurso es multiplexado en el tiempo, múltiples programas pueden acceder a él de manera secuencial, tomando turnos para su uso. Asimismo, destacan la multiplexación en el espacio, que se refiere a la coexistencia simultánea de múltiples programas en memoria.
+\end{description}
+
+\section*{H}
+\begin{description}
+	\item[HTCondor:] Como está expuesto en su página web \citep{HTCondor}, este es un sistema especializado de gestión de cargas de trabajo para tareas de cómputo intensivo. Al igual que otros sistemas de procesamiento por lotes completos, HTCondor proporciona un mecanismo de encolado de trabajos, una política de planificación, un esquema de prioridades, monitoreo de recursos y gestión de recursos. Los usuarios envían sus trabajos, ya sean seriales o paralelos, a HTCondor; HTCondor los coloca en una cola, elige cuándo y dónde ejecutarlos según una política, monitorea cuidadosamente su progreso y, finalmente, informa al usuario una vez que se han completado.
+\end{description}
+
+\section*{M}
+\begin{description}
+	\item[\textit{Message Passing Interface} (MPI):] Según \cite{Nielsen2016}, \MPI es una interfaz de programación de aplicaciones (API) estandarizada que proporciona rutinas básicas para construir programas paralelos mediante el intercambio de datos a través del envío y recepción de mensajes entre procesos. De acuerdo al autor, esta interfaz abstrae los detalles complejos de implementación de procedimientos de red, permitiendo a los programadores desarrollar código paralelo de manera más sencilla y portable, siendo independiente del lenguaje de programación utilizado, por lo que puede emplearse con C, C++, Java, Fortran, Python, entre otros. Su principal ventaja es garantizar la interoperabilidad y portabilidad del código fuente entre diferentes sistemas y plataformas de cómputo paralelo.
+\end{description}
+
+\section*{S}
+\begin{description}
+	\item[\textit{Stakeholder}:] Según el \cite{PMI2019}, un \textit{stakeholder} es todo aquel individuo, grupo u organización que puede afectar, verse afectado por, o percibir que es afectado por una decisión, actividad o resultado de un proyecto, programa o portafolio.
+\end{description}
+
+
+\section*{T}
+\begin{description}
+	\item [Trabajo:] En el contexto de HTCondor, un trabajo (referido originalmente como \textit{job} en inglés) constituye la unidad atómica de trabajo computacional \citep{HTCondor-what-is-a-job}. Un trabajo puede utilizar uno o múltiples núcleos de una sola máquina, o uno o múltiples núcleos de diversas maquinas como en el caso del universo \textit{parallel}. El trabajo se ve en todos los casos como un programa que bien puede ser compilado (como por ejemplo binarios del lenguaje C o C++) o interpretado (como un archivo python o incluso un shell script). La naturaleza de cada trabajo viene dada por el universo y las preferencia de los usuarios.
+\end{description}
+
+
+\section*{U}
+\begin{description}
+	\item[Universo:] Así como está expresado en su página oficial \citep{HTCondor}, un universo HTCondor está definido como aquel ambiente de ejecución en el cual una tarea es procesada. Los universos existentes a la fecha son los siguientes: \textit{vanilla}, \textit{grid}, \textit{java}, \textit{scheduler}, \textit{local}, \textit{parallel}, \textit{vm}, \textit{container} y \textit{Docker}.
+\end{description}
