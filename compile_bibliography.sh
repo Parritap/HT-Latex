@@ -3,7 +3,7 @@
 # LaTeX Bibliography Compilation Script
 # This script handles common bibliography compilation issues in LaTeX projects
 # Author: Assistant
-# Version: 1.0
+# Version: 2.0
 
 # Note: Not using set -e because grep commands may return non-zero for no matches
 
@@ -16,6 +16,7 @@ NC='\033[0m' # No Color
 
 # Default values
 MAIN_FILE="main"
+BUILD_DIR="build"
 CLEAN_ALL=false
 VERBOSE=false
 FORCE_REBUILD=false
@@ -43,6 +44,7 @@ show_usage() {
 Usage: $0 [OPTIONS] [TEX_FILE]
 
 This script compiles LaTeX documents with bibliography support and handles common issues.
+All output files are generated in the build/ directory.
 
 OPTIONS:
     -h, --help          Show this help message
@@ -54,38 +56,80 @@ ARGUMENTS:
     TEX_FILE            Name of the main .tex file (without extension, default: main)
 
 EXAMPLES:
-    $0                  # Compile main.tex with bibliography
-    $0 -c               # Clean and compile main.tex
+    $0                  # Compile main.tex with bibliography (output to build/)
+    $0 -c               # Clean build/ and compile main.tex
     $0 -v document      # Compile document.tex with verbose output
     $0 -f -v            # Force rebuild with verbose output
 
 The script performs the following steps:
-1. Checks for required files
-2. Optionally cleans auxiliary files
-3. Runs pdflatex to generate .aux file
-4. Runs bibtex to process citations
-5. Runs pdflatex twice more to resolve all references
-6. Reports any remaining issues
+1. Creates build/ directory if it doesn't exist
+2. Copies bibliography files (.bib) and style files (.bst) to build/
+3. Checks for required files
+4. Optionally cleans auxiliary files in build/
+5. Runs pdflatex to generate .aux file in build/
+6. Runs bibtex to process citations
+7. Runs pdflatex twice more to resolve all references
+8. Reports any remaining issues
 
 EOF
 }
 
+# Function to create build directory
+create_build_dir() {
+    if [[ ! -d "$BUILD_DIR" ]]; then
+        mkdir -p "$BUILD_DIR"
+        print_status "Created build directory: $BUILD_DIR"
+    fi
+}
+
+# Function to copy bibliography and style files to build directory
+copy_bib_files() {
+    print_status "Copying bibliography and style files to build directory..."
+
+    local copied=0
+
+    # Copy .bib files
+    for bib_file in *.bib; do
+        if [[ -f "$bib_file" ]]; then
+            cp "$bib_file" "$BUILD_DIR/"
+            ((copied++))
+            [[ "$VERBOSE" == true ]] && echo "  Copied: $bib_file to $BUILD_DIR/"
+        fi
+    done
+
+    # Copy .bst files (bibliography style files)
+    for bst_file in *.bst; do
+        if [[ -f "$bst_file" ]]; then
+            cp "$bst_file" "$BUILD_DIR/"
+            ((copied++))
+            [[ "$VERBOSE" == true ]] && echo "  Copied: $bst_file to $BUILD_DIR/"
+        fi
+    done
+
+    if [[ "$copied" -gt 0 ]]; then
+        print_success "Copied $copied bibliography and style file(s) to $BUILD_DIR"
+    else
+        print_warning "No bibliography or style files found to copy"
+    fi
+}
+
 # Function to clean auxiliary files
 clean_files() {
-    print_status "Cleaning auxiliary files..."
+    print_status "Cleaning auxiliary files in $BUILD_DIR..."
 
     local files_to_clean=(
-        "${MAIN_FILE}.aux"
-        "${MAIN_FILE}.bbl"
-        "${MAIN_FILE}.blg"
-        "${MAIN_FILE}.log"
-        "${MAIN_FILE}.out"
-        "${MAIN_FILE}.toc"
-        "${MAIN_FILE}.lof"
-        "${MAIN_FILE}.lot"
-        "${MAIN_FILE}.fls"
-        "${MAIN_FILE}.fdb_latexmk"
-        "${MAIN_FILE}.synctex.gz"
+        "${BUILD_DIR}/${MAIN_FILE}.aux"
+        "${BUILD_DIR}/${MAIN_FILE}.bbl"
+        "${BUILD_DIR}/${MAIN_FILE}.blg"
+        "${BUILD_DIR}/${MAIN_FILE}.log"
+        "${BUILD_DIR}/${MAIN_FILE}.out"
+        "${BUILD_DIR}/${MAIN_FILE}.toc"
+        "${BUILD_DIR}/${MAIN_FILE}.lof"
+        "${BUILD_DIR}/${MAIN_FILE}.lot"
+        "${BUILD_DIR}/${MAIN_FILE}.fls"
+        "${BUILD_DIR}/${MAIN_FILE}.fdb_latexmk"
+        "${BUILD_DIR}/${MAIN_FILE}.synctex.gz"
+        "${BUILD_DIR}/${MAIN_FILE}.pdf"
     )
 
     local cleaned=0
@@ -98,9 +142,9 @@ clean_files() {
     done
 
     if [[ "$cleaned" -gt 0 ]]; then
-        print_success "Cleaned $cleaned auxiliary files"
+        print_success "Cleaned $cleaned auxiliary files from $BUILD_DIR"
     else
-        print_status "No auxiliary files to clean"
+        print_status "No auxiliary files to clean in $BUILD_DIR"
     fi
 }
 
@@ -122,6 +166,14 @@ check_files() {
         print_status "Found bibliography file(s): ${bib_files[*]}"
     fi
 
+    # Check for bibliography style file
+    local bst_files=(*.bst)
+    if [[ ! -f "${bst_files[0]}" ]]; then
+        print_warning "No .bst file found. Bibliography compilation may fail."
+    else
+        print_status "Found bibliography style file(s): ${bst_files[*]}"
+    fi
+
     print_success "File check completed"
 }
 
@@ -134,16 +186,16 @@ run_pdflatex() {
 
     local exit_code=0
     if [[ "$VERBOSE" == true ]]; then
-        pdflatex "${MAIN_FILE}.tex"
+        pdflatex -output-directory="$BUILD_DIR" "${MAIN_FILE}.tex"
         exit_code=$?
     else
-        pdflatex "${MAIN_FILE}.tex" > /dev/null 2>&1
+        pdflatex -output-directory="$BUILD_DIR" "${MAIN_FILE}.tex" > /dev/null 2>&1
         exit_code=$?
     fi
 
     if [[ $exit_code -ne 0 ]]; then
         print_error "pdflatex failed on pass $pass_number"
-        print_error "Check ${MAIN_FILE}.log for details"
+        print_error "Check ${BUILD_DIR}/${MAIN_FILE}.log for details"
         exit $exit_code
     fi
 }
@@ -153,6 +205,8 @@ run_bibtex() {
     print_status "Running bibtex to process citations..."
 
     local exit_code=0
+    # Change to build directory to run bibtex
+    pushd "$BUILD_DIR" > /dev/null || exit
     if [[ "$VERBOSE" == true ]]; then
         bibtex "${MAIN_FILE}"
         exit_code=$?
@@ -160,30 +214,31 @@ run_bibtex() {
         bibtex "${MAIN_FILE}" > /dev/null 2>&1
         exit_code=$?
     fi
+    popd > /dev/null || exit
 
     if [[ $exit_code -ne 0 ]]; then
         print_error "bibtex failed"
-        print_error "Check ${MAIN_FILE}.blg for details"
+        print_error "Check ${BUILD_DIR}/${MAIN_FILE}.blg for details"
         exit $exit_code
     fi
 
     # Check bibtex output for issues
-    if [[ -f "${MAIN_FILE}.blg" ]]; then
+    if [[ -f "${BUILD_DIR}/${MAIN_FILE}.blg" ]]; then
         local warnings=0
         local errors=0
-        if grep -q "Warning" "${MAIN_FILE}.blg" 2>/dev/null; then
-            warnings=$(grep -c "Warning" "${MAIN_FILE}.blg" 2>/dev/null)
+        if grep -q "Warning" "${BUILD_DIR}/${MAIN_FILE}.blg" 2>/dev/null; then
+            warnings=$(grep -c "Warning" "${BUILD_DIR}/${MAIN_FILE}.blg" 2>/dev/null)
         fi
-        if grep -q "Error" "${MAIN_FILE}.blg" 2>/dev/null; then
-            errors=$(grep -c "Error" "${MAIN_FILE}.blg" 2>/dev/null)
+        if grep -q "Error" "${BUILD_DIR}/${MAIN_FILE}.blg" 2>/dev/null; then
+            errors=$(grep -c "Error" "${BUILD_DIR}/${MAIN_FILE}.blg" 2>/dev/null)
         fi
 
         if [[ "$errors" -gt 0 ]]; then
             print_error "BibTeX reported $errors error(s)"
-            [[ "$VERBOSE" == true ]] && cat "${MAIN_FILE}.blg"
+            [[ "$VERBOSE" == true ]] && cat "${BUILD_DIR}/${MAIN_FILE}.blg"
         elif [[ "$warnings" -gt 0 ]]; then
             print_warning "BibTeX reported $warnings warning(s)"
-            [[ "$VERBOSE" == true ]] && grep "Warning" "${MAIN_FILE}.blg"
+            [[ "$VERBOSE" == true ]] && grep "Warning" "${BUILD_DIR}/${MAIN_FILE}.blg"
         else
             print_success "BibTeX completed successfully"
         fi
@@ -194,21 +249,21 @@ run_bibtex() {
 check_citations() {
     print_status "Checking for citation issues..."
 
-    if [[ -f "${MAIN_FILE}.log" ]]; then
+    if [[ -f "${BUILD_DIR}/${MAIN_FILE}.log" ]]; then
         local undefined_citations=0
         local undefined_references=0
-        if grep -q "Citation.*undefined" "${MAIN_FILE}.log" 2>/dev/null; then
-            undefined_citations=$(grep -c "Citation.*undefined" "${MAIN_FILE}.log" 2>/dev/null)
+        if grep -q "Citation.*undefined" "${BUILD_DIR}/${MAIN_FILE}.log" 2>/dev/null; then
+            undefined_citations=$(grep -c "Citation.*undefined" "${BUILD_DIR}/${MAIN_FILE}.log" 2>/dev/null)
         fi
-        if grep -q "Reference.*undefined" "${MAIN_FILE}.log" 2>/dev/null; then
-            undefined_references=$(grep -c "Reference.*undefined" "${MAIN_FILE}.log" 2>/dev/null)
+        if grep -q "Reference.*undefined" "${BUILD_DIR}/${MAIN_FILE}.log" 2>/dev/null; then
+            undefined_references=$(grep -c "Reference.*undefined" "${BUILD_DIR}/${MAIN_FILE}.log" 2>/dev/null)
         fi
 
         if [[ "$undefined_citations" -gt 0 ]]; then
             print_error "Found $undefined_citations undefined citation(s)"
             if [[ "$VERBOSE" == true ]]; then
                 echo "Undefined citations:"
-                grep "Citation.*undefined" "${MAIN_FILE}.log" | head -5
+                grep "Citation.*undefined" "${BUILD_DIR}/${MAIN_FILE}.log" | head -5
                 [[ "$undefined_citations" -gt 5 ]] && echo "... and $((undefined_citations - 5)) more"
             fi
             return 1
@@ -218,7 +273,7 @@ check_citations() {
             print_warning "Found $undefined_references undefined reference(s)"
             if [[ "$VERBOSE" == true ]]; then
                 echo "Undefined references:"
-                grep "Reference.*undefined" "${MAIN_FILE}.log" | head -3
+                grep "Reference.*undefined" "${BUILD_DIR}/${MAIN_FILE}.log" | head -3
             fi
         fi
     fi
@@ -232,28 +287,28 @@ show_summary() {
     echo "===================="
 
     # Check if PDF was generated
-    if [[ -f "${MAIN_FILE}.pdf" ]]; then
-        local pdf_size=$(ls -lh "${MAIN_FILE}.pdf" | awk '{print $5}')
-        print_success "PDF generated successfully (${pdf_size})"
+    if [[ -f "${BUILD_DIR}/${MAIN_FILE}.pdf" ]]; then
+        local pdf_size=$(ls -lh "${BUILD_DIR}/${MAIN_FILE}.pdf" | awk '{print $5}')
+        print_success "PDF generated successfully in ${BUILD_DIR}/ (${pdf_size})"
     else
         print_error "PDF was not generated"
         return 1
     fi
 
     # Count bibliography entries
-    if [[ -f "${MAIN_FILE}.bbl" ]]; then
+    if [[ -f "${BUILD_DIR}/${MAIN_FILE}.bbl" ]]; then
         local bib_entries=0
-        if grep -q "bibitem" "${MAIN_FILE}.bbl" 2>/dev/null; then
-            bib_entries=$(grep -c "bibitem" "${MAIN_FILE}.bbl" 2>/dev/null)
+        if grep -q "bibitem" "${BUILD_DIR}/${MAIN_FILE}.bbl" 2>/dev/null; then
+            bib_entries=$(grep -c "bibitem" "${BUILD_DIR}/${MAIN_FILE}.bbl" 2>/dev/null)
         fi
         print_success "Bibliography contains $bib_entries entries"
     fi
 
     # Check for any remaining warnings
-    if [[ -f "${MAIN_FILE}.log" ]]; then
+    if [[ -f "${BUILD_DIR}/${MAIN_FILE}.log" ]]; then
         local total_warnings=0
-        if grep -q "Warning" "${MAIN_FILE}.log" 2>/dev/null; then
-            total_warnings=$(grep -c "Warning" "${MAIN_FILE}.log" 2>/dev/null)
+        if grep -q "Warning" "${BUILD_DIR}/${MAIN_FILE}.log" 2>/dev/null; then
+            total_warnings=$(grep -c "Warning" "${BUILD_DIR}/${MAIN_FILE}.log" 2>/dev/null)
         fi
         if [[ "$total_warnings" -gt 0 ]]; then
             print_warning "Total warnings in compilation: $total_warnings"
@@ -303,8 +358,15 @@ main() {
     echo "====================================="
 
     print_status "Target file: ${MAIN_FILE}.tex"
+    print_status "Output directory: ${BUILD_DIR}/"
     [[ "$VERBOSE" == true ]] && print_status "Verbose mode enabled"
     [[ "$FORCE_REBUILD" == true ]] && print_status "Force rebuild mode enabled"
+
+    # Create build directory
+    create_build_dir
+
+    # Copy bibliography and style files to build directory
+    copy_bib_files
 
     # Check required files
     check_files
@@ -318,7 +380,7 @@ main() {
     run_pdflatex 1 "Generate .aux file with citations"
 
     # Check if we have citations to process
-    if [[ -f "${MAIN_FILE}.aux" ]] && grep -q "\\citation" "${MAIN_FILE}.aux"; then
+    if [[ -f "${BUILD_DIR}/${MAIN_FILE}.aux" ]] && grep -q "\\citation" "${BUILD_DIR}/${MAIN_FILE}.aux"; then
         print_status "Found citations in .aux file, processing bibliography..."
 
         # Step 2: Run bibtex to process citations
