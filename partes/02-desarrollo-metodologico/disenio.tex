@@ -4,9 +4,9 @@
 El presente capítulo tiene como objetivo fundamental traducir la decisión estratégica —la implementación de los Universos Grid y Parallel— en un diseño técnico y estratégico concreto y ejecutable. Aquí se especifica la arquitectura de la solución, detallando los componentes de HTCondor que serán configurados o modificados, los flujos de trabajo establecidos para cada universo y los criterios de interoperabilidad con el Universo Vanilla preexistente. Este diseño busca establecer las bases técnicas y metodológicas para la fase de implementación, propendiendo por la robustez, escalabilidad e integridad de la infraestructura de computación distribuida resultante. Además, busca ayudar al Grupo \GRID con el cumplimiento de sus objetivos estratégicos y el cierre de la brecha identificada en la caracterización.
 
 \section{Definición de estrategia}
-La definición de la estrategia de diseño se fundamenta en una filosofía de desarrollo guiado por pruebas (\TDD), que es una disciplina de diseño y programación donde cada línea de código está escrita en respuesta a una prueba que el programador escribe justo antes de escribir el código \parencite{4163024}. Antes de especificar los componentes arquitectónicos, se establece un conjunto de casos de prueba estructurados que definen de manera formal y verificable el comportamiento esperado de los Universos \textit{Grid} y \textit{Parallel}. Estos casos, que funcionan como criterios de aceptación guiarán de manera iterativa el diseño de la solución, asegurando que cada decisión de implementación esté directamente alineada con la validación funcional del sistema.
+La definición de la estrategia de diseño se fundamenta en una filosofía de desarrollo guiado por pruebas (\TDD), que es una disciplina de diseño y programación donde cada línea de código está escrita en respuesta a una prueba que el programador escribe justo antes de escribir el código \citep{4163024}. Antes de especificar los componentes arquitectónicos, se establece un conjunto de casos de prueba estructurados que definen de manera formal y verificable el comportamiento esperado de los Universos \textit{Grid} y \textit{Parallel}. Estos casos, que funcionan como criterios de aceptación guiarán de manera iterativa el diseño de la solución, asegurando que cada decisión de implementación esté directamente alineada con la validación funcional del sistema.
 
-Por último, se considera necesario establecer un nombre para el sistema. Esto con el fin de dar mayor claridad al lector y hacer más visibles los momentos en los que se habla del sistema resultado de este proyecto. Se opta por el "Grid App" haciendo referencia al Grupo \GRID, que es el sujeto nuclear de este proyecto; al Universo Grid, que es uno de los Universos que se decidió implementar para este proyecto de aplicación después de la toma de decisiones estructurada mediante el análisis \DAR y el modelo computacional Grid que es básicamente una infraestructura que provee gran capacidad computacional a un sistema distribuido haciendo uso de recursos geográficamente distribuidos \parencite{8974490}.
+Por último, se considera necesario establecer un nombre para el sistema. Esto con el fin de dar mayor claridad al lector y hacer más visibles los momentos en los que se habla del sistema resultado de este proyecto. Se opta por el "Grid App" haciendo referencia al Grupo \GRID, que es el sujeto nuclear de este proyecto; al Universo Grid, que es uno de los Universos que se decidió implementar para este proyecto de aplicación después de la toma de decisiones estructurada mediante el análisis \DAR y el modelo computacional Grid que es básicamente una infraestructura que provee gran capacidad computacional a un sistema distribuido haciendo uso de recursos geográficamente distribuidos \citep{8974490}.
 
 \section{Casos de prueba}
 
@@ -16,17 +16,17 @@ Para iniciar con la definición de casos de prueba, se establecen los requisitos
 
 \subsubsection{Requisitos funcionales}
 \noindent
-Según \textcite{159342} un requisito funcional especifica una función que el sistema o que un componente del sistema es capaz de hacer. A continuación se definen los requisitos funcionales para \textit{Grid App}.
+Según \cite{159342} un requisito funcional especifica una función que el sistema o que un componente del sistema es capaz de hacer. A continuación se definen los requisitos funcionales para \textit{Grid App}.
 \input{tablas-images/pruebas/requisitosFuncionales.tex}
 
 \subsubsection{Requisitos no-funcionales}
 \noindent
-Según \textcite{4384163} un requisito no-funcional es un atributo o una restricción de un sistema. A continuación se definen los requisitos no-funcionales para \textit{Grid App}.
+Según \cite{4384163} un requisito no-funcional es un atributo o una restricción de un sistema. A continuación se definen los requisitos no-funcionales para \textit{Grid App}.
 \input{tablas-images/pruebas/requisitosNoFuncionales.tex}
 
 \subsection{Pruebas}
 \noindent
-Para esta sección, se definen las pruebas y los pasos de cada prueba a ejecutar 
+Para esta sección, se definen las pruebas y los pasos de cada prueba a ejecutar
 
 \section{Modelado del sistema en Archimate}
 ArchiMate es un lenguaje de modelado estandarizado por~\textit{The Open Group} que permite representar de manera estructurada y clara las diferentes capas de una arquitectura empresarial: negocio, aplicación y tecnología. Su propósito es brindar una visión integrada que facilite la comunicación entre los distintos actores de un proyecto y que muestre cómo los procesos de negocio, los sistemas de información y la infraestructura tecnológica se relacionan entre sí.
@@ -50,17 +50,17 @@ En particular, ArchiMate se organiza en vistas que permiten enfocarse en aspecto
 \section{Capa de infraestructura}
 
 \begin{figure}[H]
-    \centering
-    %\includegraphics[width=\textwidth]{tablas-images/cp6/disenio-N1.png}
-    \caption{Capa de Infraestructura}
+	\centering
+	%\includegraphics[width=\textwidth]{tablas-images/cp6/disenio-N1.png}
+	\caption{Capa de Infraestructura}
 \end{figure}
 
 \section{Capa de virtualización}
 
 \begin{figure}[H]
-    \centering
-    %\includegraphics[width=\textwidth]{tablas-images/cp6/disenio-N2.png}
-    \caption{Capa de Virtualización}
+	\centering
+	%\includegraphics[width=\textwidth]{tablas-images/cp6/disenio-N2.png}
+	\caption{Capa de Virtualización}
 \end{figure}
 
 \section{Capa de aplicación}
