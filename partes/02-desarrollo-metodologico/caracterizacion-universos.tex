@@ -123,65 +123,8 @@ En este universo:
 
 \section{Universos Distribuidos y Federados}
 
-Estos universos abordan la necesidad de integrar y gestionar recursos computacionales que residen fuera de los límites inmediatos del clúster HTCondor, soportando la federación y la explosión (bursting) de recursos externos.
+Estos universos abordan la necesidad de integrar y gestionar recursos computacionales que residen fuera de los límites inmediatos del clúster HTCondor, soportando la federación de recursos externos  \citep{Padmanabhan2011}.
 
 \subsection{Grid}
 
-El universo Grid permite a los usuarios de HTCondor enviar trabajos a sistemas de gestión remotos. Este funciona como un plan, enviando trabajos a sistemas de lotes externos como Slurm, LSF u otros pools de HTCondor a través del daemon \texttt{condor\_gridmanager}. La gestión de trabajos se basa en protocolos de comunicación especializados \citep{HTCondor-Grid-universe}.
-
-El universo Grid permite a las organizaciones utilizar recursos agrupados a través de dominios administrativos dispares, facilitando colaboraciones científicas a gran escala y la federación de clústeres universitarios o nacionales \citep{Padmanabhan2011}.
-
-\subsection{Contexto de Computación en la Nube: Adquisición Dinámica de Recursos}
-
-Aunque no es un universo de trabajo en el mismo sentido arquitectónico que Vanilla o Parallel, HTCondor ofrece herramientas especializadas para aprovechar dinámicamente la infraestructura de nube comercial. Esta funcionalidad es crucial para extender los clústeres locales o manejar explosiones inmediatas de capacidad.
-
-\subsubsection{HTCondor Annex y Explosión de Capacidad}
-
-La herramienta \texttt{htcondor annex} permite a los administradores o usuarios:
-
-\begin{itemize}
-	\item Adquirir recursos en la nube (actualmente centrándose en Amazon Web Services EC2)
-	\item Integrarlos dinámicamente en un pool HTCondor existente
-	\item Representa una adaptación estratégica de gestionar colas de Grid compartidas a gestionar capacidad de nube dedicada
-\end{itemize}
-
-Los casos de uso principales incluyen:
-
-\begin{itemize}
-	\item Escenarios donde las demandas de recursos son intermitentes o inmediatas
-	\item Cumplir plazos críticos
-	\item Adquirir hardware especializado (GPU específicas, instancias con terabytes de memoria)
-	\item Manejar escaseces repentinas de capacidad
-\end{itemize}
-
-Al aprovisionar recursos (a menudo instancias Spot de EC2 para eficiencia de costos) a través de la herramienta \texttt{annex}, las máquinas de la nube se añaden como slots de ejecución estándar de HTCondor, permitiéndoles aceptar trabajos del universo Vanilla o Container, utilizando efectivamente la nube como una extensión fluida y explosiva del entorno local.
-
-\section{Síntesis y Soporte para la Decisión Arquitectónica}
-
-El conjunto completo de universos HTCondor proporciona un marco altamente especializado y adaptable para la computación de alto rendimiento. El análisis revela varias dinámicas clave que dan forma al ecosistema moderno de HTCondor.
-
-\subsection{Análisis Comparativo de Características Técnicas}
-
-La siguiente tabla resume los mecanismos arquitectónicos centrales y las características operativas que definen cada universo HTCondor.
-
-\begin{table}[h]
-	\centering
-	\small
-	\caption{Comparación de Características Centrales de los Universos HTCondor}
-	\begin{tabular}{@{}p{2cm}p{2.2cm}p{2.2cm}p{2.5cm}p{3cm}p{2cm}@{}}
-		\toprule
-		\textbf{Universo} & \textbf{Alcance de Ejecución} & \textbf{Soporte de Políticas} & \textbf{Interacción Daemon}  & \textbf{Característica Clave}                & \textbf{Estado}          \\
-		\midrule
-		Vanilla           & Remoto, Máquina Única         & Completo                      & Starter/Shadow/Startd        & Mayor compatibilidad, predeterminado         & Predeterminado Moderno   \\
-		\addlinespace
-		Standard          & Remoto, Máquina Única         & Completo, restrictivo         & Starter/Shadow/Startd        & Toma de puntos de control automática         & Legado/Obsoleto          \\
-		\addlinespace
-		Local             & Host de Envío                 & Rico                          & Starter bifurcado            & Ejecución inmediata, no preemptible          & Preferido Actual         \\
-		\addlinespace
-		Scheduler         & Host de Envío                 & Limitado                      & Generación directa           & Sobrecarga mínima, funcionalidades limitadas & Pronta Retirada          \\
-		\addlinespace
-		Parallel          & Remoto, Multimáquina          & Completo                      & Scheduler/Múltiples Starters & Coasignación multimáquina (MPI)              & HTC Especializado        \\
-		\addlinespace
-		Docker            & Remoto, Máquina Única         & Mapeo a Vanilla               & Starter vía Docker           & Aislamiento a nivel SO                       & Aislamiento Contenedores \\
-	\end{tabular}
-\end{table}
+El universo Grid permite a los usuarios de HTCondor enviar trabajos a sistemas de gestión remotos, actuando como un puente hacia sistemas de lotes externos como Slurm, LSF u otros pools de HTCondor a través del daemon \texttt{condor\_gridmanager}. La gestión de trabajos se realiza mediante protocolos de comunicación especializados \citep{HTCondor-Grid-universe}, lo que permite a las organizaciones utilizar recursos distribuidos a través de dominios administrativos dispares. Esta capacidad facilita colaboraciones científicas a gran escala y la federación de clústeres universitarios o nacionales \citep{Padmanabhan2011}.
