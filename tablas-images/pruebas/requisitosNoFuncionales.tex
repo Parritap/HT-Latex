@@ -1,0 +1,19 @@
+\begin{table}[H]
+	\centering
+	\sffamily\scriptsize
+	\setlength{\tabcolsep}{4pt}
+	\renewcommand{\arraystretch}{1.3}
+	\caption{Requisitos no-funcionales para \textit{Grid App}}
+	\label{table:requisitosNoFuncionales}
+	\begin{tabular}{|p{0.1\textwidth}|p{0.2\textwidth}|p{0.7\textwidth}|}
+		\toprule
+		\textbf{ID}                              & \textbf{Título}                               & \textbf{Descripción} \\
+		\midrule
+		RNF1 & Transparencia de uso & El usuario no debe preocuparse por las configuraciones internas de cada clúster; el Grid Manager abstrae el destino mediante una interfaz más amigable. \\
+		\midrule
+		RNF2 & Usabilidad & La configuración de los nuevos Universos debe estar documentada y ser accesible mediante manual de despliegue para los usuarios del Grupo GRID. \\
+		\midrule
+		RNF3 & Disponibilidad & En caso de que un clúster esté inactivo, el Grid Manager debe registrar el error y permitir redirección a otro clúster disponible si el Universo es compatible. \\
+		\bottomrule
+	\end{tabular}
+\end{table}
