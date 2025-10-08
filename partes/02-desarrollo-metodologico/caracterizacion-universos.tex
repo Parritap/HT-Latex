@@ -101,7 +101,6 @@ La ejecución en el universo Docker requiere:
 \begin{itemize}
 	\item El servicio Docker debe estar preinstalado y configurado en los nodos worker
 	\item El envío del trabajo debe especificar el nombre de la imagen del contenedor usando \texttt{docker\_image}
-	\item Los trabajos se mapean fundamentalmente al marco de ejecución del universo Vanilla
 \end{itemize}
 
 
@@ -120,46 +119,17 @@ En este universo:
 \begin{itemize}
 	\item El trabajo ya no es un simple ejecutable, sino una \textbf{imagen de disco completa}
 	\item HTCondor soporta la integración con hipervisores como Xen, KVM y VMware \citep{HTCondor_vm_universe_wiki}
-	\item La coordinación es gestionada por el Punto de Acceso de Grid de Máquina Virtual (VM-GAHP)
-	\item El VM-GAHP maneja el ciclo de vida de la VM: inicialización, pausa, reanudación y terminación
 \end{itemize}
-
-Dado que la VM está completamente aislada, la transferencia de archivos debe gestionarse explícitamente utilizando los mecanismos estándar de transferencia de archivos de HTCondor, listando todos los archivos necesarios usando atributos como \texttt{transfer\_input\_files}.
-
-\subsubsection{Espectro de Aislamiento y Casos de Uso}
-
-El universo VM proporciona un aislamiento crítico a nivel de núcleo (kernel), necesario al ejecutar:
-
-\begin{itemize}
-	\item Sistemas operativos de terceros completamente no confiables
-	\item Sistemas operativos altamente específicos (por ejemplo, trabajos de Windows dentro de un clúster Linux)
-\end{itemize}
-
-Esta virtualización completa contrasta con los universos de contenedores, que dependen del núcleo del host para los recursos compartidos. Mientras que los contenedores ofrecen un mejor rendimiento y una menor latencia de inicio debido a la reducción de la sobrecarga, el universo VM garantiza la máxima fidelidad de seguridad.
-
-Más allá de la seguridad, el universo VM también se utiliza como un \textbf{mecanismo de aprovisionamiento de recursos}: la máquina virtual resultante puede ejecutar una tarea dedicada o configurarse para generar recursos adicionales que, a su vez, se añaden de nuevo al pool de HTCondor, creando efectivamente un pool virtual.
 
 \section{Universos Distribuidos y Federados}
 
 Estos universos abordan la necesidad de integrar y gestionar recursos computacionales que residen fuera de los límites inmediatos del clúster HTCondor, soportando la federación y la explosión (bursting) de recursos externos.
 
-\subsection{Universo Grid: Gestión de Recursos Externos}
+\subsection{Grid}
 
-El universo Grid permite a los usuarios de HTCondor enviar trabajos a sistemas de gestión remotos---a menudo denominados ``recursos de grid''---mientras mantienen la interfaz familiar de envío y monitoreo de HTCondor.
+El universo Grid permite a los usuarios de HTCondor enviar trabajos a sistemas de gestión remotos. Este funciona como un plan, enviando trabajos a sistemas de lotes externos como Slurm, LSF u otros pools de HTCondor a través del daemon \texttt{condor\_gridmanager}. La gestión de trabajos se basa en protocolos de comunicación especializados \citep{HTCondor-Grid-universe}.
 
-\subsubsection{Meta-Programación y Manejo de Protocolos}
-
-El universo Grid funciona como un \textbf{meta-scheduler}, enviando trabajos a sistemas de lotes externos como Slurm, LSF u otros pools de HTCondor a través del daemon \texttt{condor\_gridmanager}. La gestión de trabajos se basa en protocolos de comunicación especializados:
-
-\begin{itemize}
-	\item \textbf{GASS (General Access Service)}: Para transferir archivos esenciales (ejecutable, flujos de E/S) hacia y desde el sitio de ejecución remoto
-
-	\item \textbf{GRAM (Grid Resource Allocation Manager)}: Para contactar al gatekeeper remoto para iniciar y monitorear el trabajo
-\end{itemize}
-
-Este universo proporciona una tolerancia a fallos esencial al monitorear el progreso del trabajo en el sistema remoto, manejando inteligentemente escenarios en los que el recurso remoto falla y manteniendo las credenciales de usuario que de otro modo podrían expirar durante un trabajo de larga duración.
-
-El universo Grid permite a las organizaciones utilizar recursos agrupados a través de dominios administrativos dispares, facilitando colaboraciones científicas a gran escala y la federación de clústeres universitarios o nacionales.
+El universo Grid permite a las organizaciones utilizar recursos agrupados a través de dominios administrativos dispares, facilitando colaboraciones científicas a gran escala y la federación de clústeres universitarios o nacionales \citep{Padmanabhan2011}.
 
 \subsection{Contexto de Computación en la Nube: Adquisición Dinámica de Recursos}
 
