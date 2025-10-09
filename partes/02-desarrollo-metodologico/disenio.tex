@@ -4,11 +4,13 @@
 El presente capítulo tiene como objetivo fundamental traducir la decisión estratégica —la implementación de los Universos Grid y Parallel— en un diseño técnico y estratégico concreto y ejecutable. Aquí se especifica la arquitectura de la solución, detallando los componentes de HTCondor que serán configurados o modificados, los flujos de trabajo establecidos para cada universo y los criterios de interoperabilidad con el Universo Vanilla preexistente. Este diseño busca establecer las bases técnicas y metodológicas para la fase de implementación, propendiendo por la robustez, escalabilidad e integridad de la infraestructura de computación distribuida resultante. Además, busca ayudar al Grupo \GRID con el cumplimiento de sus objetivos estratégicos y el cierre de la brecha identificada en la caracterización.
 
 \section{Definición de estrategia}
+\noindent
 La definición de la estrategia de diseño se fundamenta en una filosofía de desarrollo guiado por pruebas (\TDD), que es una disciplina de diseño y programación donde cada línea de código está escrita en respuesta a una prueba que el programador escribe justo antes de escribir el código \citep{4163024}. Antes de especificar los componentes arquitectónicos, se establece un conjunto de casos de prueba estructurados que definen de manera formal y verificable el comportamiento esperado de los Universos \textit{Grid} y \textit{Parallel}. Estos casos, que funcionan como criterios de aceptación guiarán de manera iterativa el diseño de la solución, asegurando que cada decisión de implementación esté directamente alineada con la validación funcional del sistema.
 
 Por último, se considera necesario establecer un nombre para el sistema. Esto con el fin de dar mayor claridad al lector y hacer más visibles los momentos en los que se habla del sistema resultado de este proyecto. Se opta por el "Grid App" haciendo referencia al Grupo \GRID, que es el sujeto nuclear de este proyecto; al Universo Grid, que es uno de los Universos que se decidió implementar para este proyecto de aplicación después de la toma de decisiones estructurada mediante el análisis \DAR y el modelo computacional Grid que es básicamente una infraestructura que provee gran capacidad computacional a un sistema distribuido haciendo uso de recursos geográficamente distribuidos \citep{8974490}.
 
 \section{Casos de prueba}
+\noindent
 
 \subsection{Definición de requisitos}
 \noindent
@@ -38,25 +40,26 @@ A continuación se definen los casos de uso:
 \subsubsection{Caso 1: Montecarlo para pi}
 \noindent
 \begin{itemize}
-    \item \textbf{Descripción:} En un laboratorio de investigación financiera, los analistas necesitan valuar instrumentos derivados complejos utilizando métodos Montecarlo que requieren cientos de simulaciones. La infraestructura \HTCondor distribuye estos cálculos estadísticos masivos a través de múltiples nodos, donde cada trabajo ejecuta una porción de las simulaciones para calcular aproximaciones de pi como prototipo, y luego consolida los resultados para obtener una mejor estimación que valide la confiabilidad del sistema en modelos de riesgo financiero.
+    \item \textbf{Descripción:} En un laboratorio de investigación financiera, los analistas necesitan valuar instrumentos derivados complejos utilizando métodos Montecarlo que requieren cientos de simulaciones. La infraestructura HTCondor distribuye estos cálculos estadísticos masivos a través de múltiples nodos, donde cada trabajo ejecuta una porción de las simulaciones para calcular aproximaciones de pi como prototipo, y luego consolida los resultados para obtener una mejor estimación que valide la confiabilidad del sistema en modelos de riesgo financiero.
     \item \textbf{Escenario de prueba relacionado:} ESC-01
 \end{itemize}
 
 \subsubsection{Caso 2: Conteo de números primos}
 \noindent
 \begin{itemize}
-    \item \textbf{Descripción:} Un centro de criptografía debe analizar la distribución de números primos en intervalos grandes para evaluar la seguridad de algoritmos de encriptación RSA. \HTCondor divide automáticamente estos rangos numéricos en sub intervalos que distribuye entre nodos heterogéneos, permitiendo el conteo concurrente de primos que demuestra la capacidad del sistema para manejar cargas computacionales intensivas.
+    \item \textbf{Descripción:} Un centro de criptografía debe analizar la distribución de números primos en intervalos grandes para evaluar la seguridad de algoritmos de encriptación RSA. HTCondor divide automáticamente estos rangos numéricos en sub intervalos que distribuye entre nodos heterogéneos, permitiendo el conteo concurrente de primos que demuestra la capacidad del sistema para manejar cargas computacionales intensivas.
     \item \textbf{Escenario de prueba relacionado:} ESC-02
 \end{itemize}
 
 \subsubsection{Caso 3: \textit{Quick-sort} Paralelo}
 \noindent
 \begin{itemize}
-    \item \textbf{Descripción:} Un instituto de genómica requiere ordenar cantidades enormes de datos de secuencias de ADN para identificar patrones de mutaciones genéticas. El algoritmo de \textit{quick-sort} paralelo implementado con \MPI aprovechar los recursos agregados de memoria y procesamiento de múltiples máquinas bajo \HTCondor, validando la capacidad de la infraestructura para coordinar trabajos que necesitan comunicación entre procesos (\IPC) en aplicaciones científicas.
+    \item \textbf{Descripción:} Un instituto de genómica requiere ordenar cantidades enormes de datos de secuencias de ADN para identificar patrones de mutaciones genéticas. El algoritmo de \textit{quick-sort} paralelo implementado con \MPI aprovechar los recursos agregados de memoria y procesamiento de múltiples máquinas bajo HTCondor, validando la capacidad de la infraestructura para coordinar trabajos que necesitan comunicación entre procesos (\IPC) en aplicaciones científicas.
     \item \textbf{Escenario de prueba relacionado:} ESC-03
 \end{itemize}
 
 \section{Modelado del sistema en Archimate}
+\noindent
 ArchiMate es un lenguaje de modelado estándar, abierto e independiente de~\textit{The Open Group} que permite representar de manera estructurada y general las diferentes capas de una arquitectura empresarial: negocio, aplicación y tecnología \citep{josey2016introduction}. Esto permite tener una visión integrada que facilita la comunicación entre los distintos actores de un negocio y que muestre cómo los procesos, los sistemas de información y la infraestructura tecnológica se relacionan entre sí.
 A su vez, Archi es un Software que permite realizar diagramas de ArchiMate de forma sencilla y fue el Software elegido por el equipo de este proyecto para modelar las relaciones del proyecto con el negocio y varios elementos más. Archi permite dividir los modelos en vistas, que facilitan la organización y hacen más sencilla la labor de ampliar ciertos elementos o modelos importantes.
 
@@ -149,13 +152,14 @@ El último modelo de ArchiMate que compone la solución es el mostrado en la Fig
 \end{figure}
 
 \section{Modelado del software con el modelo C4}
+\noindent
 El modelo C4 es una herramienta que ayuda a los equipos de desarrollo de software a describir y comunicar la arquitectura del software a varios niveles de detalle. De forma general el modelo C4 tiene cuatro niveles, cada una con mayor nivel de detalle que la anterior. Para el caso de uso de este proyecto se optó por usar los tres primeros niveles, ya que se considera que el último nivel no da demasiado detalle visual para representar las interacciones en el ámbito de código, por lo que para este fin se usará otro diagrama presentado más adelante.
 
 \subsection{Nivel 1: Diagrama de contexto del sistema}
 \noindent
 El diagrama de contexto del sistema muestra de forma muy general y a muy alto nivel la solución que se propone. Lo que permite una visión global y generalizada, útil para comprender rápidamente los elementos de la solución.
 
-En la Figura \ref{fig:C4Nivel1} se muestra los elementos principales de la arquitectura, los nombres de dichos elementos, la interacción entre ellos y la comunicación que realizan con el usuario. Como se puede apreciar en el diagrama, el sistema está compuesto de tres aplicaciones y los tres Universos de \HTCondor que componen la solución. Cabe aclarar que la aplicación denominada "Tablero App" ya estaba implementada en un clúster antes del inicio de este proyecto. Sin embargo, se adiciona a la arquitectura de la solución, ya que se hizo un esfuerzo para adaptar está en todos los clústeres \textit{Vanilla} que componen la solución.
+En la Figura \ref{fig:C4Nivel1} se muestra los elementos principales de la arquitectura, los nombres de dichos elementos, la interacción entre ellos y la comunicación que realizan con el usuario. Como se puede apreciar en el diagrama, el sistema está compuesto de tres aplicaciones y los tres Universos de HTCondor que componen la solución. Cabe aclarar que la aplicación denominada "Tablero App" ya estaba implementada en un clúster antes del inicio de este proyecto. Sin embargo, se adiciona a la arquitectura de la solución, ya que se hizo un esfuerzo para adaptar está en todos los clústeres \textit{Vanilla} que componen la solución.
 
 \begin{figure}[H]
 	\centering
@@ -168,7 +172,7 @@ En la Figura \ref{fig:C4Nivel1} se muestra los elementos principales de la arqui
 \noindent
 El diagrama de contenedores muestra los elementos básicos dentro de cada sistema de Software. Lo que permite ir un poco más allá y entender como funciona cada sistema de software por dentro y como interactúa con el resto de contenedores.
 
-En la Figura \ref{fig:C4Nivel2} se muestran los contenedores principales de la arquitectura, los nombres de dichos contenedores, la interacción entre ellos y la comunicación que realizan con el usuario. Como se puede apreciar en el diagrama, el sistema está compuesto por: (1) Un \textit{BackEnd} que cumple dos funciones principales; la primera es renderizar las plantillas que se le van a mostrar al usuario pues estás contienen información dinámica que debe ser consultada y establecida por el servidor, la segunda es realizar toda la lógica de la aplicación como despertar otros procesos o construir los archivos maestros de \HTCondor. Se optó por este enfoque en el diseño para propender por la simplicidad de la aplicación y su fácil portabilidad y despliegue en diferentes tipos de entornos. En el Apéndice XX se muestra el código de los componentes y la estructura de los directorios de este componente. (2) Un directorio dentro del sistema de archivos del equipo que sirve la aplicación \textit{Grid App} en donde se almacenan los resultados de los trabajos. (3) Los Universos de \HTCondor que se propusieron implementar en este proyecto, estos son, \textit{Parallel y Grid}, pues el \textit{Vanilla} ya estaba implementado y (4) una aplicación llamada \textit{Cluster Info App} en cada Clúster de \HTCondor que recoge métricas básicas y las expone en formato \JSON a través de una \API.
+En la Figura \ref{fig:C4Nivel2} se muestran los contenedores principales de la arquitectura, los nombres de dichos contenedores, la interacción entre ellos y la comunicación que realizan con el usuario. Como se puede apreciar en el diagrama, el sistema está compuesto por: (1) Un \textit{BackEnd} que cumple dos funciones principales; la primera es renderizar las plantillas que se le van a mostrar al usuario pues estás contienen información dinámica que debe ser consultada y establecida por el servidor, la segunda es realizar toda la lógica de la aplicación como despertar otros procesos o construir los archivos maestros de HTCondor. Se optó por este enfoque en el diseño para propender por la simplicidad de la aplicación y su fácil portabilidad y despliegue en diferentes tipos de entornos. En el Apéndice XX se muestra el código de los componentes y la estructura de los directorios de este componente. (2) Un directorio dentro del sistema de archivos del equipo que sirve la aplicación \textit{Grid App} en donde se almacenan los resultados de los trabajos. (3) Los Universos de HTCondor que se propusieron implementar en este proyecto, estos son, \textit{Parallel y Grid}, pues el \textit{Vanilla} ya estaba implementado y (4) una aplicación llamada \textit{Cluster Info App} en cada Clúster de HTCondor que recoge métricas básicas y las expone en formato \JSON a través de una \API.
 
 \begin{figure}[H]
 	\centering
@@ -183,7 +187,7 @@ El diagrama de componentes muestra los elementos básicos dentro de cada contene
 
 \subsubsection{Universo \textit{Vanilla}}
 \noindent
-En la Figura \ref{fig:C4Nivel3Vanilla} se muestran los componentes principales de la arquitectura del Universo \textit{Vanilla} en \HTCondor. Además, se pueden apreciar los distintos procesos que sigue un trabajo desde su envío hasta la recepción de sus resultados.
+En la Figura \ref{fig:C4Nivel3Vanilla} se muestran los componentes principales de la arquitectura del Universo \textit{Vanilla} en HTCondor. Además, se pueden apreciar los distintos procesos que sigue un trabajo desde su envío hasta la recepción de sus resultados.
 
 \begin{figure}[H]
 	\centering
@@ -194,7 +198,7 @@ En la Figura \ref{fig:C4Nivel3Vanilla} se muestran los componentes principales d
 
 \subsubsection{Universo \textit{Parallel}}
 \noindent
-En la Figura \ref{fig:C4Nivel3Parallel} se muestran los componentes principales de la arquitectura del Universo \textit{Parallel} en \HTCondor. Además, se pueden apreciar los distintos procesos que sigue un trabajo desde su envío hasta la recepción de sus resultados. Es importante notar que ls comunicación y los componentes funcionan exactamente de la misma forma que en el Universo \textit{Vanilla}, con la unica diferencia que aquí, los trabajo se comunican a través de \MPI.
+En la Figura \ref{fig:C4Nivel3Parallel} se muestran los componentes principales de la arquitectura del Universo \textit{Parallel} en HTCondor. Además, se pueden apreciar los distintos procesos que sigue un trabajo desde su envío hasta la recepción de sus resultados. Es importante notar que ls comunicación y los componentes funcionan exactamente de la misma forma que en el Universo \textit{Vanilla}, con la unica diferencia que aquí, los trabajo se comunican a través de \MPI.
 
 \begin{figure}[H]
 	\centering
@@ -205,7 +209,7 @@ En la Figura \ref{fig:C4Nivel3Parallel} se muestran los componentes principales 
 
 \subsubsection{Universo \textit{Grid}}
 \noindent
-En la Figura \ref{fig:C4Nivel3Grid} se muestran los componentes principales de la arquitectura del Universo \textit{Grid} en \HTCondor. Como se puede apreciar en el digrama este Universo actua como un intermediario entre el usuario y el clúster que va a ejecutar su trabajo, permitiendo así interconectar multiples clústeres, donde reside el valor de este Universo.
+En la Figura \ref{fig:C4Nivel3Grid} se muestran los componentes principales de la arquitectura del Universo \textit{Grid} en HTCondor. Como se puede apreciar en el digrama este Universo actua como un intermediario entre el usuario y el clúster que va a ejecutar su trabajo, permitiendo así interconectar multiples clústeres, donde reside el valor de este Universo.
 
 \begin{figure}[H]
 	\centering
@@ -216,7 +220,7 @@ En la Figura \ref{fig:C4Nivel3Grid} se muestran los componentes principales de l
 
 \subsubsection{Aplicaciones de Software}
 \noindent
-En la Figura \ref{fig:C4Nivel3Apps} se muestran los componentes principales de las aplicaciones que integran el sistema. Como se puede evidenciar en el diagrama, hay dos aplicaciones principales que conforman este sistema. La primera es la aplicación central \textit{Grid App} que ayuda a abstraer la complejidad de \HTCondor con una interfaz Web más amigable, además, es la encargada de enviar los trabajos y recoger los resultados. La segunda es \textit{Cluster Info App} que ayuda a exponer métricas de cada clúster, permitiendo así a la aplicación central obtener datos reales de cada clúster y permitir al usuario elegir el clúster con métricas más favorables para su caso de uso. Es importante aclarar que la aplicación \textit{Tablero App} también está disponible y funcionando en algunos de los clústeres que componen la solución. Sin embargo, dado que su única labor es mostrar métricas detalladas del clúster, se opta por no agregarlo al diagrama por dos razones: (1) para reducir su complejidad y (2) porque el desarrollo de esta aplicación no es resultado del desarrollo de este proyecto.
+En la Figura \ref{fig:C4Nivel3Apps} se muestran los componentes principales de las aplicaciones que integran el sistema. Como se puede evidenciar en el diagrama, hay dos aplicaciones principales que conforman este sistema. La primera es la aplicación central \textit{Grid App} que ayuda a abstraer la complejidad de HTCondor con una interfaz Web más amigable, además, es la encargada de enviar los trabajos y recoger los resultados. La segunda es \textit{Cluster Info App} que ayuda a exponer métricas de cada clúster, permitiendo así a la aplicación central obtener datos reales de cada clúster y permitir al usuario elegir el clúster con métricas más favorables para su caso de uso. Es importante aclarar que la aplicación \textit{Tablero App} también está disponible y funcionando en algunos de los clústeres que componen la solución. Sin embargo, dado que su única labor es mostrar métricas detalladas del clúster, se opta por no agregarlo al diagrama por dos razones: (1) para reducir su complejidad y (2) porque el desarrollo de esta aplicación no es resultado del desarrollo de este proyecto.
 
 \begin{figure}[H]
 	\centering
@@ -279,7 +283,7 @@ En la Figura \ref{fig:Enlace} se muestran las conexiones de red que tiene cada e
 
 \subsection{Modelo de roles}
 \noindent
-Después de conocer como están conectados los elementos de infraestructura a nivel eléctrico y de red, se hace necesario plasmar la forma en que están conectados los elementos de forma lógica, que es la forma en que se comunican los elementos en el diseño de la solución. Además, se hace necesario mostrar los roles de \HTCondor que ocupa cada elemento en su clúster. En la Figura \ref{fig:Roles} se plasman estos aspectos.
+Después de conocer como están conectados los elementos de infraestructura a nivel eléctrico y de red, se hace necesario plasmar la forma en que están conectados los elementos de forma lógica, que es la forma en que se comunican los elementos en el diseño de la solución. Además, se hace necesario mostrar los roles de HTCondor que ocupa cada elemento en su clúster. En la Figura \ref{fig:Roles} se plasman estos aspectos.
 
 \begin{figure}[H]
 	\centering
