@@ -1,29 +1,21 @@
 \begin{table}[H]
 	\centering
-	\sffamily\scriptsize
-	\setlength{\tabcolsep}{4pt}
-	\renewcommand{\arraystretch}{1.3}
+	\renewcommand{\arraystretch}{1.2} % Espaciado reducido
+	\fontsize{9pt}{10pt}\selectfont % Tamaño de fuente 8pt
+	\begin{tabular}{|p{1cm}|p{4cm}|p{8cm}|} % Total: 14cm
+		\hline
+		\textbf{ID}                              & \textbf{Título}                               & \textbf{Descripción} \\
+        \hline
+		RF1 & Soporte para Universos adicionales & El sistema debe permitir la ejecución de trabajos en al menos dos Universos adicionales a Vanilla (Grid y Parallel) \\
+		RF2 & Orquestación de múltiples clústeres & El sistema debe permitir enviar trabajos hacia diferentes clústeres (Parallel, Vanilla) a través del Universo Grid. \\
+		RF3 & Selección de destino & El sistema debe permitir que el usuario especifique el clúster de destino. \\
+		RF4 & Monitoreo de trabajos & El sistema debe permitir el monitoreo de los trabajos enviados a los clústeres, mostrando su estado al usuario. \\
+		RF5 & Ejecución MPI en Parallel & Un clúster debe soportar ejecución de trabajos basados en MPI en múltiples nodos (N nodos configurados). \\
+		RF6 & Redirección Grid-Parallel & El Grid Manager debe aceptar trabajos enviados al Universo Grid y, si la naturaleza del trabajo es paralelo, redirigirlos correctamente al Universo Parallel. \\
+		RF7 & Redirección Grid-Vanilla & El Grid Manager debe aceptar trabajos enviados al Universo Grid y, si la naturaleza del trabajo es distribuido, redirigirlos correctamente al Universo Vanilla. \\
+		RF8 & Registro centralizado de errores & El Grid Manager debe centralizar \textit{logs} de fallos de ejecución provenientes de cada clúster. \\
+        \hline
+	\end{tabular}
 	\caption{Requisitos funcionales para \textit{Grid App}}
 	\label{table:requisitosFuncionales}
-	\begin{tabular}{|p{0.1\textwidth}|p{0.2\textwidth}|p{0.7\textwidth}|}
-		\toprule
-		\textbf{ID}                              & \textbf{Título}                               & \textbf{Descripción} \\
-		\midrule
-		RF1 & Soporte para Universos adicionales & El sistema debe permitir la ejecución de trabajos en al menos dos Universos adicionales a Vanilla (Grid y Parallel) \\
-		\midrule
-		RF2 & Orquestación de múltiples clústeres & El sistema debe permitir enviar trabajos hacia diferentes clústeres (Parallel, Vanilla) a través del Universo Grid. \\
-		\midrule
-		RF3 & Selección de destino & El sistema debe permitir que el usuario especifique el clúster de destino. \\
-		\midrule
-		RF4 & Monitoreo de trabajos & El sistema debe permitir el monitoreo de los trabajos enviados a los clústeres, mostrando su estado al usuario. \\
-		\midrule
-		RF5 & Ejecución MPI en Parallel & Un clúster debe soportar ejecución de trabajos basados en MPI en múltiples nodos (N nodos configurados). \\
-		\midrule
-		RF6 & Redirección Grid-Parallel & El Grid Manager debe aceptar trabajos enviados al Universo Grid y, si la naturaleza del trabajo es paralelo, redirigirlos correctamente al Universo Parallel. \\
-        \midrule
-		RF7 & Redirección Grid-Vanilla & El Grid Manager debe aceptar trabajos enviados al Universo Grid y, si la naturaleza del trabajo es distribuido, redirigirlos correctamente al Universo Vanilla. \\
-        \midrule
-		RF8 & Registro centralizado de errores & El Grid Manager debe centralizar \textit{logs} de fallos de ejecución provenientes de cada clúster. \\
-		\bottomrule
-	\end{tabular}
 \end{table}
