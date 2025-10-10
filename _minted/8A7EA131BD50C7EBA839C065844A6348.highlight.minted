@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\}]
-\PYG{n+nv}{\PYGZdl{}CondorVersion}:\PYG{+w}{ }\PYG{l+m}{8}.4.11\PYG{+w}{ }Feb\PYG{+w}{ }\PYG{l+m}{06}\PYG{+w}{ }\PYG{l+m}{2017}\PYG{+w}{ }BuildID:\PYG{+w}{ }Debian\PYGZhy{}8.4.11\PYGZti{}dfsg.1\PYGZhy{}1\PYG{+w}{ }Debian\PYGZhy{}8.4.11\PYGZti{}dfsg.1\PYGZhy{}1
-\PYG{n+nv}{\PYGZdl{}\PYGZdl{}}CondorPlatform:\PYG{+w}{ }ARMV7L\PYGZhy{}Raspbian\PYGZus{}\PYG{+w}{ }\PYGZdl{}
-\end{MintedVerbatim}
