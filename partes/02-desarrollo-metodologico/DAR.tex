@@ -188,38 +188,38 @@ Con los criterios definidos y la medición de popularidad completada, se procedi
 	\fontsize{9pt}{10pt}\selectfont % Tamaño de fuente 8pt
 	\caption{Análisis DAR.}
 	\label{tab:analisis_dar}
-	\begin{tabular}{|>{\centering\arraybackslash}p{2.0cm}|>{\centering\arraybackslash}p{1.5cm}|>{\centering\arraybackslash}p{2.5cm}|>{\centering\arraybackslash}p{2.1cm}|>{\centering\arraybackslash}p{0.8cm}|>{\centering\arraybackslash}p{1.8cm}|>{\centering\arraybackslash}p{1.6cm}|}
+	\begin{tabular}{|>{\centering\arraybackslash}p{1.8cm}|>{\centering\arraybackslash}p{1.8cm}|>{\centering\arraybackslash}p{2.5cm}|>{\centering\arraybackslash}p{2.2cm}|>{\centering\arraybackslash}p{0.7cm}|>{\centering\arraybackslash}p{1.4cm}|>{\centering\arraybackslash}p{1.5cm}|}
 		\hline
-		{\scriptsize\textbf{Criterio}} & {\tiny\textbf{PARALLEL}}                           & {\tiny\textbf{CHECKPOINTING}}  & {\tiny\textbf{POPULARITY}} & {\tiny\textbf{DOC}} & {\tiny\textbf{ROLE DIV}} & {\tiny\textbf{}} \\
+		{\scriptsize\textbf{Criterio}}                         & {\tiny\textbf{PARALLEL}}                                                   & {\tiny\textbf{CHECKPOINTING}}                          & {\tiny\textbf{POPULARITY}} & {\tiny\textbf{DOC}} & {\tiny\textbf{ROLE DIV}} & {\tiny\textbf{}}            \\
 		\hline
-		{\scriptsize\textbf{UNIVERSO}} & \multicolumn{5}{c|}{{\scriptsize\textbf{Puntaje}}} & {\scriptsize\textbf{Promedio}}                                                                                                  \\
+		{\cellcolor[HTML]{E6E6E6}\scriptsize\textbf{Universo}} & \multicolumn{5}{c|}{\cellcolor[HTML]{E6E6E6}{\scriptsize\textbf{Puntaje}}} & \cellcolor[HTML]{E6E6E6}{\scriptsize\textbf{Promedio}}                                                                                                             \\
 		\hline
-		Vanilla                        & 1                                                  & 3                              & 3                          & 3                   & 3                        & 2,6              \\
+		Vanilla                                                & 1                                                                          & 3                                                      & 3                          & 3                   & 3                        & \cellcolor[HTML]{DBF7FF}2,6 \\
 		\hline
-		Grid                           & 2                                                  & 3                              & 3                          & 2                   & 3                        & 2,6              \\
+		Grid                                                   & 2                                                                          & 3                                                      & 3                          & 2                   & 3                        & \cellcolor[HTML]{FFCCC2}2,6 \\
 		\hline
-		Java                           & 1                                                  & 3                              & 1                          & 1                   & 3                        & 1,8              \\
+		Java                                                   & 1                                                                          & 3                                                      & 1                          & 1                   & 3                        & 1,8                         \\
 		\hline
-		Scheduler                      & 1                                                  & 3                              & 1                          & 1                   & 3                        & 1,8              \\
+		Scheduler                                              & 1                                                                          & 3                                                      & 1                          & 1                   & 3                        & 1,8                         \\
 		\hline
-		Local                          & 1                                                  & 3                              & 1                          & 1                   & 1                        & 1,4              \\
+		Local                                                  & 1                                                                          & 3                                                      & 1                          & 1                   & 1                        & 1,4                         \\
 		\hline
-		Parallel                       & 3                                                  & 1                              & 3                          & 3                   & 3                        & 2,6              \\
+		Parallel                                               & 3                                                                          & 1                                                      & 3                          & 3                   & 3                        & \cellcolor[HTML]{FFCCC2}2,6 \\
 		\hline
-		VM                             & 1                                                  & 3                              & 3                          & 1                   & 3                        & 2,2              \\
+		VM                                                     & 1                                                                          & 3                                                      & 3                          & 1                   & 3                        & 2,2                         \\
 		\hline
-		Container                      & 1                                                  & 3                              & 1                          & 1                   & 3                        & 1,8              \\
+		Container                                              & 1                                                                          & 3                                                      & 1                          & 1                   & 3                        & 1,8                         \\
 		\hline
-		Docker                         & 1                                                  & 3                              & 1                          & 1                   & 3                        & 1,8              \\
+		Docker                                                 & 1                                                                          & 3                                                      & 1                          & 1                   & 3                        & 1,8                         \\
 		\hline
 	\end{tabular}
 	\vspace{5pt}
 \end{table}
 
-\section{Resultados y Pasos Futuros}
+\section{Resultados}
 
 \subsection{Resumen del análisis}
-El proceso ejecutado tuvo como fin tomar una decisión informada sobre el Universo a implementar en la infraestructura HTCondor del GRID. Considerando el resultado descrito en la Tabla \ref{tab:analisis_dar}, hubo un empate en los Universos ganadores Grid y Parallel. Teniendo en cuenta esta situación que no se tenía en cuenta desde el principio, se tomó la decisión de continuar con las demás etapas del proyecto con ambos Universos, ya que no hay motivos, razones ni evidencia para orientarnos por uno o por otro.
+El proceso ejecutado tuvo como fin tomar una decisión informada sobre el Universo a implementar en la infraestructura HTCondor del GRID. Considerando el resultado descrito en la Tabla \ref{tab:analisis_dar}, hubo un empate en los Universos ganadores \textbf{Grid } y \textbf{Parallel}. Teniendo en cuenta esta situación que no se tenía en cuenta desde el principio, se tomó la decisión de continuar con las demás etapas del proyecto con ambos Universos, ya que no hay motivos, razones ni evidencia para orientarse o preferir uno sobre otro.
 
 Grosso modo, el Universo Grid funciona como un middleware o intermediario que hace de puente para enviar trabajos computacionales desde un nodo submit hacia un pool HTCondor de recursos externos. Por su parte, el Universo Parallel ejecuta programas que hacen usos de alguna implementación de MPI (Message Passing Interface) como OpenMPI para lograr así una ejecución sincronizada y ordenada para permitir la comunicación entre los nodos.
 
