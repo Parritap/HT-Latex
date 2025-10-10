@@ -55,3 +55,7 @@ output/
 Thumbs.db
 
 *.sh
+
+#Archivos del paquete minted the latex
+_minted/
+
