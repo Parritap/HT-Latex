@@ -134,4 +134,68 @@ echo "Instalación completada exitosamente!"
 \end{minted}
 
 
-Aparte del script anterior, tambien se creó una guía en formato.md la cual puede ser encontrada en el siguiente link:
+Aparte del script anterior, también se creó una guía en formato .md la cual puede ser encontrada en el siguiente \href{https://github.com/Parritap/HTcondor/blob/master/alma-linux-cluster/README-ES.md}{https://github.com/Parritap/HTcondor/blob/master/alma-linux-cluster/README-ES.md}.
+
+
+
+Para HTcondor es muy importante que los nodos puedan comunicarse entre sí, para lograr esto, se editaron los archivos \texttt{/etc/hosts} en cada uno de los nodos. Dicha edición puede verse en a continuación:
+
+% HTCondor Install script
+\begin{minted}[
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1.2,
+    bgcolor=lightgray!10,
+    fontsize=\footnotesize,
+]{bash}
+#Parallel config
+172.30.28.30 master
+172.30.28.31 submit
+172.30.28.32 exec01
+172.30.28.33 exec02
+172.30.28.34 exec03
+172.30.28.35 exec04
+\end{minted}
+
+Después de dicha configuración podremos ejecutar el comando \texttt{condor\_status} y ver lo siguiente impreso en consola:
+
+\begin{minted}[
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1.2,
+    bgcolor=lightgray!10,
+    fontsize=\footnotesize,
+]{bash}
+Name         OpSys      Arch   State     Activity LoadAv Mem   ActvtyTime
+
+slot1@exec01 LINUX      X86_64 Unclaimed Idle      0.000 1763  6+02:39:58
+slot1@exec02 LINUX      X86_64 Unclaimed Idle      0.000 1763  6+02:34:51
+slot1@exec03 LINUX      X86_64 Unclaimed Idle      0.000 1763  6+02:34:43
+
+               Total Owner Claimed Unclaimed Matched Preempting  Drain Backfill BkIdle
+
+  X86_64/LINUX     3     0       0         3       0          0      0        0      0
+
+         Total     3     0       0         3       0          0      0        0      0
+
+\end{minted}
+
+
+\FloatBarrier\subsection{Instalación de un implementación \MPI}
+
+Para permitir la comunicación entre trabajos distribuidos fuertemente acoplados en un pool HTCondor, es necesario implementar una tecnología basada en el estándar~\MPI. En este contexto, se seleccionó OpenMPI debido a que, según la documentación oficial de HTCondor \cite{HTCondor_Parallel}, esta implementación particular del estándar MPI cuenta con soporte nativo, lo que facilita su integración con el sistema de gestión de trabajos. El script de instalación de OpenMPI para el sistema operativo Alma Linux se presenta a continuación:
+
+% HTCondor Install script
+\begin{minted}[
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1.2,
+    bgcolor=lightgray!10,
+    fontsize=\footnotesize,
+]{bash}
+sudo dnf update -y
+sudo dnf install openmpi openmpi-devel -y
+
+echo "module load mpi/openmpi-x86_64" >> ~/.bashrc
+source ~/.bashrc
+\end{minted}
