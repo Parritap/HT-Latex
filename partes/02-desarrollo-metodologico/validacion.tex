@@ -41,7 +41,7 @@ Se ejecutaron tres escenarios de prueba principales, presentados en la sección 
 \subsection{ESC-01: Ejecución de trabajos Grid con repeticiones iguales}
 \noindent
 
-Este caso de prueba se validó la capacidad del sistema para ejecutar múltiples instancias de un mismo trabajo con parámetros idénticos, distribuidas a través del universo \textit{Grid} hacia clústeres \textit{Vanilla} disponibles.
+Este caso de prueba validó la capacidad del sistema para ejecutar múltiples instancias de un mismo trabajo con parámetros idénticos, distribuidas a través del universo \textit{Grid} hacia clústeres \textit{Vanilla} disponibles.
 
 \subsubsection{Configuración del trabajo de prueba}
 \noindent
@@ -78,7 +78,7 @@ La prueba se ejecutó siguiendo los pasos definidos en la Tabla~\ref{table:esc-0
 
 	\item \textbf{Selección automática de clúster}: El sistema presentó únicamente los clústeres \textit{Vanilla} disponibles (Clúster B y C), seleccionando automáticamente el más favorable con base en las métricas de \textit{Cluster Info App}
 
-	\item \textbf{Envío del trabajo}: El sistema generó correctamente el archivo \textit{submit } de \textit{Grid} y ejecutó el envío
+	\item \textbf{Envío del trabajo}: El sistema generó correctamente el archivo \textit{submit} de \textit{Grid} y ejecutó el envío
 
 	\item \textbf{Monitoreo de resultados}: Se visualizaron progresivamente los resultados de cada repetición conforme iban completando su ejecución
 \end{enumerate}
@@ -92,10 +92,10 @@ La validación cubrió exhaustivamente todos los requisitos funcionales y no fun
 \noindent
 
 \begin{itemize}
-	\item \textbf{RF1 (Carga de archivos)}: El sistema cargó correctamente el script de Bash
-	\item \textbf{RF2 (Configuración de argumentos)}: Los argumentos se incorporaron al archivo submit dinámico
-	\item \textbf{RF3 (Selección de universo)}: El universo Grid se configuró apropiadamente
-	\item \textbf{RF4 (Distribución de trabajos)}: Las 5 repeticiones se distribuyeron correctamente
+	\item \textbf{RF1 (Carga de archivos)}: El sistema cargó correctamente el \textit{script} de Bash
+	\item \textbf{RF2 (Configuración de argumentos)}: Los argumentos se incorporaron al archivo \textit{submit} dinámico
+	\item \textbf{RF3 (Selección de universo)}: El universo \textit{Grid} se configuró apropiadamente
+	\item \textbf{RF4 (Distribución de trabajos)}: Las cinco repeticiones se distribuyeron correctamente
 	\item \textbf{RF7 (Monitoreo)}: El estado de cada trabajo se monitoreó en tiempo real
 	\item \textbf{RF8 (Visualización de resultados)}: Los resultados se presentaron de forma organizada
 \end{itemize}
@@ -109,7 +109,7 @@ La validación cubrió exhaustivamente todos los requisitos funcionales y no fun
 	\item \textbf{RNF3 (Confiabilidad)}: No se presentaron fallos durante la ejecución de las pruebas realizadas
 \end{itemize}
 
-El sistema ejecutó exitosamente las 5 repeticiones del algoritmo de Monte Carlo, generando cada una una aproximación independiente de $\pi$ con el nivel de precisión especificado.
+El sistema ejecutó exitosamente las cinco repeticiones del algoritmo de Monte Carlo, generando cada una una aproximación independiente de $\pi$ con el nivel de precisión especificado.
 
 \subsection{ESC-02: Ejecución de trabajos Grid con variables parametrizables}
 \noindent
@@ -125,7 +125,7 @@ Para este caso se utilizó un binario compilado en C que calcula la cantidad de 
 \begin{itemize}
 	\item \textbf{Tipo de archivo}: Binario ejecutable C (\texttt{primos})
 	\item \textbf{Argumentos adicionales}: \texttt{<x> <y>} (notación especial para argumentos dinámicos)
-	\item \textbf{Naturaleza del trabajo}: Distribuido (universo Grid)
+	\item \textbf{Naturaleza del trabajo}: Distribuido (universo \textit{Grid})
 	\item \textbf{Distribución}: Repeticiones con variables parametrizables
 	\item \textbf{Configuración de variable \texttt{<x>}}:
 	      \begin{itemize}
@@ -178,15 +178,15 @@ Trabajo 10: primos 29000000 29999999
 
 Todos los trabajos se completaron exitosamente, validando la capacidad de parametrización automática y distribución inteligente del sistema.
 
-\subsection{ESC-03: Ejecución de trabajos en universo Parallel}
+\subsection{ESC-03: Ejecución de trabajos en universo \textit{Parallel}}
 \noindent
 
-Este caso validó la integración del universo Parallel con la aplicación \textit{Grid App}, demostrando la capacidad de ejecutar aplicaciones \MPI que requieren comunicación estrecha entre procesos distribuidos.
+Este caso validó la integración del universo \textit{Parallel} con la aplicación \textit{Grid App}, demostrando la capacidad de ejecutar aplicaciones \MPI que requieren comunicación estrecha entre procesos distribuidos.
 
 \subsubsection{Configuración del trabajo de prueba}
 \noindent
 
-Se utilizó una implementación paralela del algoritmo quicksort que opera sobre un dataset de entrada:
+Se utilizó una implementación paralela del algoritmo \textit{quicksort} que opera sobre un dataset de entrada:
 
 \textbf{Características del trabajo:}
 \begin{itemize}
@@ -202,22 +202,22 @@ Se utilizó una implementación paralela del algoritmo quicksort que opera sobre
 \subsubsection{Ejecución de la prueba}
 \noindent
 
-La validación siguió los pasos específicos del universo Parallel según la Tabla~\ref{table:esc-03}:
+La validación siguió los pasos específicos del universo \textit{Parallel} según la Tabla~\ref{table:esc-03}:
 
 \begin{enumerate}
 	\item \textbf{Carga de archivos}: Se cargaron tanto el binario \MPI como el archivo de entrada \texttt{list10K}
 
-	\item \textbf{Selección de universo Parallel}: El sistema configuró automáticamente el archivo submit para el universo Parallel
+	\item \textbf{Selección de universo Parallel}: El sistema configuró automáticamente el archivo \textit{submit} para el universo Parallel
 
 	\item \textbf{Configuración de recursos}: Se especificaron 3 máquinas con 1 núcleo cada una
 
-	\item \textbf{Selección automática de clúster}: El sistema presentó únicamente la infraestructura virtualizada Parallel, ya que es el único clúster que admite este universo
+	\item \textbf{Selección automática de clúster}: El sistema presentó únicamente la infraestructura virtualizada \textit{Parallel}, ya que es el único clúster que admite este universo
 
-	\item \textbf{Transferencia remota}: Los archivos fueron transferidos automáticamente al clúster Parallel a través de SSH
+	\item \textbf{Transferencia remota}: Los archivos fueron transferidos automáticamente al clúster \textit{Parallel} a través de SSH
 
 	\item \textbf{Ejecución coordinada}: El algoritmo quick-sort-parallel se ejecutó distribuido a través de 3 procesos \MPI coordinados
 
-	\item \textbf{Recolección de resultados}: Los resultados fueron sincronizados de vuelta al Grid Manager mediante threading asíncrono
+	\item \textbf{Recolección de resultados}: Los resultados fueron sincronizados de vuelta al Grid \textit{Manager} mediante threading asíncrono
 \end{enumerate}
 
 \subsubsection{Resultados obtenidos}
@@ -226,11 +226,11 @@ La validación siguió los pasos específicos del universo Parallel según la Ta
 \textbf{Validación exitosa de capacidades Parallel:}
 
 \begin{itemize}
-	\item \textbf{RF5 (Carga de archivos de entrada)}: El dataset fue transferido correctamente
+	\item \textbf{RF5 (Carga de archivos de entrada)}: El \textit{dataset} fue transferido correctamente
 	\item \textbf{RF6 (Configuración de recursos paralelos)}: Los parámetros \texttt{machine\_count} y \texttt{request\_cpus} fueron establecidos apropiadamente
 	\item \textbf{Comunicación \MPI}: Los procesos se comunicaron exitosamente usando OpenMPI
 	\item \textbf{Coordinación distribuida}: El algoritmo quick-sort-parallel distribuyó y coordinó correctamente la carga de trabajo
-	\item \textbf{Transferencia bidireccional}: Los archivos fueron transferidos y sincronizados correctamente entre Grid Manager y clúster Parallel
+	\item \textbf{Transferencia bidireccional}: Los archivos fueron transferidos y sincronizados correctamente entre Grid \textit{Manager} y clúster \textit{Parallel}
 \end{itemize}
 
 El conjunto de datos de 10,000 elementos se ordenó exitosamente mediante el algoritmo paralelo distribuido, demostrando la funcionalidad completa del universo Parallel integrado con \textit{Grid App}.
@@ -246,9 +246,9 @@ Un aspecto crítico validado durante las pruebas fue la capacidad del sistema pa
 El sistema implementa la siguiente lógica de presentación de clústeres:
 
 \begin{itemize}
-	\item \textbf{Trabajos Vanilla/Grid}: Presenta clústeres vanilla disponibles (Clúster B y C) con base en las métricas de \textit{Cluster Info App}
-	\item \textbf{Trabajos Parallel}: Presenta únicamente la infraestructura virtualizada que admite el universo Parallel y OpenMPI
-	\item \textbf{Selección automática}: Considera la disponibilidad de slots, la carga actual y el historial de rendimiento
+	\item \textbf{Trabajos Vanilla/Grid}: Presenta clústeres \textit{Vanilla} disponibles (Clúster B y C) con base en las métricas de \textit{Cluster Info App}
+	\item \textbf{Trabajos Parallel}: Presenta únicamente la infraestructura virtualizada que admite el universo \textit{Parallel} y OpenMPI
+	\item \textbf{Selección automática}: Considera la disponibilidad de \textit{slots}, la carga actual y el historial de rendimiento
 \end{itemize}
 
 Esta funcionalidad se validó exitosamente durante todas las pruebas, eliminando la posibilidad de error del usuario al seleccionar clústeres incompatibles.
