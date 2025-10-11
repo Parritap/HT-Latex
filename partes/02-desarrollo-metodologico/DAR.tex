@@ -4,15 +4,15 @@
 
 \section{Metodología de evaluación}
 
-La metodología de evaluación aplicada para la elección de la tecnología del nuevo universo HTCondor fue \textit{Decision Analysis and Resolution} (\DAR) de \CMMI \citep{CMMIInstitute2010}. Esta metodología permitió evaluar las necesidades del grupo \GRID\ mediante un proceso estructurado que consideró múltiples alternativas, criterios de evaluación bien definidos y un análisis comparativo riguroso. Los criterios evaluados incluyeron el nivel de acoplamiento de trabajos (entendido como la capacidad de un universo para sincronizar múltiples trabajos entre sí), la capacidad de interrupción de trabajos como mecanismo para mejorar la calidad de servicio, la popularidad y adopción en el contexto académico, y la disponibilidad y calidad de documentación técnica del universo. El uso de \DAR\ no solo aporta transparencia y trazabilidad al proceso de selección, sino que también garantiza objetividad y justificación técnica sólida para la decisión arquitectónica de incorporar un nuevo universo HTCondor.
+La metodología de evaluación aplicada para la elección de la tecnología del nuevo universo HTCondor fue la \textit{Decision Analysis and Resolution} (\DAR) de \CMMI \citep{CMMIInstitute2010}. Esta metodología permitió evaluar las necesidades del grupo \GRID\ mediante un proceso estructurado que consideró múltiples alternativas, criterios de evaluación bien definidos y un análisis comparativo riguroso. Los criterios evaluados incluyeron el nivel de acoplamiento de trabajos (entendido como la capacidad de un universo para sincronizar múltiples trabajos entre sí), la capacidad de interrupción de trabajos como mecanismo para mejorar la calidad de servicio, la popularidad y adopción en el contexto académico, y la disponibilidad y calidad de documentación técnica del universo. El uso de \DAR\ no solo aporta transparencia y trazabilidad al proceso de selección, sino que también garantiza objetividad y justificación técnica sólida para la decisión arquitectónica de incorporar un nuevo universo HTCondor.
 
 \subsection{Lista de criterios}
 A continuación se describen los criterios seleccionados para la evaluación.
 
-\subsubsection{Capacidad de paralelismo puro}
+\subsubsection{Capacidad de paralelismo verdadero}
 \textbf{Código:} PARALLEL
 
-\textbf{Descripción:} Este criterio evalúa la capacidad de los diferentes universos para ejecutar computación paralela pura por medio de la comunicación entre procesos a través de algún mecanismo de \MPI como OpenMPI.
+\textbf{Descripción:} Este criterio evalúa la capacidad de los diferentes universos para ejecutar computación paralela verdadera \citep{Morgan2009} por medio de la comunicación entre procesos a través de algúna implementación de \MPI como OpenMPI.
 
 \textbf{Justificación:} En el contexto de la Universidad del Quindío es deseable para el
 grupo \GRID desarrollar capacidades paralelas puras en su clúster de HTCondor por
@@ -22,34 +22,34 @@ pueden ser la ejecución de simulaciones distribuidas en las que la sincronizaci
 los trabajos es crítica debido a la ganancia temporal fruto de la comunicación en
 tiempo real de los procesos, el entrenamiento paralelo de redes neuronales en el
 que los pesos se actualizan de forma dinámica con la información enviada por cada
-proceso paralelo, entro otros. Los casos descritos anteriormente son algunos de los
+proceso paralelo, entre otros. Los casos descritos anteriormente son algunos de los
 muchos en los que el soporte para trabajos paralelos puede ser deseable para el
 grupo de investigación \GRID, por lo que su inclusión como criterio en la toma de
 decisión se considera adecuada, no como una necesidad infalible sino como un
-valor adicional. Si esta fuese una necesidad infalible, entonces aquellos Universos
-que no cumpliesen con capacidad para paralelismo quedarían descartados
+valor adicional. Si esta fuese una necesidad infalible, entonces aquellos universos
+que no tuviesen capacidad de paralelismo quedarían descartados
 automáticamente.
 
 \subsubsection{Soporte para checkpointing}
 \textbf{Código:} CHECKPOINTING
 
-\textbf{Descripción:} Este criterio se refiere a la capacidad de un Universo para soportar o
+\textbf{Descripción:} Este criterio se refiere a la capacidad de un universo para soportar o
 no el \textit{checkpointing}. Con este término nos referimos a la capacidad de un trabajo
 para ser retomado o reanudado después de su interrupción, persistiendo los valores
 calculados por el proceso interrumpido hasta ese momento. Este criterio se
-considera binario, ya que un Universo puede tener o no esta capacidad, cabe aclarar
+considera binario, ya que un universo puede tener o no esta capacidad, cabe aclarar
 que HTCondor define ciertos mecanismos de \textit{checkpointing} en su documentación
-mas no aclara muy bien en cuáles Universos pueden o no ser usados, sin embargo,
+mas no aclara muy bien en cuáles universos pueden o no ser usados, sin embargo,
 es posible programar estas capacidades en capa de aplicación, lo cual se toma en
-cuenta para este criterio. El único caso especial es aquel del Universo Parallel, en
+cuenta para este criterio. El único caso especial es aquel del universo \textit{Parallel}, en
 el cual, según se explica en la documentación encontrada, no es posible
 implementar \textit{checkpointing} debido a la naturaleza de ejecución de sus trabajos. En
 los demás universos los trabajos se ejecutan de manera atómica (excepto
-posiblemente el Universo Grid), es decir, de manera independiente en cada nodo,
-sin embargo, la capa adicional que ofrece el \MPI en el Universo Parallel hace que
+posiblemente el universo \textit{Grid}), es decir, de manera independiente en cada nodo,
+sin embargo, la capa adicional que ofrece el \MPI en el universo \textit{Parallel} hace que
 el estado actual de un trabajo no se encuentre en uno solo, sino que se encuentre
 simultáneamente en todos los nodos, así como también en aquellos mensajes que
-aún se encuentren en la red.
+aún se encuentren viajando por la red.
 
 
 \textbf{Justificación:} La continuidad de servicio es una característica deseable para la
@@ -57,7 +57,7 @@ mayoría de las organizaciones de la industria 4.0 y el grupo \GRID no es la
 excepción. En este tipo de computación un nodo podría eventualmente presentar
 indisponibilidad a mitad de la ejecución de un trabajo HTCondor, en este sentido el
 \textit{checkpointing} se presenta como un mecanismo para evitar la pérdida de trabajo en
-caso de que esto ocurra. Así pues, la capacidad para \textit{checkpointing} se considera
+caso de que esto ocurra. Así pues, la capacidad para lograr \textit{checkpointing} se considera
 importante para que el grupo \GRID pueda llegar a ofrecer servicios de computación
 tolerantes a la variación en el estrés computacional de su infraestructura distribuida
 a través de HTCondor.
@@ -69,19 +69,19 @@ a través de HTCondor.
 
 \textbf{Descripción:} Se refiere a la cantidad de artículos, fruto del mapeo sistemático
 hecho con antelación, que mencionan o indican de una u otra forma el uso o
-preferencia hacia el uso de un Universo, para el problema que se aborda en los
+preferencia hacia el uso de un universo, para el problema que se aborda en los
 casos de estudio propuestos por dichos artículos, para la extracción de este
-criterio se realizó un proceso riguroso de estudio de mapeo sistemático en el que
+criterio se realizó un proceso de estudio de mapeo sistemático en el que
 se analizó parte de la literatura y se encontró la tendencia de uso de cada
-Universo, al ser una medida numérica se dividió en 3 cuantiles (intervalos) de igual
+universo; esta, al ser una medida numérica se dividió en 3 cuantiles (intervalos) de igual
 tamaño y se calificó con base en qué intervalo se ubicaba cada número.
 
 
-\textbf{Justificación:} Las tendencias en el uso de cada Universo en el ámbito académico
-es un indicador importante de la utilidad y uso de cada Universo en ciertos casos
-de estudio, a pesar de no replicar exactamente el Universo de un caso de estudio
-similar, se toman casos de estudios que giran en torno a los Universos de
-HTCondor, así se extraen métricas que permiten determinarlos Universos más
+\textbf{Justificación:} Las tendencias en el uso de cada universo en el ámbito académico
+es un indicador importante de la utilidad y uso de cada universo en ciertos casos
+de estudio, a pesar de no replicar exactamente el universo de un caso de estudio
+similar, se toman casos de estudios que giran en torno a los universos de
+HTCondor, así se extraen métricas que permiten determinar los universos más
 usados en la literatura consultada.
 
 
@@ -89,23 +89,23 @@ usados en la literatura consultada.
 \textbf{Código:} DOC
 
 \textbf{Descripción:} Se refiere a la documentación académica encontrada en torno a
-este Universo, específicamente en el motor de búsqueda “Google Scholar”. Este
+este universo, específicamente en el motor de búsqueda “Google Scholar”. Este
 criterio difiere de la popularidad, ya que se usa un método menos exhaustivo para
 su medición, además, en el criterio popularidad solo se toman en cuenta los casos
 de estudio en bases de datos específicas, por el contrario, en este caso se hace
-una medición general en un motor de búsqueda ampliamente usado. Esta medida
-toma relevancia cuando se considera el hecho de que pueden haber Universos
+una medición general mediante un motor de búsqueda ampliamente usado. Esta medida
+toma relevancia cuando se considera el hecho de que pueden haber universos
 muy populares pero poco documentados, y en tal caso, dichos universos podrían
 no ser idóneos para la implementación en la infraestructura HTCondor del \GRID.
 
 
 \textbf{Justificación:} La cantidad de documentación disponible respecto a cierto
-Universo hace más sencilla la correcta documentación de la arquitectura
+universo hace más sencilla la correcta documentación de la arquitectura
 propuesta para la infraestructura del \GRID, esto cobra relevancia cuando
 consideramos que la poca documentación es uno de los problemas hallados en
 el diagrama de Ishikawa realizado en torno a las debilidades y problemáticas que
 existen alrededor de la infraestructura HTCondor de \GRID y debe ser mitigado
-para que ayude a la mitigación del efecto general.
+para que asista a la mitigación del efecto general.
 
 El proceso de categorización de popularidad consistió en realizar búsquedas sistemáticas en Google Scholar para cada universo evaluado, utilizando este motor de búsqueda académico para obtener métricas cuantitativas sobre la frecuencia de aparición en la literatura científica disponible. Los resultados obtenidos se categorizaron en tres cuantiles establecidos en función del universo con mayor número de apariciones, tal como se detalla en la tabla~\ref{tab:popularidad_universos}.
 
@@ -148,11 +148,11 @@ El proceso de categorización de popularidad consistió en realizar búsquedas s
 \textbf{Código:} ROLE DIV
 
 \textbf{Descripción:} Este criterio toma en cuenta la división de roles por máquina.
-Esencialmente, los clústeres HTCondor convencionales tienen tres roles: Central
-Manager, Submit Node y Execute. En un entorno ideal estos roles deben estar
-separados en diferentes máquinas, sin embargo, existen Universos en los que
+Esencialmente, los clústeres HTCondor convencionales tienen tres roles: \textit{Central
+	Manager}, \textit{Submit } y \textit{Execute}. En un entorno ideal estos roles deben estar
+separados en diferentes máquinas, sin embargo, existen universos en los que
 estos roles no se dividen en varias máquinas y son ejecutados por un solo nodo
-de cómputo, lo que no se alinea con las causas que se quieren mitigar.
+de cómputo, lo que no se alinea con las causas a mitigar.
 
 \textbf{Justificación:} La división de trabajos es una situación deseable para la
 infraestructura HTCondor del \GRID, ya que así cada nodo de cómputo tendrá una
@@ -178,9 +178,9 @@ Tras definir los criterios, se identificaron los Universos disponibles en la tec
 \end{itemize}
 
 \subsection{Medición de la popularidad}
-El criterio de ``popularidad'' se definió como el volumen de uso de un Universo en artículos científicos, por lo que se requirió un proceso metódico para su medición. Para ello, se procedió con un estudio de mapeo sistemático \SMS (ver sección \ref{cap:revisionLiteratura}). El SMS es un método definido para analizar literatura existente, extrayendo recursos de varias fuentes y seleccionándolos con criterios rigurosos. El resultado final es una taxonomía que permite contar las apariciones de cada Universo en la literatura seleccionada.
+El criterio de ``popularidad'' se definió como el volumen de uso de un universo en artículos científicos, por lo que se requirió un proceso metódico para su medición. Para ello, se procedió con un estudio de mapeo sistemático \SMS (ver sección \ref{cap:revisionLiteratura}). El \SMS es un método definido para analizar literatura existente, extrayendo recursos de varias fuentes y seleccionándolos con criterios rigurosos.
 
-El proceso completo es robusto e incluye múltiples etapas; sin embargo, para fines de este documento, lo más relevante es el diagrama del proceso (Figura \ref{fig:sms}) y los resultados obtenidos (Tabla \ref{tab:aparicion_universos}).
+El proceso incluye múltiples etapas; sin embargo, para los fines relativos a la presente sección, lo más relevante es el diagrama del proceso del \SMS (Figura \ref{fig:sms}) y los resultados obtenidos (Tabla \ref{tab:aparicion_universos}).
 
 
 \begin{figure}[H]
@@ -257,9 +257,9 @@ Con los criterios definidos y la medición de popularidad completada, se procedi
 \section{Resultados}
 
 \subsection{Resumen del análisis}
-El proceso ejecutado tuvo como fin tomar una decisión informada sobre el Universo a implementar en la infraestructura HTCondor del \GRID. Considerando el resultado descrito en la Tabla \ref{tab:analisis_dar}, hubo un empate en los Universos ganadores \textbf{Grid } y \textbf{Parallel}. Teniendo en cuenta esta situación que no se tenía en cuenta desde el principio, se tomó la decisión de continuar con las demás etapas del proyecto con ambos Universos, ya que no hay motivos, razones ni evidencia para orientarse o preferir uno sobre otro.
+El proceso ejecutado tuvo como fin tomar una decisión informada sobre el universo a implementar en la infraestructura HTCondor del \GRID. Considerando el resultado descrito en la Tabla \ref{tab:analisis_dar}, hubo un empate entre los universos ganadores \textbf{Grid } y \textbf{Parallel}. Teniendo en cuenta esta situación que no se tenía en cuenta desde el principio, se tomó la decisión de continuar con las demás etapas del proyecto con ambos universos, ya que no hay motivos, razones ni evidencia para orientarse o preferir uno sobre otro.
 
-Grosso modo, el Universo Grid funciona como un middleware o intermediario que hace de puente para enviar trabajos computacionales desde un nodo submit hacia un pool HTCondor de recursos externos. Por su parte, el Universo Parallel ejecuta programas que hacen usos de alguna implementación de \MPI como OpenMPI para lograr así una ejecución sincronizada y ordenada con el fin de permitir la comunicación entre los nodos.
+En términos generales, el universo Grid funciona como un middleware o intermediario que hace de puente para enviar trabajos computacionales desde un nodo submit hacia un pool HTCondor de recursos externos. Por su parte, el universo Parallel ejecuta programas que hacen usos de alguna implementación de \MPI como OpenMPI para lograr así una ejecución sincronizada y que posibilite la comunicación entre los nodos.
 
 \subsection{Próximos pasos}
-Se procederá con el diseño de las arquitecturas de la solución con cada Universo y su posterior implementación a través de un prototipo funcional.
+Se procede con el diseño de las arquitecturas de la solución con cada universo y su posterior implementación a través de un prototipo funcional.

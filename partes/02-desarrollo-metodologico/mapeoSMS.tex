@@ -1,5 +1,5 @@
 \ChapterImageStar[cap:revisionLiteratura]{Revisión sistemática de la literatura}{./images/fondo.png}\label{cap:revisionLiteratura}
-
+% !TODO Insertar Taxonomía
 \mbox{}\\
 \section{Construcción de la bitácora}
 
@@ -8,7 +8,7 @@ En busca de una base teórica sólida para seleccionar un nuevo universo HTCondo
 
 \subsection{Planeación}
 
-Esta etapa consistió en establecer el propósito general que se buscaba alcanzar con el \SMS (\textit{Systematic Mapping Study}).
+Esta etapa tuvo como objetivo definir el propósito general del \SMS (\textit{Systematic Mapping Study}), adoptando la metodología propuesta por \cite{Sepulveda2021}.
 A su vez, definió aspectos como objetivos (ver cuadro~\ref{tab:metas}), preguntas de investigación (ver cuadro~\ref{tab:preguntas}) y métricas (ver cuadro~\ref{tab:metricas}). Para ello, se siguió el modelo
 Objetivo-Pregunta-Métrica (\textit{goal-question-metric}, GQM).
 
@@ -87,12 +87,12 @@ Esta etapa comprendió las siguientes secciones:
 Este trabajo combinó estrategias de búsqueda en bases de datos con la técnica de búsqueda en bola de nieve, lo que permitió ampliar y enriquecer la recopilación de estudios relevantes para el mapeo sistemático. Esta aproximación facilitó la identificación de investigaciones clave que podrían no haber sido detectadas mediante una búsqueda tradicional.
 
 \subsection{Búsqueda en bases de datos}\label{subsec:busquedaBasesDatos}
-Se seleccionaron las siguientes bases de datos para llevar a cabo el mapeo sistemático de estudios: ACM, IEEE Xplore, Springer, Taylor \& Francis y Science Direct. Estas fuentes fueron elegidas por su relevancia y cobertura en el área de investigación, asegurando así la obtención de información actualizada y de calidad para el desarrollo del estudio.
+Se seleccionaron las siguientes bases de datos para llevar a cabo el mapeo sistemático de estudios: ACM, IEEE Xplore, Springer, Taylor \& Francis y Science Direct. Estas fuentes fueron elegidas por su disponibilidad, relevancia y cobertura en el área de investigación, asegurando así la obtención de información actualizada y de calidad para el desarrollo del estudio.
 
 
 \newpage
 \subsubsection{Identificación de estudios mediante búsqueda en bases de datos}\label{subsubsec:identificacionEstudios}
-En esta etapa del proceso fue necesario establecer un marco que nos ayudase a establecer las palabras clave más apropiadas para el mapeo sistemático de estudios para cada una de las bases de datos seleccionadas. Para ello se hizo uso del modelo PICOC ( \textit{Population}, \textit{Intervention}, \textit{Comparator}, \textit{Outcome}, and \textit{Context} ) como guía metodológica, sirviendo como herramienta de apoyo para este procedimiento. El resultado de este proceso puede verse en la tabla~\ref{table:modelo-picoc}
+En esta etapa del proceso fue necesario establecer un marco que ayudase a establecer las palabras clave más apropiadas para el mapeo sistemático de estudios para cada una de las bases de datos seleccionadas. Para ello se hizo uso del modelo PICOC (\textit{Population}, \textit{Intervention}, \textit{Comparator}, \textit{Outcome}, and \textit{Context}) como guía metodológica, sirviendo como herramienta de apoyo para este procedimiento. El resultado de este proceso puede verse en la tabla~\ref{table:modelo-picoc}
 
 % TABLA modelo PICOC: Población - Intervención - Comparación  - Salida - Contexto
 \begin{table}[H]
@@ -236,7 +236,7 @@ Las palabras clave identificadas en el cuadro~\ref{table:keywords-picoc} se comp
 
 
 \noindent
-Con el objetivo de filtrar los resultados y enfocarse en estudios relevantes, se definieron criterios de inclusión y exclusión, los cuales se presentan en el cuadro~\ref{table:criterios-inclusion-exclusion}. Estos criterios ayudaron a seleccionar artículos que se alinean con los objetivos del \SMS y a descartar aquellos que no aportan valor al análisis\dots
+Con el objetivo de filtrar los resultados y enfocarse en estudios relevantes, se definieron criterios de inclusión y exclusión, los cuales se presentan en el cuadro~\ref{table:criterios-inclusion-exclusion}. Estos criterios ayudaron a seleccionar artículos que se alinean con los objetivos del \SMS y a descartar aquellos que no aportan valor al análisis.
 
 % TABLA Criterios de inclusión y exclusión
 \begin{table}[H]
@@ -339,7 +339,7 @@ La eliminación de estudios duplicados se efectuó mediante la herramienta de ge
 % FIGURA Eliminación de duplicados
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5] {tablas-images/sms/eliminacion-duplicados.png}
+	\includegraphics[scale=0.25] {tablas-images/sms/eliminacion-duplicados.png}
 	\caption{Diagrama del proceso de eliminación de resultados}\label{fig:eliminacion-duplicados}
 \end{figure}
 
@@ -378,7 +378,7 @@ El resumen de este proceso puede verse en la figura \ref{fig:resumen-snowball}
 
 \section{Cuadro de estudios}
 
-A continuación se muestran los estudios obtenidos por el proceso~\SMS en la tabla \ref{table:selected_primary_studies}.
+Los estudios resultantes del proceso de \SMS se presentan en la tabla \ref{table:selected_primary_studies}.
 
 
 
@@ -389,7 +389,6 @@ A continuación se muestran los estudios obtenidos por el proceso~\SMS en la tab
 	\label{table:selected_primary_studies}
 	\fontsize{8pt}{10pt}\selectfont % Tamaño de fuente 8pt
 	\renewcommand{\arraystretch}{1.2}
-	\setlength{\tabcolsep}{4pt} % Reduce space between columns
 	\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r l @{\extracolsep{\fill}} r l @{\extracolsep{\fill}} r l @{\extracolsep{\fill}} r l @{\extracolsep{\fill}} r}
 		\toprule
 		\textbf{ID} & \textbf{Ref}                        & \textbf{ID} & \textbf{Ref}                        & \textbf{ID} & \textbf{Ref}                      & \textbf{ID} & \textbf{Ref}                        & \textbf{ID} & \textbf{Ref}                       \\
@@ -498,4 +497,4 @@ Adicionalmente, se implementaron procesos de respaldo como medida de seguridad. 
 
 \section{Conclusiones de la revisión sistemática de la literatura}
 \noindent
-Esta revisión sistemática de la literatura sobre universos de HTCondor y tecnologías de computación distribuida de alto rendimiento logró identificar y analizar 114 estudios relevantes de un total inicial de 847 documentos recuperados de cinco bases de datos académicas principales. El proceso metodológico riguroso incluyó la aplicación de criterios de inclusión y exclusión que redujeron el corpus inicial en un 43.44\%, seguido de la eliminación de duplicados y la aplicación de estrategias complementarias como la búsqueda por bola de nieve. Los resultados revelan que la base de datos ACM fue la fuente más productiva con el 61.16\% de los artículos iniciales, mientras que IEEE y Taylor \& Francis no proporcionaron contribuciones significativas con las cadenas de búsqueda empleadas. El análisis temático identificó como tópicos predominantes \textbf{Grid Computing, HPC, Cloud Computing, HTC y Parallel}, evidenciando una concentración de la investigación en estas áreas específicas. Respecto al cumplimiento de las preguntas de investigación, todos los 114 estudios seleccionados respondieron a RQ1 (trabajos relacionados con universos de HTCondor en diversos dominios computacionales), mientras que solo 28 estudios (24.6\%) abordaron RQ2 (aplicaciones en funciones universitarias esenciales), lo que sugiere una brecha significativa en la literatura sobre la aplicación de estas tecnologías en contextos educativos y de extensión universitaria. La distribución temporal de las publicaciones y la diversidad de métricas de calidad aplicadas confirman la relevancia y actualidad del tema de investigación, proporcionando una base sólida para el desarrollo de taxonomías y marcos de trabajo en el dominio de HTCondor y computación distribuida.
+Esta revisión sistemática de la literatura sobre universos de HTCondor y tecnologías de computación distribuida de alto rendimiento logró identificar y analizar 114 estudios relevantes de un total inicial de 847 documentos recuperados de cinco bases de datos académicas principales. El proceso metodológico incluyó la aplicación de criterios de inclusión y exclusión que redujeron el corpus inicial en un 43.44\%, seguido de la eliminación de duplicados y la aplicación de estrategias complementarias como la búsqueda por bola de nieve. Los resultados revelan que la base de datos ACM fue la fuente más productiva con el 61.16\% de los artículos iniciales, mientras que IEEE y Taylor \& Francis no proporcionaron contribuciones significativas con las cadenas de búsqueda empleadas. El análisis temático identificó como tópicos predominantes \textbf{Grid Computing, HPC, Cloud Computing, HTC y Parallel}, evidenciando una concentración de la investigación en estas áreas específicas. Respecto al cumplimiento de las preguntas de investigación, todos los 114 estudios seleccionados respondieron a RQ1 (trabajos relacionados con universos de HTCondor en diversos dominios computacionales), mientras que solo 28 estudios (24.6\%) abordaron RQ2 (aplicaciones en funciones universitarias esenciales), lo que sugiere una brecha significativa en la literatura sobre la aplicación de estas tecnologías en contextos educativos y de extensión universitaria. La distribución temporal de las publicaciones y la diversidad de métricas de calidad aplicadas confirman la relevancia y actualidad del tema de investigación, proporcionando una base sólida para el desarrollo de taxonomías y marcos de trabajo en el dominio de HTCondor y computación distribuida.

@@ -9,11 +9,11 @@ La caracterización del \GRID\ resulta esencial para comprender su estructura, c
 Con el fin de identificar los actores internos y externos que influyen en el desarrollo de las actividades del grupo, se realizó un análisis de \textit{stakeholders}. Este ejercicio permitió reconocer los diferentes intereses, roles y niveles de influencia que cada actor tiene en relación con la expansión de un nuevo universo HTCondor. Los principales \textit{stakeholders} identificados incluyen: investigadores del grupo, estudiantes de pregrado y posgrado, docentes de la Facultad de Ingeniería, y en un nivel más amplio, la comunidad académica de la Universidad del Quindío.
 \\
 \noindent
-La tablaef{tab:stakeholders} presenta el análisis de los principales interesados en la expansión de los universos HTCondor dentro del contexto institucional. Se identifican actores internos y externos, especificando su rol, el tipo de relación con el proyecto, el nivel de impacto esperado, así como su poder de influencia, interés y compromiso frente a la iniciativa.
+La tabla \ref{tab:stakeholders} presenta el análisis de los principales interesados en la expansión de los universos HTCondor dentro del contexto institucional. Se identifican actores internos y externos, especificando su rol, el tipo de relación con el proyecto, el nivel de impacto esperado, así como su poder de influencia, interés y compromiso frente a la iniciativa.
 
 El análisis de interesados revela una estructura compleja de actores con distintos niveles de influencia y compromiso frente al proyecto. El Grupo de Investigación GRID emerge como el interesado crítico, concentrando simultáneamente el mayor impacto, poder de influencia, interés y compromiso. Esta posición central le otorga un rol determinante como beneficiario principal y tomador de decisiones, lo que subraya la necesidad de mantener una comunicación estrecha y continua con este grupo para asegurar la alineación del proyecto con sus expectativas estratégicas y operativas.
 
-Los docentes de Ingeniería de Sistemas y los investigadores locales y externos constituyen el segundo nivel de importancia, caracterizándose por un alto interés en la solución y un potencial significativo como usuarios finales. Aunque su poder de decisión es limitado, su adopción efectiva de la tecnología será fundamental para validar el éxito del proyecto. Este segmento requiere especial atención en términos de usabilidad, documentación y capacitación, dado que su compromiso está condicionado a la utilidad práctica y los beneficios tangibles que puedan obtener. La diferencia principal entre ambos grupos radica en que los investigadores externos representarían el segmento de usuarios más activo e intensivo de la infraestructura.
+Los docentes de Ingeniería de Sistemas y Computación y los investigadores locales y externos constituyen el segundo nivel de importancia, caracterizándose por un alto interés en la solución y un potencial significativo como usuarios finales. Aunque su poder de decisión es limitado, su adopción efectiva de la tecnología será fundamental para validar el éxito del proyecto. Este segmento requiere especial atención en términos de usabilidad, documentación y capacitación, dado que su compromiso está condicionado a la utilidad práctica y los beneficios tangibles que puedan obtener. La diferencia principal entre ambos grupos radica en que los investigadores externos representarían el segmento de usuarios más activo e intensivo de la infraestructura.
 
 El Programa de Ingeniería de Sistemas y Computación desempeña un rol estratégico como facilitador institucional con alto poder de influencia, particularmente en la provisión de recursos y la posibilidad de escalar la solución hacia otros programas académicos. Sin embargo, su compromiso relativamente bajo sugiere que será necesario demostrar claramente el valor estratégico e institucional del proyecto para asegurar su respaldo sostenido. Por otro lado, los estudiantes de pregrado presentan bajo impacto, poder e interés debido a la naturaleza especializada de la computación distribuida en el contexto académico de pregrado, lo que los posiciona como beneficiarios secundarios que validarán la solución más por uso ocasional que por dependencia operativa.
 
@@ -31,7 +31,6 @@ El \GRID\ está conformado por un equipo multidisciplinario de investigadores y 
 \begin{itemize}
 	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000210897}{\underline{{\textbf{Christian Andrés Candela Uribe}}}}: Microservicios, desarrollo de software, minería de datos, infraestructura TI.\@
 	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001383939}{\underline{{\textbf{Luis Eduardo Sepúlveda Rodríguez}}}}: Infraestructura de TI, HPC, computación paralela.
-	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001638854}{\underline{{\textbf{Carlos Andrés Flórez Villarraga}}}}: Programación y algoritmia, inteligencia artificial.
 	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001343801}{\underline{{\textbf{Carlos Eduardo Gómez Montoya}}}}: Redes, ingeniería de software, cloud computing.
 	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001398775}{\underline{{\textbf{Sergio Augusto Cardona Torres}}}}: Big data y análisis de datos, ingeniería de software, sistemas adaptativos, informática educativa.
 	\item \href{https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000193550}{\underline{{\textbf{Sonia Jaramillo Valbuena}}}}: Big data, electroquímica, inteligencia artificial.
@@ -127,7 +126,7 @@ En la figura \ref{fig:foto-torres-rasp} se muestra la imagen de las siete torres
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.065]{tablas-images/raspberries/torre-binaria.jpeg}
-	\caption{Vista general de las máquinas submit y master}
+	\caption{Vista general de las máquinas \textit{submit } y \textit{master}}
 	\label{fig:foto-torre-binaria}
 \end{figure}
 
@@ -135,17 +134,13 @@ En la figura \ref{fig:foto-torres-rasp} se muestra la imagen de las siete torres
 % ####################################################################################################
 
 \noindent
-En la figura \ref{fig:foto-torre-binaria} se muestran las máquinas submit y master de clúster HTCondor.
+En la figura \ref{fig:foto-torre-binaria} se muestran las máquinas \textit{submit } y \textit{master} de clúster HTCondor.
 
 \noindent
-Como se puede evidenciar en las figuras \ref{fig:foto-torres-rasp} y \ref{fig:foto-torre-binaria}, cada máquina perteneciente a una torre está conectada a un switch. Las especificiones de dicho switch se mencionan en la tabla \ref{table:mini-switch}
+Como se puede evidenciar en las figuras \ref{fig:foto-torres-rasp} y \ref{fig:foto-torre-binaria}, cada máquina perteneciente a una torre está conectada a un \textit{switch}. Las especificaciones de dicho \textit{switch} se mencionan en la tabla \ref{table:mini-switch}.
 
 \input{tablas-images/raspberries/mini-switch.tex}
 
-\noindent
-A su vez, los switch anteriores van conectados a otro switch. Este switch es el Cisco SG200-26. Sus especificaciones pueden verse en la tablas \ref{table:big-switch}
-
-\input{tablas-images/raspberries/big-switch.tex}
 
 \subsection{Ambientes de ejecución de la infraestructura HTCondor del \GRID}
 \noindent{}
@@ -156,7 +151,7 @@ Hasta el momento, la configuración de HTCondor del \GRID únicamente incorpora 
 
 \subsection{Servicios actuales de computación distribuida}
 \noindent
-Los servicios actuales del \GRID se orientan principalmente hacia la provisión de infraestructura de \TI, abarcando máquinas virtuales, soluciones de almacenamiento y configuración de redes. No obstante, la computación distribuida constituye un dominio especializado que demanda competencias técnicas avanzadas por parte de los usuarios. En consecuencia, si bien el grupo ha desarrollado capacidades en esta área, aún no se ha consolidado una oferta formal de servicios de computación distribuida de acceso público para la comunidad académica institucional.
+Los servicios actuales de el grupo \GRID se orientan principalmente hacia la provisión de infraestructura de \TI, abarcando máquinas virtuales, soluciones de almacenamiento y configuración de redes. No obstante, la computación distribuida constituye un dominio especializado que demanda competencias técnicas avanzadas por parte de los usuarios. En consecuencia, si bien el grupo ha desarrollado capacidades en esta área, aún no se ha consolidado una oferta formal de servicios de computación distribuida de acceso público para la comunidad académica institucional.
 
 % !TODO PREGUNTA PARA EL PROFE: Aquí hago una declaración temeraria sobre la universidad que neceisto confirmar
 % Se han ofrecido servicios de computación identifica en el grupo grid que hayan estado disponibles para otros grupos o para 
@@ -258,7 +253,7 @@ Dado que no se ha establecido previamente un servicio de computación distribuid
 \end{table}
 \section{Descripción de la oportunidad}
 \noindent
-La implementación de un nuevo universo HTCondor en la infraestructura del grupo GRID representa una oportunidad estratégica de considerable valor tanto para la comunidad académica de la Universidad del Quindío como para los grupos de investigación locales y externos. En primer lugar, esta ampliación abrirá el paso para que diversos grupos de investigación de la institución accedan a capacidades computacionales especializadas más diversas, democratizando así el uso de tecnologías de computación distribuida para disciplinas que requieren procesamiento intensivo de datos, tales como la bioinformática, el análisis de big data, el aprendizaje profundo y la simulación científica. En segundo lugar, desde una perspectiva formativa, la incorporación de este nuevo universo constituye una oportunidad invaluable para que los estudiantes de pregrado y posgrado adquieran competencias prácticas en computación de alto rendimiento (\HTC), un campo con limitada documentación y experiencias de implementación documentadas en el contexto colombiano. Adicionalmente, esta iniciativa ayudaría al posicionamiento del \GRID como un referente en computación distribuida a nivel nacional, facilitando la colaboración interinstitucional y el desarrollo de proyectos conjuntos con otras universidades e instituciones de investigación. Finalmente, la consolidación de una infraestructura HTCondor más robusta y versátil contribuye directamente a la competitividad investigativa de la Universidad del Quindío, optimizando el aprovechamiento de recursos computacionales disponibles y generando capacidades técnicas diferenciadas que pueden traducirse en publicaciones científicas, proyectos de mayor envergadura y fortalecimiento de las líneas de investigación institucionales.
+La implementación de un nuevo universo HTCondor en la infraestructura del grupo GRID representa una oportunidad estratégica de considerable valor tanto para la comunidad académica de la Universidad del Quindío como para los grupos de investigación locales y externos. En primer lugar, esta ampliación abrirá el paso para que diversos grupos de investigación de la institución accedan a capacidades computacionales especializadas más diversas, democratizando así el uso de tecnologías de computación distribuida para disciplinas que requieren procesamiento intensivo de datos, tales como la bioinformática, el análisis de big data, el aprendizaje profundo y la simulación científica. En segundo lugar, desde una perspectiva formativa, la incorporación de este nuevo universo constituye una oportunidad para que los estudiantes de pregrado y posgrado adquieran competencias prácticas en computación de alto rendimiento (\HTC), un campo con limitada documentación y experiencias de implementación documentadas en el contexto colombiano. Adicionalmente, esta iniciativa ayudaría al posicionamiento del \GRID como un referente en computación distribuida a nivel nacional, facilitando la colaboración interinstitucional y el desarrollo de proyectos conjuntos con otras universidades e instituciones de investigación. Finalmente, la consolidación de una infraestructura HTCondor más robusta y versátil contribuye directamente a la competitividad investigativa de la Universidad del Quindío, optimizando el aprovechamiento de recursos computacionales disponibles y generando capacidades técnicas diferenciadas que pueden traducirse en publicaciones científicas, proyectos de mayor envergadura y fortalecimiento de las líneas de investigación institucionales.
 
 
 \section{Resumen de la entrevista con el cliente}
