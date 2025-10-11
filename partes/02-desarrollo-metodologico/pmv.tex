@@ -22,7 +22,7 @@ La figura~\ref{fig:estructura-proyecto-grid-app} detalla la estructura del proye
 \subsection{Código fuente}
 \noindent
 
-El código fuente de la aplicación \textit{Grid App}, está disponible en el repositorio de GitHub \href{https://github.com/JuanEstebanOsma1012/condor\_webui}{\textit{condor\_webui}} en la rama \href{https://github.com/JuanEstebanOsma1012/condor\_webui/tree/main}{\textit{main}} y su versión más actualizada y funcional a la fecha es la \href{https://github.com/JuanEstebanOsma1012/condor\_webui/releases/tag/v3.1.0}{v3.1.0}. De igual forma, en el apéndice XX se muestran los contenidos y la descripción de cada archivo que compone esta aplicación.
+El código fuente de la aplicación \textit{Grid App}, está disponible en el repositorio de GitHub \href{https://github.com/JuanEstebanOsma1012/condor\_webui}{\textit{condor\_webui}} en la rama \href{https://github.com/JuanEstebanOsma1012/condor\_webui/tree/main}{\textit{main}} y su versión más actualizada y funcional a la fecha es la \href{https://github.com/JuanEstebanOsma1012/condor\_webui/releases/tag/v3.1.0}{v3.1.0}. De igual forma, en el apéndice correspondiente se muestran los contenidos y la descripción de cada archivo que compone esta aplicación.
 
 \subsection{Componentes de la interfaz web}
 \noindent
@@ -65,53 +65,53 @@ El proceso que ejecuta este componente puede describirse en los siguientes pasos
 
 \begin{enumerate}
 	\item \textbf{Generación del identificador único}: Al recibir una petición, el \textit{endpoint} genera un identificador único (UUID) de 8 caracteres para el trabajo. Este identificador se utiliza para crear un directorio específico dentro de \texttt{/submits/} donde se almacenarán todos los archivos relacionados con el trabajo.
-	
+
 	\item \textbf{Procesamiento de archivos}: El componente recibe y procesa tres tipos de archivos opcionales:
-	\begin{itemize}
-		\item \textit{binary-file}: El archivo ejecutable del trabajo.
-		\item \textit{input-file}: Archivo de entrada necesario para la ejecución (principalmente para trabajos paralelos).
-		\item \textit{submit-file}: Archivo de configuración personalizado de HTCondor.
-	\end{itemize}
-	
+	      \begin{itemize}
+		      \item \textit{binary-file}: El archivo ejecutable del trabajo.
+		      \item \textit{input-file}: Archivo de entrada necesario para la ejecución (principalmente para trabajos paralelos).
+		      \item \textit{submit-file}: Archivo de configuración personalizado de HTCondor.
+	      \end{itemize}
+
 	\item \textbf{Configuración del trabajo}: El \textit{endpoint} recibe un objeto JSON con la configuración del trabajo que incluye:
-	\begin{itemize}
-		\item \texttt{jobType}: Tipo de universo (vanilla o parallel).
-		\item \texttt{cluster}: Dirección IP y puerto del clúster destino.
-		\item \texttt{additionalArgs}: Argumentos adicionales para el ejecutable.
-		\item Opciones específicas según el tipo de trabajo.
-	\end{itemize}
-	
+	      \begin{itemize}
+		      \item \texttt{jobType}: Tipo de universo (vanilla o parallel).
+		      \item \texttt{cluster}: Dirección IP y puerto del clúster destino.
+		      \item \texttt{additionalArgs}: Argumentos adicionales para el ejecutable.
+		      \item Opciones específicas según el tipo de trabajo.
+	      \end{itemize}
+
 	\item \textbf{Generación del archivo submit}: Si el usuario no proporciona un archivo submit personalizado, el componente genera automáticamente uno basado en la configuración recibida, utilizando la función \texttt{create\_submit\_file()}. Esta función crea archivos submit diferentes según el tipo de universo:
-	
-	\begin{itemize}
-		\item \textbf{Para Universo Grid (Vanilla)}: Genera un archivo submit que especifica el \textit{grid\_resource}, configura la transferencia de archivos y establece los requisitos de arquitectura. Además, maneja dos modos de distribución de trabajos:
-		\begin{itemize}
-			\item \textit{Modo range}: Genera múltiples trabajos con valores de variables distribuidos en rangos especificados.
-			\item \textit{Modo equal}: Genera múltiples trabajos idénticos según el número de repeticiones especificado.
-		\end{itemize}
-		
-		\item \textbf{Para Universo Parallel}: Genera un archivo submit que utiliza el \textit{openmpiscript}, especifica el número de máquinas y núcleos por máquina, configura las variables de entorno para OpenMPI y establece las políticas de transferencia de archivos y apagado.
-	\end{itemize}
-	
+
+	      \begin{itemize}
+		      \item \textbf{Para Universo Grid (Vanilla)}: Genera un archivo submit que especifica el \textit{grid\_resource}, configura la transferencia de archivos y establece los requisitos de arquitectura. Además, maneja dos modos de distribución de trabajos:
+		            \begin{itemize}
+			            \item \textit{Modo range}: Genera múltiples trabajos con valores de variables distribuidos en rangos especificados.
+			            \item \textit{Modo equal}: Genera múltiples trabajos idénticos según el número de repeticiones especificado.
+		            \end{itemize}
+
+		      \item \textbf{Para Universo Parallel}: Genera un archivo submit que utiliza el \textit{openmpiscript}, especifica el número de máquinas y núcleos por máquina, configura las variables de entorno para OpenMPI y establece las políticas de transferencia de archivos y apagado.
+	      \end{itemize}
+
 	\item \textbf{Envío al clúster}: Dependiendo del tipo de trabajo, el componente ejecuta diferentes estrategias:
-	
-	\begin{itemize}
-		\item \textbf{Trabajos Vanilla}: Ejecuta directamente el comando \texttt{condor\_submit} sobre el archivo submit generado en el directorio del trabajo.
-		
-		\item \textbf{Trabajos Parallel}: Invoca el script \texttt{send-submit.sh} que se encarga de transferir los archivos necesarios al clúster remoto mediante SSH y ejecutar \texttt{condor\_submit} en dicho clúster. Adicionalmente, inicia un hilo separado que ejecuta el script \texttt{fetch-outputs.sh} para sincronizar periódicamente los archivos de salida desde el clúster remoto.
-	\end{itemize}
-	
+
+	      \begin{itemize}
+		      \item \textbf{Trabajos Vanilla}: Ejecuta directamente el comando \texttt{condor\_submit} sobre el archivo submit generado en el directorio del trabajo.
+
+		      \item \textbf{Trabajos Parallel}: Invoca el script \texttt{send-submit.sh} que se encarga de transferir los archivos necesarios al clúster remoto mediante SSH y ejecutar \texttt{condor\_submit} en dicho clúster. Adicionalmente, inicia un hilo separado que ejecuta el script \texttt{fetch-outputs.sh} para sincronizar periódicamente los archivos de salida desde el clúster remoto.
+	      \end{itemize}
+
 	\item \textbf{Extracción del cluster ID}: El componente analiza la salida del comando \texttt{condor\_submit} utilizando expresiones regulares para extraer el número de clúster asignado por HTCondor al trabajo.
-	
+
 	\item \textbf{Almacenamiento de información}: Finalmente, el componente guarda un archivo \texttt{job\_info.json} en el directorio del trabajo que contiene:
-	\begin{itemize}
-		\item El job\_id generado.
-		\item El cluster\_id asignado por HTCondor.
-		\item La configuración completa del trabajo.
-		\item El nombre del archivo binario.
-		\item La salida del comando condor\_submit.
-		\item La marca de tiempo de creación.
-	\end{itemize}
+	      \begin{itemize}
+		      \item El job\_id generado.
+		      \item El cluster\_id asignado por HTCondor.
+		      \item La configuración completa del trabajo.
+		      \item El nombre del archivo binario.
+		      \item La salida del comando condor\_submit.
+		      \item La marca de tiempo de creación.
+	      \end{itemize}
 \end{enumerate}
 
 \textbf{Respuesta:}
@@ -142,52 +142,52 @@ El proceso de consulta de estado se desarrolla de la siguiente manera:
 
 \begin{enumerate}
 	\item \textbf{Validación del trabajo}: El componente verifica la existencia del directorio del trabajo y del archivo \texttt{job\_info.json}. Si el trabajo no existe, retorna un error 404.
-	
+
 	\item \textbf{Carga de información}: Lee el archivo \texttt{job\_info.json} para obtener el cluster\_id y el tipo de trabajo.
-	
+
 	\item \textbf{Consulta en condor\_q}: Dependiendo del tipo de trabajo, ejecuta diferentes comandos:
-	
-	\begin{itemize}
-		\item \textbf{Trabajos Vanilla}: Ejecuta directamente el comando:
-		\begin{verbatim}
+
+	      \begin{itemize}
+		      \item \textbf{Trabajos Vanilla}: Ejecuta directamente el comando:
+		            \begin{verbatim}
 		condor_q <cluster_id> -long | grep -E '^JobStatus'
 		\end{verbatim}
-		
-		\item \textbf{Trabajos Parallel}: Ejecuta el comando remotamente mediante SSH:
-		\begin{verbatim}
-		ssh -i ~/.ssh/parallel alma@<submit_ip> 
+
+		      \item \textbf{Trabajos Parallel}: Ejecuta el comando remotamente mediante SSH:
+		            \begin{verbatim}
+		ssh -i ~/.ssh/parallel alma@<submit_ip>
 		  "condor_q <cluster_id> -long | grep -E '^JobStatus'"
 		\end{verbatim}
-	\end{itemize}
-	
+	      \end{itemize}
+
 	\item \textbf{Consulta en condor\_history}: Si el trabajo no se encuentra en \texttt{condor\_q} (lo que indica que ya terminó), el componente realiza una consulta similar en \texttt{condor\_history} para obtener el estado final del trabajo.
-	
+
 	\item \textbf{Procesamiento de estados}: El componente analiza la salida de los comandos para extraer los códigos de estado y los traduce a nombres legibles utilizando el diccionario \texttt{JOB\_STATUS}:
-	
-	\begin{table}[H]
-		\centering
-		\begin{tabular}{|c|l|}
-			\hline
-			\textbf{Código} & \textbf{Estado} \\
-			\hline
-			1 & Idle (En espera) \\
-			2 & Running (Ejecutándose) \\
-			3 & Removed (Removido) \\
-			4 & Completed (Completado) \\
-			5 & Held (Retenido) \\
-			\hline
-		\end{tabular}
-		\caption{Códigos de estado de HTCondor}
-		\label{tab:job-status-codes}
-	\end{table}
-	
+
+	      \begin{table}[H]
+		      \centering
+		      \begin{tabular}{|c|l|}
+			      \hline
+			      \textbf{Código} & \textbf{Estado}        \\
+			      \hline
+			      1               & Idle (En espera)       \\
+			      2               & Running (Ejecutándose) \\
+			      3               & Removed (Removido)     \\
+			      4               & Completed (Completado) \\
+			      5               & Held (Retenido)        \\
+			      \hline
+		      \end{tabular}
+		      \caption{Códigos de estado de HTCondor}
+		      \label{tab:job-status-codes}
+	      \end{table}
+
 	\item \textbf{Determinación del estado general}: Para trabajos con múltiples procesos, el componente determina un estado general aplicando las siguientes reglas:
-	\begin{itemize}
-		\item Si todos los procesos están "Completed", el estado general es "Completed".
-		\item Si algún proceso está "Running", el estado general es "Running".
-		\item Si hay diferentes estados entre los procesos, el estado general es "Mixed".
-		\item Si todos tienen el mismo estado, ese es el estado general.
-	\end{itemize}
+	      \begin{itemize}
+		      \item Si todos los procesos están "Completed", el estado general es "Completed".
+		      \item Si algún proceso está "Running", el estado general es "Running".
+		      \item Si hay diferentes estados entre los procesos, el estado general es "Mixed".
+		      \item Si todos tienen el mismo estado, ese es el estado general.
+	      \end{itemize}
 \end{enumerate}
 
 \textbf{Respuesta:}
@@ -212,23 +212,23 @@ El \textit{Results Endpoint} es el componente responsable de leer la informació
 
 \begin{enumerate}
 	\item \textbf{Validación del trabajo}: Verifica la existencia del directorio del trabajo. Si no existe, retorna un error 404.
-	
+
 	\item \textbf{Carga de información}: Lee el archivo \texttt{job\_info.json} para obtener la configuración y metadatos del trabajo.
-	
+
 	\item \textbf{Identificación de archivos de salida}: El componente lista los archivos de salida disponibles según el tipo de trabajo:
-	
-	\begin{itemize}
-		\item \textbf{Trabajos Vanilla}: Busca todos los archivos que coincidan con el patrón \texttt{job\_*.out} en el directorio del trabajo. Estos archivos corresponden a las salidas de cada proceso generado por el trabajo. La lista se ordena alfabéticamente para mantener consistencia en la visualización.
-		
-		\item \textbf{Trabajos Parallel}: Identifica únicamente el archivo \texttt{job\_0.out}, que contiene la salida consolidada del trabajo paralelo ejecutado en el nodo maestro.
-	\end{itemize}
-	
+
+	      \begin{itemize}
+		      \item \textbf{Trabajos Vanilla}: Busca todos los archivos que coincidan con el patrón \texttt{job\_*.out} en el directorio del trabajo. Estos archivos corresponden a las salidas de cada proceso generado por el trabajo. La lista se ordena alfabéticamente para mantener consistencia en la visualización.
+
+		      \item \textbf{Trabajos Parallel}: Identifica únicamente el archivo \texttt{job\_0.out}, que contiene la salida consolidada del trabajo paralelo ejecutado en el nodo maestro.
+	      \end{itemize}
+
 	\item \textbf{Renderizado de la página}: Invoca la plantilla \texttt{results.html} pasando como contexto:
-	\begin{itemize}
-		\item \texttt{job\_info}: Información completa del trabajo.
-		\item \texttt{output\_files}: Lista de archivos de salida disponibles.
-		\item \texttt{job\_id}: Identificador del trabajo.
-	\end{itemize}
+	      \begin{itemize}
+		      \item \texttt{job\_info}: Información completa del trabajo.
+		      \item \texttt{output\_files}: Lista de archivos de salida disponibles.
+		      \item \texttt{job\_id}: Identificador del trabajo.
+	      \end{itemize}
 \end{enumerate}
 
 \textbf{Respuesta:}
@@ -252,11 +252,11 @@ El \textit{Output Endpoint} es el componente encargado de leer y devolver el con
 
 \begin{enumerate}
 	\item \textbf{Construcción de la ruta}: El componente construye la ruta completa del archivo combinando el directorio del trabajo con el nombre del archivo solicitado.
-	
+
 	\item \textbf{Validación del archivo}: Verifica que el archivo exista. Si no existe, retorna un error 404.
-	
+
 	\item \textbf{Lectura del contenido}: Lee el contenido completo del archivo utilizando codificación UTF-8 e ignorando errores de codificación para manejar caracteres especiales que puedan estar presentes en las salidas.
-	
+
 	\item \textbf{Respuesta}: Retorna el contenido como texto plano con el tipo MIME \texttt{text/plain}.
 \end{enumerate}
 
@@ -308,11 +308,11 @@ Para que la memoria del equipo que contiene la aplicación no se llene debido a 
 
 \begin{enumerate}
 	\item Ejecutar
-		\begin{verbatim}
+	      \begin{verbatim}
 			crontab -e
 		\end{verbatim}
 	\item Copiar al final del archivo
-		\begin{verbatim}
+	      \begin{verbatim}
 			0 0 * * * [ -d "/opt/app/submits" ] && rm -rf /opt/app/submits/* && echo "$(date): Limpieza completada" >> /var/log/cleanup.log
 		\end{verbatim}
 	\item Guardar archivo
@@ -342,7 +342,7 @@ Para este caso la aplicación está compuesta por dos archivos; el primero, llam
 % -----------------------------------------
 
 \noindent
-El código fuente de la aplicación \textit{Cluster Info App}, está disponible en el repositorio de GitHub \href{https://github.com/JuanEstebanOsma1012/condor\_cluster\_info\_api}{\textit{condor\_cluster\_info\_api}} en la rama \href{https://github.com/JuanEstebanOsma1012/condor\_cluster\_info\_api/tree/main}{\textit{main}} y su versión más actualizada y funcional a la fecha es la \href{https://github.com/JuanEstebanOsma1012/condor\_cluster\_info\_api/releases/tag/v1.0.0}{v1.0.0}. De igual forma, en el apéndice XX se muestran los contenidos y la descripción de cada archivo que compone esta aplicación.
+El código fuente de la aplicación \textit{Cluster Info App}, está disponible en el repositorio de GitHub \href{https://github.com/JuanEstebanOsma1012/condor\_cluster\_info\_api}{\textit{condor\_cluster\_info\_api}} en la rama \href{https://github.com/JuanEstebanOsma1012/condor\_cluster\_info\_api/tree/main}{\textit{main}} y su versión más actualizada y funcional a la fecha es la \href{https://github.com/JuanEstebanOsma1012/condor\_cluster\_info\_api/releases/tag/v1.0.0}{v1.0.0}. De igual forma, en el apéndice correspondiente se muestran los contenidos y la descripción de cada archivo que compone esta aplicación.
 
 \subsection{Proceso de instalación}
 \noindent
@@ -378,11 +378,11 @@ Para que la memoria del equipo que contiene la aplicación no se llene debido a 
 
 \begin{enumerate}
 	\item Ejecutar
-		\begin{verbatim}
+	      \begin{verbatim}
 			crontab -e
 		\end{verbatim}
 	\item Copiar al final del archivo
-		\begin{verbatim}
+	      \begin{verbatim}
 			0 0 * * * [ -d "/opt/app/submits" ] && rm -rf /opt/app/submits/* && echo "$(date): Limpieza completada" >> /var/log/cleanup.log
 		\end{verbatim}
 	\item Guardar archivo
