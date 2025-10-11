@@ -4,10 +4,12 @@
 \mbox{}\\
 % pegamos la lista sin salto extra
 \begingroup
-  \renewcommand{\addcontentsline}[3]{} % no añade entrada
-  \let\clearpage\relax
-  \let\cleardoublepage\relax
-  \makeatletter
-    \@starttoc{lot}% genera la lista de tablas directamente
-  \makeatother
+\renewcommand{\addcontentsline}[3]{} % no añade entrada
+\let\clearpage\relax
+\let\cleardoublepage\relax
+% Reducir el espacio entre líneas de la lista de tablas
+\setlength{\parskip}{0.3em}  % Menos espacio entre párrafos para la lista
+\makeatletter
+\@starttoc{lot}% genera la lista de tablas directamente
+\makeatother
 \endgroup

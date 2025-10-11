@@ -1,6 +1,7 @@
 \ChapterImageStar[cap:dar]{Análisis de Decisiones y Resolución}{./images/fondo.png}\label{cap:dar}
 \mbox{}\\
 
+
 \section{Metodología de evaluación}
 
 La metodología de evaluación aplicada para la elección de la tecnología del nuevo universo HTCondor fue \textit{Decision Analysis and Resolution} (\DAR) de \CMMI \citep{CMMIInstitute2010}. Esta metodología permitió evaluar las necesidades del grupo \GRID\ mediante un proceso estructurado que consideró múltiples alternativas, criterios de evaluación bien definidos y un análisis comparativo riguroso. Los criterios evaluados incluyeron el nivel de acoplamiento de trabajos (entendido como la capacidad de un universo para sincronizar múltiples trabajos entre sí), la capacidad de interrupción de trabajos como mecanismo para mejorar la calidad de servicio, la popularidad y adopción en el contexto académico, y la disponibilidad y calidad de documentación técnica del universo. El uso de \DAR\ no solo aporta transparencia y trazabilidad al proceso de selección, sino que también garantiza objetividad y justificación técnica sólida para la decisión arquitectónica de incorporar un nuevo universo HTCondor.
@@ -14,7 +15,7 @@ A continuación se describen los criterios seleccionados para la evaluación.
 \textbf{Descripción:} Este criterio evalúa la capacidad de los diferentes universos para ejecutar computación paralela pura por medio de la comunicación entre procesos a través de algún mecanismo de \MPI como OpenMPI.
 
 \textbf{Justificación:} En el contexto de la Universidad del Quindío es deseable para el
-grupo GRID desarrollar capacidades paralelas puras en su clúster de HTCondor por
+grupo \GRID desarrollar capacidades paralelas puras en su clúster de HTCondor por
 diferentes razones tales como la ejecución sincronizada y simultánea de trabajos o
 la comunicación entre procesos, algunos usos de estas capacidades paralelas
 pueden ser la ejecución de simulaciones distribuidas en las que la sincronización de
@@ -23,7 +24,7 @@ tiempo real de los procesos, el entrenamiento paralelo de redes neuronales en el
 que los pesos se actualizan de forma dinámica con la información enviada por cada
 proceso paralelo, entro otros. Los casos descritos anteriormente son algunos de los
 muchos en los que el soporte para trabajos paralelos puede ser deseable para el
-grupo de investigación GRID, por lo que su inclusión como criterio en la toma de
+grupo de investigación \GRID, por lo que su inclusión como criterio en la toma de
 decisión se considera adecuada, no como una necesidad infalible sino como un
 valor adicional. Si esta fuese una necesidad infalible, entonces aquellos Universos
 que no cumpliesen con capacidad para paralelismo quedarían descartados
@@ -52,12 +53,12 @@ aún se encuentren en la red.
 
 
 \textbf{Justificación:} La continuidad de servicio es una característica deseable para la
-mayoría de las organizaciones de la industria 4.0 y el grupo GRID no es la
+mayoría de las organizaciones de la industria 4.0 y el grupo \GRID no es la
 excepción. En este tipo de computación un nodo podría eventualmente presentar
 indisponibilidad a mitad de la ejecución de un trabajo HTCondor, en este sentido el
 \textit{checkpointing} se presenta como un mecanismo para evitar la pérdida de trabajo en
 caso de que esto ocurra. Así pues, la capacidad para \textit{checkpointing} se considera
-importante para que el grupo GRID pueda llegar a ofrecer servicios de computación
+importante para que el grupo \GRID pueda llegar a ofrecer servicios de computación
 tolerantes a la variación en el estrés computacional de su infraestructura distribuida
 a través de HTCondor.
 
@@ -95,16 +96,53 @@ de estudio en bases de datos específicas, por el contrario, en este caso se hac
 una medición general en un motor de búsqueda ampliamente usado. Esta medida
 toma relevancia cuando se considera el hecho de que pueden haber Universos
 muy populares pero poco documentados, y en tal caso, dichos universos podrían
-no ser idóneos para la implementación en la infraestructura HTCondor del GRID.
+no ser idóneos para la implementación en la infraestructura HTCondor del \GRID.
 
 
 \textbf{Justificación:} La cantidad de documentación disponible respecto a cierto
 Universo hace más sencilla la correcta documentación de la arquitectura
-propuesta para la infraestructura del GRID, esto cobra relevancia cuando
+propuesta para la infraestructura del \GRID, esto cobra relevancia cuando
 consideramos que la poca documentación es uno de los problemas hallados en
 el diagrama de Ishikawa realizado en torno a las debilidades y problemáticas que
-existen alrededor de la infraestructura HTCondor de GRID y debe ser mitigado
+existen alrededor de la infraestructura HTCondor de \GRID y debe ser mitigado
 para que ayude a la mitigación del efecto general.
+
+El proceso de categorización de popularidad consistió en realizar búsquedas sistemáticas en Google Scholar para cada universo evaluado, utilizando este motor de búsqueda académico para obtener métricas cuantitativas sobre la frecuencia de aparición en la literatura científica disponible. Los resultados obtenidos se categorizaron en tres cuantiles establecidos en función del universo con mayor número de apariciones, tal como se detalla en la tabla~\ref{tab:popularidad_universos}.
+
+
+% TABLA Popularidad según Google Scholar.
+\begin{table}[H]
+	\centering
+	\renewcommand{\arraystretch}{1.4} % Espaciado reducido
+	\fontsize{9pt}{8pt}\selectfont % Tamaño de fuente 9pt
+	\caption{Resultados de búsqueda de popularidad por universo.}
+	\label{tab:popularidad_universos}
+	\begin{tabular}{|>{\centering\arraybackslash}p{2.0cm}|>{\centering\arraybackslash}p{6.5cm}|>{\centering\arraybackslash}p{2.5cm}|>{\centering\arraybackslash}p{2.0cm}|}
+		\hline
+		{\textbf{Universo}} & {\textbf{Cadena de búsqueda}}                           & {\textbf{Cantidad de resultados}} & {\textbf{Cuantil [1..3]}} \\
+		\hline
+		Container           & (``htcondor'' OR ``condor'') AND ``container universe'' & 0                                 & 1                         \\
+		\hline
+		Docker              & (``htcondor'' OR ``condor'') AND ``docker universe''    & 14                                & 1                         \\
+		\hline
+		VM                  & (``htcondor'' OR ``condor'') AND ``vm universe''        & 33                                & 1                         \\
+		\hline
+		Scheduler           & (``htcondor'' OR ``condor'') AND ``scheduler universe'' & 34                                & 1                         \\
+		\hline
+		Grid                & (``htcondor'' OR ``condor'') AND ``grid universe''      & 60                                & 2                         \\
+		\hline
+		Local               & (``htcondor'' OR ``condor'') AND ``local universe''     & 74                                & 2                         \\
+		\hline
+		Java                & (``htcondor'' OR ``condor'') AND ``java universe''      & 79                                & 2                         \\
+		\hline
+		Vanilla             & (``htcondor'' OR ``condor'') AND ``vanilla universe''   & 163                               & 3                         \\
+		\hline
+		Parallel            & (``htcondor'' OR ``condor'') AND ``parallel universe''  & 177                               & 3                         \\
+		\hline
+	\end{tabular}
+	\vspace{5pt}
+\end{table}
+
 
 \subsubsection{División de roles}
 \textbf{Código:} ROLE DIV
@@ -117,7 +155,7 @@ estos roles no se dividen en varias máquinas y son ejecutados por un solo nodo
 de cómputo, lo que no se alinea con las causas que se quieren mitigar.
 
 \textbf{Justificación:} La división de trabajos es una situación deseable para la
-infraestructura HTCondor del GRID, ya que así cada nodo de cómputo tendrá una
+infraestructura HTCondor del \GRID, ya que así cada nodo de cómputo tendrá una
 única responsabilidad y se evitará sobrecargar un equipo con múltiples funciones
 lo que propende por una administración atómica al mismo tiempo que aumenta la
 facilidad e implementación mecanismos de recuperación y redundancia a cada
@@ -219,9 +257,9 @@ Con los criterios definidos y la medición de popularidad completada, se procedi
 \section{Resultados}
 
 \subsection{Resumen del análisis}
-El proceso ejecutado tuvo como fin tomar una decisión informada sobre el Universo a implementar en la infraestructura HTCondor del GRID. Considerando el resultado descrito en la Tabla \ref{tab:analisis_dar}, hubo un empate en los Universos ganadores \textbf{Grid } y \textbf{Parallel}. Teniendo en cuenta esta situación que no se tenía en cuenta desde el principio, se tomó la decisión de continuar con las demás etapas del proyecto con ambos Universos, ya que no hay motivos, razones ni evidencia para orientarse o preferir uno sobre otro.
+El proceso ejecutado tuvo como fin tomar una decisión informada sobre el Universo a implementar en la infraestructura HTCondor del \GRID. Considerando el resultado descrito en la Tabla \ref{tab:analisis_dar}, hubo un empate en los Universos ganadores \textbf{Grid } y \textbf{Parallel}. Teniendo en cuenta esta situación que no se tenía en cuenta desde el principio, se tomó la decisión de continuar con las demás etapas del proyecto con ambos Universos, ya que no hay motivos, razones ni evidencia para orientarse o preferir uno sobre otro.
 
-Grosso modo, el Universo Grid funciona como un middleware o intermediario que hace de puente para enviar trabajos computacionales desde un nodo submit hacia un pool HTCondor de recursos externos. Por su parte, el Universo Parallel ejecuta programas que hacen usos de alguna implementación de MPI (Message Passing Interface) como OpenMPI para lograr así una ejecución sincronizada y ordenada para permitir la comunicación entre los nodos.
+Grosso modo, el Universo Grid funciona como un middleware o intermediario que hace de puente para enviar trabajos computacionales desde un nodo submit hacia un pool HTCondor de recursos externos. Por su parte, el Universo Parallel ejecuta programas que hacen usos de alguna implementación de \MPI como OpenMPI para lograr así una ejecución sincronizada y ordenada con el fin de permitir la comunicación entre los nodos.
 
 \subsection{Próximos pasos}
 Se procederá con el diseño de las arquitecturas de la solución con cada Universo y su posterior implementación a través de un prototipo funcional.
