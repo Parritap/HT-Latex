@@ -13,9 +13,9 @@ Como se mencionó en el capítulo de diseño de la solución, la aplicación \te
 La aplicación \textit{Grid App} está organizada siguiendo las mejores prácticas de desarrollo web con Flask:
 
 \begin{itemize}
-	\item \textbf{app.py}: Archivo principal que contiene la lógica del servidor Flask, incluyendo todos los endpoints, manejo de archivos, generación de submit files y lógica de interacción con HTCondor.
+	\item \textbf{app.py}: Archivo principal que contiene la lógica del servidor Flask, incluyendo todos los \textit{endpoints}, manejo de archivos, generación de \textit{submit files} y lógica de interacción con HTCondor.
 	
-	\item \textbf{templates/}: Directorio que contiene las plantillas HTML para la interfaz de usuario:
+	\item \textbf{templates/}: Directorio que contiene las plantillas \HTML para la interfaz de usuario:
 	\begin{itemize}
 		\item \texttt{upload.html}: Interfaz principal para la carga y configuración de trabajos.
 		\item \texttt{results.html}: Interfaz para visualización de resultados con sistema de pestañas dinámicas.
@@ -27,14 +27,14 @@ La aplicación \textit{Grid App} está organizada siguiendo las mejores práctic
 	\begin{itemize}
 		\item Archivos ejecutables subidos por el usuario.
 		\item Archivos de entrada (para trabajos paralelos).
-		\item Submit files generados automáticamente.
-		\item Archivos de salida y logs de HTCondor.
-		\item Metadatos del trabajo en formato JSON.
+		\item \textit{Submit files} generados automáticamente.
+		\item Archivos de salida y \textit{logs} de HTCondor.
+		\item Metadatos del trabajo en formato \JSON.
 	\end{itemize}
 	
 	\item \textbf{scripts/}: Directorio que contiene scripts auxiliares de Bash para operaciones específicas:
 	\begin{itemize}
-		\item \texttt{send-submit.sh}: Envío de trabajos a clústeres remotos via SSH.
+		\item \texttt{seno-submit.sh}: Envío de trabajos a clústeres remotos vía SSH.
 		\item \texttt{fetch-outputs.sh}: Sincronización de archivos de salida desde clústeres remotos.
 	\end{itemize}
 \end{itemize}
@@ -50,7 +50,7 @@ La aplicación \textit{Grid App} está organizada siguiendo las mejores práctic
 \noindent
 
 % TODO: Actualizar información del repositorio, rama y versión
-El código fuente de la aplicación \textit{Grid App} está disponible en el repositorio correspondiente y su implementación se presenta en los apéndices de este documento. La aplicación está desarrollada completamente en Python utilizando el framework Flask para el backend y HTML/CSS/JavaScript para la interfaz de usuario.
+El código fuente de la aplicación \textit{Grid App} está disponible en el repositorio correspondiente y su implementación se presenta en los apéndices de este documento. La aplicación está desarrollada completamente en Python utilizando el \textit{framework} Flask para el \textit{backend} y HTML/CSS/JavaScript para la interfaz de usuario.
 
 \subsection{Características técnicas y configuración}
 \noindent
@@ -78,10 +78,10 @@ El sistema implementa un manejo robusto de archivos:
 	\item \textbf{Gestión de directorios}: Creación automática con \texttt{os.makedirs(job\_dir, exist\_ok=True)}.
 \end{itemize}
 
-\subsubsection{Concurrencia y multithreading}
+\subsubsection{Concurrencia y \textit{multithreading}}
 \noindent
 
-Para trabajos parallel, la aplicación utiliza threading para operaciones no bloqueantes:
+Para trabajos paralelos, la aplicación utiliza \textit{threading} para operaciones no bloqueantes:
 
 \begin{verbatim}
 def traer_salidas():
@@ -94,9 +94,9 @@ thread.start()
 \subsection{Componentes de la interfaz web}
 \noindent
 
-\subsubsection{Upload Interface}
+\subsubsection{\textit{Upload Interface}}
 \noindent
-Interfaz principal implementada en \texttt{upload.html}, servida por el endpoint raíz. Proporciona un formulario multipart para carga de archivos y configuración de parámetros de ejecución específicos por tipo de universo HTCondor.
+Interfaz principal implementada en \texttt{upload.html}, servida por el \textit{endpoint} raíz. Proporciona un formulario \textit{multipart} para carga de archivos y configuración de parámetros de ejecución específicos por tipo de universo HTCondor.
 
 \begin{figure}[H]
 	\centering
@@ -105,9 +105,9 @@ Interfaz principal implementada en \texttt{upload.html}, servida por el endpoint
 	\label{fig:uiCargasTrabajos}
 \end{figure}
 
-\subsubsection{Results Interface}
+\subsubsection{\textit{Results Interface}}
 \noindent
-Interfaz dinámica implementada en \texttt{results.html} que utiliza JavaScript para carga asíncrona de archivos de salida mediante peticiones AJAX al endpoint \texttt{/output/<job\_id>/<filename>}. Presenta información completa del trabajo y sistema de pestañas para navegación entre múltiples archivos de salida.
+Interfaz dinámica implementada en \texttt{results.html} que utiliza JavaScript para carga asíncrona de archivos de salida mediante peticiones AJAX al \textit{endpoint} \texttt{/output/<job\_id>/<filename>}. Presenta información completa del trabajo y sistema de pestañas para navegación entre múltiples archivos de salida.
 
 \begin{figure}[H]
 	\centering
@@ -116,10 +116,10 @@ Interfaz dinámica implementada en \texttt{results.html} que utiliza JavaScript 
 	\label{fig:uiResultadosTrabajos}
 \end{figure}
 
-\subsection{Componentes Backend (Endpoints)}
+\subsection{Componentes \textit{backend} (\textit{endpoints})}
 \noindent
 
-La aplicación \textit{Grid App} está implementada como una aplicación Flask que expone múltiples endpoints para gestionar el ciclo de vida completo de los trabajos computacionales en HTCondor. El servidor Flask se ejecuta por defecto en el puerto 5000 y está configurado para aceptar conexiones desde cualquier interfaz de red (\texttt{host='0.0.0.0'}). Los endpoints principales del sistema se describen a continuación.
+La aplicación \textit{Grid App} está implementada como una aplicación Flask que expone múltiples \textit{endpoints} para gestionar el ciclo de vida completo de los trabajos computacionales en HTCondor. El servidor Flask se ejecuta por defecto en el puerto \texttt{5000} y está configurado para aceptar conexiones desde cualquier interfaz de red (\texttt{host='0.0.0.0'}). Los \textit{endpoints} principales del sistema se describen a continuación.
 
 \subsubsection{Root Endpoint (/)}
 \noindent
@@ -133,7 +133,7 @@ Renderiza la plantilla HTML \texttt{upload.html} que contiene la interfaz princi
 \subsubsection{Submit Endpoint (/submit)}
 \noindent
 
-El \textit{Submit Endpoint} es el componente más complejo del sistema, responsable de procesar la información del trabajo computacional y coordinarlo con los diferentes tipos de universos HTCondor. Este \textit{endpoint} está expuesto en la ruta \texttt{/submit} y acepta peticiones de tipo POST.
+El \textit{Submit Endpoint} es el componente más complejo del sistema, responsable de procesar la información del trabajo computacional y coordinarlo con los diferentes tipos de universos HTCondor. Este \textit{endpoint} está expuesto en la ruta \texttt{/submit} y acepta peticiones de tipo \texttt{POST}.
 
 \textbf{Funcionamiento:}
 
@@ -149,7 +149,7 @@ El \textit{Submit Endpoint} es el componente más complejo del sistema, responsa
 
 	\item \textbf{Configuración del trabajo}: Parsea la configuración JSON que incluye:
 	      \begin{itemize}
-		      \item \texttt{jobType}: Especifica el universo ('vanilla' o 'parallel').
+		      \item \texttt{jobType}: Especifica el universo (\texttt{'vanilla'} o \texttt{'parallel'}).
 		      \item \texttt{cluster}: Dirección del clúster de destino.
 		      \item \texttt{additionalArgs}: Argumentos para el ejecutable.
 		      \item \texttt{vanillaMode}: Modo de distribución para trabajos vanilla ('range' o 'equal').
@@ -159,7 +159,7 @@ El \textit{Submit Endpoint} es el componente más complejo del sistema, responsa
 
 	\item \textbf{Generación automática de submit files}: La función \texttt{create\_submit\_file()} genera diferentes tipos de submit files:
 
-	      \textbf{Para Universo Grid (Vanilla):}
+	      \textbf{Para universo Grid (Vanilla):}
 	      \begin{itemize}
 		      \item Configura \texttt{universe = grid} y \texttt{grid\_resource = condor}.
 		      \item Establece requisitos de arquitectura: \texttt{requirements = (Arch == ``armv7l'')}.
@@ -170,7 +170,7 @@ El \textit{Submit Endpoint} es el componente más complejo del sistema, responsa
 		            \end{itemize}
 	      \end{itemize}
 
-	      \textbf{Para Universo Parallel:}
+	      \textbf{Para universo Parallel:}
 	      \begin{itemize}
 		      \item Configura \texttt{universe = parallel}.
 		      \item Utiliza \texttt{executable = /usr/share/doc/condor/examples/openmpiscript}.
@@ -266,7 +266,7 @@ ssh -i ~/.ssh/parallel alma@{submit_ip}
 {
   "job_id": "a1b2c3d4",
   "cluster_id": "123", 
-  "statuses": ["Running", "Running", "Completed"],
+  "statuses": ["Running", "Completed"],
   "overall_status": "Running"
 }
 \end{verbatim}
@@ -325,7 +325,7 @@ with open(output_path, 'r', encoding='utf-8', errors='ignore') as file:
 \subsubsection{State Endpoint (/state/<id>)}
 \noindent
 
-Endpoint simplificado para consulta rápida de estado por cluster ID (funcionalidad adicional).
+Endpoint simplificado para consulta rápida de estado por clúster ID (funcionalidad adicional).
 
 \textbf{Funcionamiento:}
 
@@ -342,7 +342,7 @@ Requisitos del sistema para el despliegue de \textit{Grid App}:
 	\item Sistema operativo: Raspbian GNU/Linux 9 (stretch) o superior.
 	\item Python: Versión 3.6 o superior con pip.
 	\item Dependencias Python: Flask y módulos estándar (uuid, threading, subprocess).
-	\item HTCondor: Instalación completa con Grid Universe configurado.
+	\item HTCondor: Instalación completa con universo Grid configurado.
 	\item SSH: Configuración de claves para acceso a clústeres remotos (parallel jobs).
 	\item Usuario: Permisos para ejecutar comandos HTCondor y escritura en directorios de trabajo.
 \end{itemize}
@@ -413,7 +413,7 @@ La configuración presentada representa el entorno específico utilizado durante
 \section{\textit{Cluster Info App}}
 \noindent
 
-Como se mencionó en el capítulo de diseño de la solución, la aplicación \textit{Cluster Info App} es la encargada de recopilar métricas del clúster y exponerlas a través de una \API. Es importante añadir que esta aplicación debe correr en la \textit{Submit Machine} de cada clúster al que se quieran enviar trabajos, pues es a través de esta que el \textit{Grid Manager} y la aplicación \textit{Grid App} obtienen la información para redirigir los trabajos y ejecutarlos en los recursos remotos.
+Como se mencionó en el capítulo de diseño de la solución, la aplicación \textit{Cluster Info App} es la encargada de recopilar métricas del clúster y exponerlas a través de una \API. Es importante añadir que esta aplicación debe correr en la máquina \textit{submit} de cada clúster al que se quieran enviar trabajos, pues es a través de esta que el \textit{grid manager} y la aplicación \textit{Grid App} obtienen la información para redirigir los trabajos y ejecutarlos en los recursos remotos.
 
 \subsection{Estructura del proyecto}
 \noindent
@@ -447,9 +447,9 @@ Este componente es responsable de ejecutar comandos específicos de HTCondor par
 	
 	\item \textbf{Trabajos en cola}: Extrae el número de trabajos inactivos (\textit{idle}) usando \texttt{condor\_q}.
 	
-	\item \textbf{Direcciones del sistema}: Obtiene las direcciones IP del \textit{collector} y \textit{schedd} mediante consultas a los daemons correspondientes.
+	\item \textbf{Direcciones del sistema}: Obtiene las direcciones IP del \textit{collector} y \textit{schedd} mediante consultas a los \textit{daemons} correspondientes.
 	
-	\item \textbf{Tipo de clúster}: Identifica el tipo de universo soportado por el clúster (en este caso, \textit{vanilla}).
+	\item \textbf{Tipo de clúster}: Identifica el tipo de universo soportado por el clúster (en este caso, Vanilla).
 \end{itemize}
 
 El resultado se almacena en el archivo \texttt{/tmp/condor\_metrics.json} con el siguiente formato:
@@ -735,12 +735,12 @@ Esta configuración utiliza el sistema de módulos de AlmaLinux para gestionar d
 \subsection{Integración con Grid App}
 \noindent
 
-La integración del universo parallel con la aplicación \textit{Grid App} requiere consideraciones especiales debido a la naturaleza distribuida de los trabajos paralelos y los requisitos de comunicación inter-proceso.
+La integración del universo Parallel con la aplicación \textit{Grid App} requiere consideraciones especiales debido a la naturaleza distribuida de los trabajos paralelos y los requisitos de comunicación inter-proceso.
 
-\subsubsection{Generación de submit files para trabajos parallel}
+\subsubsection{Generación de \textit{submit files} para trabajos Parallel}
 \noindent
 
-Los trabajos parallel requieren submit files con configuraciones específicas que difieren significativamente de los trabajos vanilla. La aplicación \textit{Grid App} genera automáticamente estos archivos con las siguientes características esenciales:
+Los trabajos Parallel requieren submit files con configuraciones específicas que difieren significativamente de los trabajos vanilla. La aplicación \textit{Grid App} genera automáticamente estos archivos con las siguientes características esenciales:
 
 \begin{verbatim}
 universe = parallel
@@ -814,7 +814,7 @@ Para aplicaciones apropiadas, el universo parallel ofrece ventajas significativa
 	\item \textbf{Sincronización garantizada}: Mecanismos de barrera y sincronización que garantizan consistencia en algoritmos distribuidos.
 \end{itemize}
 
-La implementación del universo parallel en la infraestructura \GRID representa una expansión significativa de las capacidades computacionales disponibles, complementando el universo vanilla existente y proporcionando una plataforma robusta para aplicaciones de computación de alto rendimiento que requieren paralelización fuertemente acoplada.
+La implementación del universo Parallel en la infraestructura \GRID representa una expansión significativa de las capacidades computacionales disponibles, complementando el universo Vanilla existente y proporcionando una plataforma robusta para aplicaciones de computación de alto rendimiento que requieren paralelización fuertemente acoplada.
 
 \section{Universo Grid de HTCondor}
 \noindent
@@ -836,11 +836,9 @@ Las características distintivas del universo Grid incluyen:
 	
 	\item \textbf{Transparencia de ubicación}: Los usuarios pueden enviar trabajos sin conocer la ubicación física específica donde se ejecutarán, siendo el sistema responsable de la selección óptima de recursos.
 	
-	\item \textbf{Balanceo de carga automático}: Distribución inteligente de trabajos basada en la disponibilidad de recursos, carga actual y políticas de priorización configuradas.
+	\item \textbf{Balanceo de carga}: Distribución inteligente de trabajos basada en la disponibilidad de recursos y la carga actual.
 	
 	\item \textbf{Tolerancia a fallos}: Capacidad de redirigir trabajos entre diferentes clústeres en caso de falla o indisponibilidad de recursos específicos.
-	
-	\item \textbf{Gestión de credenciales}: Manejo unificado de autenticación y autorización a través de diferentes dominios administrativos.
 \end{itemize}
 
 \subsubsection{Arquitectura y componentes}
@@ -849,13 +847,11 @@ Las características distintivas del universo Grid incluyen:
 La implementación del universo Grid en HTCondor involucra varios componentes especializados que coordinan la ejecución distribuida:
 
 \begin{itemize}
-	\item \textbf{Grid Manager}: Daemon responsable de la coordinación central, gestión de trabajos Grid y comunicación con pools remotos.
+	\item \textbf{Grid Manager}: \textit{Daemon} responsable de la coordinación central, gestión de trabajos Grid y comunicación con pools remotos.
 	
 	\item \textbf{GAHP (Grid ASCII Helper Protocol)}: Protocolo y conjunto de herramientas que facilitan la comunicación entre el Grid Manager local y los schedulers remotos.
 	
 	\item \textbf{Grid Resource}: Abstracción que representa un pool HTCondor remoto accesible a través del universo Grid.
-	
-	\item \textbf{Flocking Mechanism}: Mecanismo que permite a trabajos de un pool ser ejecutados en pools remotos de manera transparente.
 \end{itemize}
 
 \subsection{Implementación en la infraestructura \GRID}
@@ -930,8 +926,6 @@ Los nodos Submit de cada clúster vanilla fueron configurados para aceptar traba
 	\item \textbf{Permisos para Grid Manager}: Configuración de ACLs específicas permitiendo acceso desde el Grid Manager (172.30.27.43).
 	
 	\item \textbf{Soporte para usuarios anónimos}: Habilitación de \texttt{SCHEDD.ALLOW\_ANONYMOUS\_USER = True} para facilitar la ejecución de trabajos remotos.
-	
-	\item \textbf{Configuración de flocking}: Establecimiento de relaciones de confianza mediante \texttt{FLOCK\_FROM} para permitir trabajos federados.
 \end{itemize}
 
 \textbf{Configuración de Central Managers:}
@@ -954,12 +948,12 @@ ALLOW_WRITE_COLLECTOR = $(ALLOW_WRITE), $(FLOCK_FROM)
 ALLOW_WRITE_STARTD    = $(ALLOW_WRITE), $(FLOCK_FROM)
 \end{verbatim}
 
-\subsection{Integración con Grid App}
+\subsection{Integración con \textit{Grid App}}
 \noindent
 
 La integración del universo Grid con la aplicación \textit{Grid App} implementa un flujo de trabajo sofisticado que abstrae la complejidad de la distribución de trabajos a través de múltiples clústeres, proporcionando una interfaz unificada para usuarios finales.
 
-\subsubsection{Generación de submit files para trabajos Grid}
+\subsubsection{Generación de \textit{submit files} para trabajos del universo Grid}
 \noindent
 
 Los trabajos Grid requieren submit files específicos que definen tanto el universo target como los recursos de destino. La aplicación \textit{Grid App} genera automáticamente estos archivos con configuraciones adaptadas al entorno Grid:
@@ -1135,8 +1129,6 @@ tail -f /var/log/condor/GridmanagerLog
 \textbf{Desde clústeres vanilla:}
 
 \begin{verbatim}
-# Verificar configuración de flocking
-condor_config_val FLOCK_FROM
 condor_config_val ENABLE_GRID_UNIVERSE
 
 # Verificar permisos para Grid Manager
