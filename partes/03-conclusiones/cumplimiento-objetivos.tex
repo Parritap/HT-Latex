@@ -1,0 +1,260 @@
+\ChapterImageStar[cap:cumplimiento-objetivos]{Cumplimiento de objetivos}{./images/fondo.png}\label{cap:cumplimiento-objetivos}
+\mbox{}\\
+
+El presente capítulo documenta el cumplimiento sistemático de los objetivos establecidos para esta investigación, demostrando cómo cada fase del proyecto contribuyó al logro del objetivo general de proponer universos HTCondor para la ampliación de la infraestructura del Grupo de Investigación en Redes, Información y Distribución (GRID) de la Universidad del Quindío. Se presenta una evaluación detallada del grado de cumplimiento de cada objetivo específico, respaldada por evidencia tangible de los resultados obtenidos.
+
+\section{Cumplimiento del objetivo general}
+\noindent
+
+\textbf{Objetivo general}: Proponer un Universo para la ampliación de la infraestructura HTCondor del grupo de investigación GRID de la Universidad del Quindío.
+
+\textbf{Estado de cumplimiento}: \textbf{CUMPLIDO COMPLETAMENTE}
+
+El objetivo general se ha cumplido exitosamente, superando incluso las expectativas iniciales. En lugar de proponer un único universo, la investigación resultó en la propuesta, diseño e implementación funcional de \textbf{dos universos HTCondor}: Grid y Parallel. Esta decisión, fundamentada en el empate técnico obtenido durante la evaluación DAR, maximizó el impacto del proyecto y proporcionó capacidades complementarias que abordan diferentes necesidades computacionales del GRID.
+
+\textbf{Evidencia del cumplimiento}:
+\begin{itemize}
+    \item Implementación funcional del universo Grid con arquitectura federada
+    \item Implementación completa del universo Parallel con infraestructura virtualizada
+    \item Validación técnica exitosa de ambos universos mediante casos de prueba específicos
+    \item Documentación arquitectónica completa y procedimientos de replicación
+    \item Interfaz de usuario (Grid App) que facilita el acceso a ambos universos
+\end{itemize}
+
+\section{Cumplimiento de objetivos específicos}
+\noindent
+
+\subsection{Objetivo específico 1}
+\noindent
+
+\textbf{Enunciado}: Determinar necesidades, oportunidades y/o problemas (NPO) con relación a la infraestructura HTCondor del GRID.
+
+\textbf{Estado de cumplimiento}: \textbf{CUMPLIDO COMPLETAMENTE}
+
+Este objetivo se alcanzó mediante un proceso exhaustivo de caracterización que incluyó análisis de stakeholders, evaluación de la infraestructura actual y identificación de brechas tecnológicas.
+
+\textbf{Actividades realizadas}:
+\begin{itemize}
+    \item Análisis detallado de stakeholders identificando actores clave, niveles de influencia e intereses
+    \item Caracterización técnica de la infraestructura HTCondor existente
+    \item Evaluación de capacidades actuales y limitaciones identificadas
+    \item Documentación de necesidades específicas de diferentes grupos de usuarios
+    \item Identificación de oportunidades de mejora y expansión tecnológica
+\end{itemize}
+
+\textbf{Resultados obtenidos}:
+\begin{itemize}
+    \item Mapa completo de stakeholders con priorización basada en impacto e influencia
+    \item Diagnóstico técnico de la infraestructura vanilla existente
+    \item Identificación de la necesidad de universos adicionales para ampliar capacidades
+    \item Establecimiento de requisitos funcionales y no funcionales para la expansión
+\end{itemize}
+
+\subsection{Objetivo específico 2}
+\noindent
+
+\textbf{Enunciado}: Identificar, analizar y caracterizar universos HTCondor y seleccionar un universo para la infraestructura del GRID.
+
+\textbf{Estado de cumplimiento}: \textbf{CUMPLIDO COMPLETAMENTE}
+
+La identificación y análisis se realizó mediante un estudio de mapeo sistemático (SMS) riguroso, seguido de una caracterización técnica detallada y un proceso de selección estructurado usando la metodología DAR.
+
+\textbf{Actividades realizadas}:
+\begin{itemize}
+    \item Estudio de mapeo sistemático analizando 114 estudios de 847 documentos iniciales
+    \item Caracterización técnica de nueve universos HTCondor disponibles
+    \item Aplicación de metodología DAR con criterios técnicos y organizacionales definidos
+    \item Evaluación comparativa usando pesos ponderados y métricas objetivas
+    \item Proceso de selección que resultó en empate técnico entre Grid y Parallel
+\end{itemize}
+
+\textbf{Resultados obtenidos}:
+\begin{itemize}
+    \item Base de conocimiento de 114 estudios académicos sobre universos HTCondor
+    \item Caracterización completa de capacidades, limitaciones y casos de uso de cada universo
+    \item Análisis DAR documentado con criterios transparentes y trazables
+    \item Selección justificada de universos Grid y Parallel como los más adecuados
+    \item Metodología reproducible para evaluación de tecnologías HTCondor
+\end{itemize}
+
+\subsection{Objetivo específico 3}
+\noindent
+
+\textbf{Enunciado}: Especificar el diseño arquitectónico requerido para la implementación del universo HTCondor seleccionado.
+
+\textbf{Estado de cumplimiento}: \textbf{CUMPLIDO COMPLETAMENTE}
+
+Se desarrollaron especificaciones arquitectónicas detalladas para ambos universos seleccionados, incluyendo diagramas, configuraciones técnicas y procedimientos de implementación.
+
+\textbf{Actividades realizadas}:
+\begin{itemize}
+    \item Diseño de arquitectura federada para el universo Grid
+    \item Especificación de infraestructura virtualizada para el universo Parallel
+    \item Definición de componentes, roles y responsabilidades de cada elemento
+    \item Documentación de configuraciones HTCondor específicas
+    \item Especificación de interfaces y protocolos de comunicación
+    \item Definición de casos de prueba para validación funcional
+\end{itemize}
+
+\textbf{Resultados obtenidos}:
+\begin{itemize}
+    \item Arquitectura Grid con Grid Manager coordinando múltiples clústeres vanilla
+    \item Diseño Parallel con infraestructura virtualizada moderna (AlmaLinux 9.6)
+    \item Especificaciones técnicas detalladas para todos los componentes
+    \item Casos de prueba específicos (ESC-01, ESC-02, ESC-03) para validación
+    \item Documentación completa en apéndices técnicos
+\end{itemize}
+
+\subsection{Objetivo específico 4}
+\noindent
+
+\textbf{Enunciado}: Implementar un prototipo funcional del universo HTCondor seleccionado según el diseño especificado.
+
+\textbf{Estado de cumplimiento}: \textbf{CUMPLIDO COMPLETAMENTE}
+
+La implementación superó las expectativas al desarrollar prototipos funcionales completos para ambos universos, complementados con una interfaz de usuario integrada.
+
+\textbf{Actividades realizadas}:
+\begin{itemize}
+    \item Configuración del Grid Manager con daemons especializados
+    \item Adaptación de clústeres vanilla existentes para funcionamiento como recursos Grid
+    \item Expansión de infraestructura vanilla con segundo clúster independiente
+    \item Implementación de infraestructura Parallel virtualizada completa
+    \item Desarrollo de aplicación web Grid App como interfaz unificada
+    \item Configuración de comunicación MPI para trabajos paralelos
+\end{itemize}
+
+\textbf{Resultados obtenidos}:
+\begin{itemize}
+    \item Universo Grid completamente funcional con capacidad de federación
+    \item Universo Parallel operativo con soporte OpenMPI
+    \item Grid App funcional con endpoints para submit, status y results
+    \item Infraestructura escalable demostrada mediante expansión exitosa
+    \item Documentación técnica completa para replicación y mantenimiento
+\end{itemize}
+
+\subsection{Objetivo específico 5}
+\noindent
+
+\textbf{Enunciado}: Validar la implementación del universo HTCondor seleccionado según las NPO del GRID.
+
+\textbf{Estado de cumplimiento}: \textbf{CUMPLIDO COMPLETAMENTE}
+
+La validación se realizó mediante pruebas manuales exhaustivas que cubrieron todos los aspectos funcionales y no funcionales de ambos universos implementados.
+
+\textbf{Actividades realizadas}:
+\begin{itemize}
+    \item Ejecución de ESC-01: Trabajos Grid con repeticiones múltiples (Monte Carlo $\pi$)
+    \item Ejecución de ESC-02: Trabajos parametrizables con variables dinámicas
+    \item Ejecución de ESC-03: Algoritmo quicksort paralelo con comunicación MPI
+    \item Validación de requisitos funcionales y no funcionales
+    \item Verificación de integración entre componentes del sistema
+    \item Evaluación de usabilidad y experiencia de usuario
+\end{itemize}
+
+\textbf{Resultados obtenidos}:
+\begin{itemize}
+    \item Validación exitosa de todos los casos de prueba diseñados
+    \item Confirmación del cumplimiento de requisitos funcionales y no funcionales
+    \item Demostración de capacidades de distribución, paralelización y federación
+    \item Validación de integración correcta entre Grid App y universos HTCondor
+    \item Evidencia documentada de funcionamiento según especificaciones
+\end{itemize}
+
+\section{Análisis del grado de cumplimiento}
+\noindent
+
+\subsection{Cumplimiento cuantitativo}
+\noindent
+
+El análisis cuantitativo del cumplimiento de objetivos muestra:
+
+\begin{itemize}
+    \item \textbf{Objetivo general}: 100\% cumplido (implementación de 2 universos vs. 1 propuesto)
+    \item \textbf{Objetivos específicos}: 100\% de cumplimiento en los 5 objetivos planteados
+    \item \textbf{Entregables}: 100\% de entregables completados según cronograma establecido
+    \item \textbf{Casos de prueba}: 100\% de casos de prueba ejecutados exitosamente
+\end{itemize}
+
+\subsection{Cumplimiento cualitativo}
+\noindent
+
+Desde la perspectiva cualitativa, el proyecto no solo cumplió los objetivos establecidos sino que los superó en varios aspectos:
+
+\textbf{Amplitud de la solución}: La implementación de dos universos en lugar de uno proporciona mayor versatilidad y capacidades complementarias.
+
+\textbf{Calidad técnica}: Las implementaciones siguen buenas prácticas, incluyen documentación exhaustiva y consideran aspectos de escalabilidad y mantenibilidad.
+
+\textbf{Usabilidad}: La interfaz Grid App facilita significativamente el acceso a las capacidades implementadas, reduciendo barreras técnicas para usuarios finales.
+
+\textbf{Reproducibilidad}: La documentación generada permite replicar las implementaciones en contextos similares, contribuyendo al conocimiento transferible.
+
+\section{Impacto en las NPO identificadas}
+\noindent
+
+\subsection{Necesidades atendidas}
+\noindent
+
+\textbf{Ampliación de capacidades computacionales}: Se duplicaron los recursos disponibles mediante la federación Grid y se habilitaron capacidades de paralelización fuertemente acoplada.
+
+\textbf{Diversificación de tipos de trabajo}: Los nuevos universos permiten ejecutar aplicaciones que requieren distribución geográfica (Grid) y sincronización intensiva (Parallel).
+
+\textbf{Interfaz de acceso simplificada}: Grid App elimina la complejidad técnica tradicionalmente asociada con el uso de HTCondor.
+
+\subsection{Oportunidades aprovechadas}
+\noindent
+
+\textbf{Fortalecimiento institucional}: El proyecto posiciona al GRID como referente en computación distribuida académica.
+
+\textbf{Capacidades de investigación}: Las nuevas capacidades habilitan proyectos de investigación más ambiciosos y colaboraciones interinstitucionales.
+
+\textbf{Formación académica}: Los estudiantes tienen acceso a tecnologías de vanguardia que fortalecen su formación práctica.
+
+\subsection{Problemas resueltos}
+\noindent
+
+\textbf{Limitaciones de recursos}: La federación Grid maximiza la utilización de recursos existentes y facilita la incorporación de recursos adicionales.
+
+\textbf{Complejidad de uso}: Grid App democratiza el acceso a capacidades avanzadas de computación distribuida.
+
+\textbf{Falta de documentación}: Se generó documentación completa que facilita el mantenimiento y la transferencia de conocimiento.
+
+\section{Superación de expectativas}
+\noindent
+
+El proyecto superó las expectativas iniciales en varios aspectos significativos:
+
+\textbf{Alcance técnico}: Se implementaron dos universos funcionales en lugar del único universo inicialmente planteado.
+
+\textbf{Interfaz de usuario}: Se desarrolló una aplicación web completa que no estaba contemplada en los objetivos iniciales.
+
+\textbf{Escalabilidad demostrada}: Se validó la capacidad de crecimiento mediante la expansión exitosa de la infraestructura Grid.
+
+\textbf{Documentación generada}: La calidad y extensión de la documentación excede los estándares típicos de proyectos académicos.
+
+\textbf{Metodología reproducible}: Se estableció un marco metodológico que puede ser aplicado en contextos similares.
+
+\section{Lecciones aprendidas}
+\noindent
+
+\subsection{Aspectos metodológicos}
+\noindent
+
+La integración de caracterización contextual, revisión sistemática y análisis de decisiones estructurado resultó efectiva para la toma de decisiones tecnológicas fundamentadas. La flexibilidad para adaptar objetivos cuando la evidencia técnica lo justifica (como la implementación de dos universos) puede generar mayor valor que la adhesión rígida a planes iniciales.
+
+\subsection{Aspectos técnicos}
+\noindent
+
+La implementación gradual e incremental de capacidades HTCondor permite aprovechar inversiones existentes mientras se incorporan nuevas funcionalidades. La documentación exhaustiva desde las fases tempranas del proyecto facilita significativamente la transferencia de conocimiento y sostenibilidad a largo plazo.
+
+\subsection{Aspectos institucionales}
+\noindent
+
+El éxito del proyecto dependió significativamente del alineamiento con necesidades reales de stakeholders y del enfoque hacia beneficios tangibles para la comunidad académica. La consideración temprana de aspectos de usabilidad y accesibilidad resulta crucial para la adopción efectiva de soluciones tecnológicas.
+
+\section{Conclusión del cumplimiento de objetivos}
+\noindent
+
+La evaluación sistemática demuestra que todos los objetivos planteados para esta investigación fueron cumplidos completamente, superando en muchos casos las expectativas iniciales. El proyecto no solo logró implementar exitosamente los universos HTCondor seleccionados, sino que estableció una base sólida para el crecimiento futuro de las capacidades computacionales del GRID y generó conocimiento transferible para la comunidad académica más amplia.
+
+El cumplimiento exitoso de objetivos valida la efectividad de la metodología empleada y confirma la viabilidad de ampliar infraestructuras HTCondor en contextos académicos con recursos limitados. Los resultados obtenidos constituyen una contribución significativa tanto al fortalecimiento de capacidades institucionales como al avance del conocimiento en el área de computación distribuida aplicada a entornos educativos y de investigación.

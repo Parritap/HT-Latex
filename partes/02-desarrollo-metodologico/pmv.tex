@@ -815,3 +815,347 @@ Para aplicaciones apropiadas, el universo parallel ofrece ventajas significativa
 \end{itemize}
 
 La implementación del universo parallel en la infraestructura \GRID representa una expansión significativa de las capacidades computacionales disponibles, complementando el universo vanilla existente y proporcionando una plataforma robusta para aplicaciones de computación de alto rendimiento que requieren paralelización fuertemente acoplada.
+
+\section{Universo Grid de HTCondor}
+\noindent
+
+El universo Grid de HTCondor constituye el componente central de la arquitectura distribuida implementada en la infraestructura del Grupo \GRID, facilitando la federación de recursos computacionales heterogéneos distribuidos geográficamente. A diferencia de los universos vanilla y parallel que operan dentro de un pool HTCondor único, el universo Grid permite la coordinación y gestión de trabajos a través de múltiples clústeres independientes, maximizando la utilización de recursos disponibles y proporcionando capacidades de balanceo de carga y tolerancia a fallos.
+
+\subsection{Fundamentos del universo Grid}
+\noindent
+
+El universo Grid de HTCondor implementa una arquitectura federada que permite la ejecución de trabajos computacionales a través de múltiples pools HTCondor distribuidos, proporcionando una abstracción unificada para el acceso a recursos heterogéneos. Esta capacidad es fundamental para organizaciones que operan infraestructuras computacionales distribuidas y requieren maximizar la utilización de recursos disponibles independientemente de su ubicación física o configuración específica.
+
+\subsubsection{Características técnicas}
+\noindent
+
+Las características distintivas del universo Grid incluyen:
+
+\begin{itemize}
+	\item \textbf{Federación de recursos}: Capacidad de coordinar trabajos a través de múltiples pools HTCondor independientes, cada uno con su propia configuración y políticas de uso.
+	
+	\item \textbf{Transparencia de ubicación}: Los usuarios pueden enviar trabajos sin conocer la ubicación física específica donde se ejecutarán, siendo el sistema responsable de la selección óptima de recursos.
+	
+	\item \textbf{Balanceo de carga automático}: Distribución inteligente de trabajos basada en la disponibilidad de recursos, carga actual y políticas de priorización configuradas.
+	
+	\item \textbf{Tolerancia a fallos}: Capacidad de redirigir trabajos entre diferentes clústeres en caso de falla o indisponibilidad de recursos específicos.
+	
+	\item \textbf{Gestión de credenciales}: Manejo unificado de autenticación y autorización a través de diferentes dominios administrativos.
+\end{itemize}
+
+\subsubsection{Arquitectura y componentes}
+\noindent
+
+La implementación del universo Grid en HTCondor involucra varios componentes especializados que coordinan la ejecución distribuida:
+
+\begin{itemize}
+	\item \textbf{Grid Manager}: Daemon responsable de la coordinación central, gestión de trabajos Grid y comunicación con pools remotos.
+	
+	\item \textbf{GAHP (Grid ASCII Helper Protocol)}: Protocolo y conjunto de herramientas que facilitan la comunicación entre el Grid Manager local y los schedulers remotos.
+	
+	\item \textbf{Grid Resource}: Abstracción que representa un pool HTCondor remoto accesible a través del universo Grid.
+	
+	\item \textbf{Flocking Mechanism}: Mecanismo que permite a trabajos de un pool ser ejecutados en pools remotos de manera transparente.
+\end{itemize}
+
+\subsection{Implementación en la infraestructura \GRID}
+\noindent
+
+La implementación del universo Grid en la infraestructura HTCondor del Grupo \GRID establece una arquitectura federada que coordina múltiples clústeres vanilla independientes a través de un nodo Grid Manager central. Como se detalla en el Apéndice~\ref{fig:grid-architecture}, esta arquitectura permite maximizar la utilización de recursos distribuidos y proporcionar servicios computacionales escalables y confiables.
+
+\subsubsection{Arquitectura del sistema Grid}
+\noindent
+
+La infraestructura Grid implementa una topología en estrella donde un Grid Manager central coordina dos clústeres vanilla independientes:
+
+\begin{itemize}
+	\item \textbf{Grid Manager (172.30.27.11)}: Nodo coordinador ejecutando los daemons \texttt{SCHEDD}, \texttt{MASTER}, \texttt{GRIDMANAGER} y \texttt{COLLECTOR}, responsable de recibir trabajos desde la aplicación \textit{Grid App} y distribuirlos hacia los clústeres disponibles.
+	
+	\item \textbf{Clúster Vanilla B}: Infraestructura computacional con 15 nodos de ejecución (172.30.27.36--48), coordinados por un Central Manager (172.30.27.34) y un nodo Submit (172.30.27.35).
+	
+	\item \textbf{Clúster Vanilla C}: Segunda infraestructura con 13 nodos de ejecución (172.30.27.68--80), gestionados por su propio Central Manager (172.30.27.66) y nodo Submit (172.30.27.67).
+\end{itemize}
+
+Esta arquitectura fue expandida durante el desarrollo del proyecto, pasando de un único clúster vanilla a dos clústeres independientes, demostrando la escalabilidad inherente del universo Grid y su capacidad para incorporar nuevos recursos de manera transparente.
+
+\subsubsection{Configuración del Grid Manager}
+\noindent
+
+El Grid Manager constituye el componente central de la infraestructura Grid, implementando la lógica de distribución de trabajos y coordinación con pools remotos. Su configuración, detallada en el Apéndice~\ref{fig:grid-architecture}, incluye varios aspectos críticos para su funcionamiento:
+
+\textbf{Configuración de daemons especializados:}
+
+El Grid Manager ejecuta una combinación única de daemons HTCondor que le permiten funcionar tanto como punto de entrada para trabajos como coordinador de recursos distribuidos:
+
+\begin{verbatim}
+DAEMON_LIST = SCHEDD, MASTER, GRIDMANAGER, COLLECTOR
+\end{verbatim}
+
+Esta configuración habilita las capacidades de recepción de trabajos (\texttt{SCHEDD}), coordinación central (\texttt{GRIDMANAGER}) y recolección de información de estado (\texttt{COLLECTOR}).
+
+\textbf{Configuración del protocolo GAHP:}
+
+El Grid ASCII Helper Protocol facilita la comunicación con pools remotos:
+
+\begin{verbatim}
+CONDOR_GAHP = $(SBIN)/condor_c-gahp
+C_GAHP_LOG = /tmp/CGAHPLog.$(USERNAME)
+C_GAHP_WORKER_THREAD_LOG = /tmp/CGAHPWorkerLog.$(USERNAME)
+C_GAHP_WORKER_THREAD_LOCK = /tmp/CGAHPWorkerLock.$(USERNAME)
+\end{verbatim}
+
+\textbf{Políticas de seguridad adaptadas:}
+
+La configuración implementa autenticación opcional optimizada para entornos de red confiable:
+
+\begin{verbatim}
+SEC_DEFAULT_AUTHENTICATION = OPTIONAL
+SEC_DEFAULT_AUTHENTICATION_METHODS = CLAIMTOBE,FS
+SEC_DEFAULT_ENCRYPTION = OPTIONAL
+SEC_DEFAULT_INTEGRITY = OPTIONAL
+\end{verbatim}
+
+\subsubsection{Configuración de clústeres vanilla target}
+\noindent
+
+Los clústeres vanilla fueron adaptados durante este proyecto para funcionar como recursos Grid, habilitando la recepción y ejecución de trabajos provenientes del Grid Manager. Esta adaptación involucró modificaciones en tres tipos de nodos:
+
+\textbf{Adaptación de nodos Submit:}
+
+Los nodos Submit de cada clúster vanilla fueron configurados para aceptar trabajos remotos provenientes del Grid Manager:
+
+\begin{itemize}
+	\item \textbf{Habilitación del universo Grid}: Configuración explícita mediante \texttt{ENABLE\_GRID\_UNIVERSE = True}.
+	
+	\item \textbf{Permisos para Grid Manager}: Configuración de ACLs específicas permitiendo acceso desde el Grid Manager (172.30.27.43).
+	
+	\item \textbf{Soporte para usuarios anónimos}: Habilitación de \texttt{SCHEDD.ALLOW\_ANONYMOUS\_USER = True} para facilitar la ejecución de trabajos remotos.
+	
+	\item \textbf{Configuración de flocking}: Establecimiento de relaciones de confianza mediante \texttt{FLOCK\_FROM} para permitir trabajos federados.
+\end{itemize}
+
+\textbf{Configuración de Central Managers:}
+
+Los Central Managers coordinan recursos locales y facilitan comunicación con el Grid Manager:
+
+\begin{verbatim}
+DAEMON_LIST = COLLECTOR, NEGOTIATOR, MASTER
+ALLOW_READ  = 172.30.*
+ALLOW_WRITE = 172.30.*
+\end{verbatim}
+
+\textbf{Adaptación de nodos Execute:}
+
+Los nodos Execute fueron configurados para recibir trabajos tanto locales como remotos:
+
+\begin{verbatim}
+FLOCK_FROM = rb3-t04-3
+ALLOW_WRITE_COLLECTOR = $(ALLOW_WRITE), $(FLOCK_FROM)
+ALLOW_WRITE_STARTD    = $(ALLOW_WRITE), $(FLOCK_FROM)
+\end{verbatim}
+
+\subsection{Integración con Grid App}
+\noindent
+
+La integración del universo Grid con la aplicación \textit{Grid App} implementa un flujo de trabajo sofisticado que abstrae la complejidad de la distribución de trabajos a través de múltiples clústeres, proporcionando una interfaz unificada para usuarios finales.
+
+\subsubsection{Generación de submit files para trabajos Grid}
+\noindent
+
+Los trabajos Grid requieren submit files específicos que definen tanto el universo target como los recursos de destino. La aplicación \textit{Grid App} genera automáticamente estos archivos con configuraciones adaptadas al entorno Grid:
+
+\begin{verbatim}
+universe = grid
+grid_resource = condor submit.cluster-b.grid 172.30.27.35:9618
+executable = [USER_EXECUTABLE]
+arguments = [USER_ARGUMENTS]
+requirements = (Arch == "armv7l")
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT_OR_EVICT
+\end{verbatim}
+
+La selección del \texttt{grid\_resource} se basa en métricas de disponibilidad obtenidas de la aplicación \textit{Cluster Info App}, implementando balanceo de carga inteligente entre clústeres disponibles.
+
+\subsubsection{Distribución inteligente de trabajos}
+\noindent
+
+El sistema implementa lógica de distribución que considera múltiples factores:
+
+\begin{itemize}
+	\item \textbf{Disponibilidad de recursos}: Consulta en tiempo real de slots disponibles en cada clúster vanilla.
+	
+	\item \textbf{Carga actual}: Análisis del número de trabajos en cola para balancear la distribución.
+	
+	\item \textbf{Historial de rendimiento}: Consideración de métricas históricas de éxito y tiempo de ejecución.
+	
+	\item \textbf{Políticas de priorización}: Aplicación de reglas configurables para casos de uso específicos.
+\end{itemize}
+
+\subsubsection{Monitoreo distribuido}
+\noindent
+
+El monitoreo de trabajos Grid presenta desafíos únicos debido a su ejecución distribuida. La aplicación \textit{Grid App} implementa estrategias especializadas:
+
+\begin{verbatim}
+# Consulta de estado en clúster remoto
+condor_q [CLUSTER_ID] -pool [REMOTE_COLLECTOR] -long | grep -E '^JobStatus'
+
+# Fallback a consulta local del Grid Manager
+condor_q [GRID_JOB_ID] -long | grep -E '^JobStatus'
+\end{verbatim}
+
+\subsection{Expansión de la infraestructura}
+\noindent
+
+Durante el desarrollo del proyecto se realizó la expansión de la infraestructura vanilla existente, implementando un segundo clúster independiente (Clúster C) que demuestra las capacidades de escalabilidad del universo Grid.
+
+\subsubsection{Motivación para la expansión}
+\noindent
+
+La expansión de un clúster vanilla único a dos clústeres independientes se fundamentó en varios objetivos:
+
+\begin{itemize}
+	\item \textbf{Demostración de escalabilidad}: Validar que la arquitectura Grid puede incorporar recursos adicionales de manera transparente.
+	
+	\item \textbf{Incremento de capacidad}: Duplicar los recursos computacionales disponibles de 15 a 28 nodos de ejecución.
+	
+	\item \textbf{Redundancia operacional}: Proporcionar continuidad de servicio en caso de falla completa de un clúster.
+	
+	\item \textbf{Balanceo de carga}: Distribuir trabajos de manera más eficiente según la disponibilidad instantánea de recursos.
+\end{itemize}
+
+\subsubsection{Proceso de integración}
+\noindent
+
+La integración del segundo clúster siguió un proceso sistemático:
+
+\begin{enumerate}
+	\item \textbf{Replicación de configuración}: Aplicación de la configuración base del Clúster B adaptada para las direcciones IP del Clúster C.
+	
+	\item \textbf{Actualización de tablas de enrutamiento}: Modificación del archivo \texttt{/etc/hosts} en todos los nodos para incluir los nuevos recursos.
+	
+	\item \textbf{Configuración de permisos}: Extensión de las ACLs para permitir comunicación bidireccional entre todos los componentes.
+	
+	\item \textbf{Validación de conectividad}: Verificación de la capacidad de envío y ejecución de trabajos en el nuevo clúster.
+\end{enumerate}
+
+\subsection{Configuración de red y comunicación}
+\noindent
+
+La configuración de red constituye un aspecto crítico para el funcionamiento del universo Grid, requiriendo conectividad bidireccional entre el Grid Manager y todos los clústeres vanilla participantes.
+
+\subsubsection{Resolución de nombres}
+\noindent
+
+Como se detalla en el Apéndice~\ref{fig:grid-architecture}, la resolución de nombres se implementa mediante configuración estática del archivo \texttt{/etc/hosts} en cada nodo, incluyendo:
+
+\begin{itemize}
+	\item \textbf{Grid Manager}: rb3-t01-1 (172.30.27.11)
+	\item \textbf{Clúster B}: 17 nodos (172.30.27.34--48)
+	\item \textbf{Clúster C}: 15 nodos (172.30.27.66--80)
+\end{itemize}
+
+Esta configuración estática elimina dependencias de servicios DNS externos y garantiza resolución consistente independientemente de la disponibilidad de infraestructura de red externa.
+
+\subsubsection{Políticas de seguridad}
+\noindent
+
+La configuración de seguridad implementa un modelo de confianza adaptado al entorno de red interna:
+
+\begin{verbatim}
+SEC_DEFAULT_AUTHENTICATION = OPTIONAL
+SEC_DEFAULT_ENCRYPTION = OPTIONAL
+SEC_DEFAULT_INTEGRITY = OPTIONAL
+ALLOW_READ  = 172.30.*
+ALLOW_WRITE = 172.30.*
+\end{verbatim}
+
+Esta configuración relajada está justificada por el entorno controlado donde opera la infraestructura, priorizando funcionalidad y rendimiento sobre seguridad restrictiva.
+
+\subsection{Casos de uso y aplicaciones}
+\noindent
+
+El universo Grid implementado en la infraestructura \GRID está optimizado para aplicaciones que se benefician de la distribución automática de trabajos y el acceso transparente a recursos heterogéneos.
+
+\subsubsection{Aplicaciones objetivo}
+\noindent
+
+Las aplicaciones típicas que aprovechan las capacidades del universo Grid incluyen:
+
+\begin{itemize}
+	\item \textbf{Procesamiento batch de alto volumen}: Aplicaciones que requieren procesamiento de grandes cantidades de trabajos independientes con diferentes requisitos de recursos.
+	
+	\item \textbf{Análisis paramétrico}: Estudios que involucran ejecución de la misma aplicación con diferentes parámetros de entrada, beneficiándose de distribución automática.
+	
+	\item \textbf{Workflows científicos}: Pipelines de procesamiento que pueden ser distribuidos a través de múltiples clústeres para acelerar el tiempo total de ejecución.
+	
+	\item \textbf{Aplicaciones con tolerancia a latencia}: Trabajos que no requieren comunicación entre procesos y pueden tolerar variaciones en tiempo de ejecución entre diferentes infraestructuras.
+\end{itemize}
+
+\subsubsection{Ventajas sobre pools HTCondor únicos}
+\noindent
+
+Para aplicaciones apropiadas, el universo Grid ofrece ventajas significativas:
+
+\begin{itemize}
+	\item \textbf{Escalabilidad horizontal}: Capacidad de agregar nuevos clústeres sin reconfiguración de clientes existentes.
+	
+	\item \textbf{Utilización optimizada}: Distribución inteligente de trabajos que maximiza el uso de recursos disponibles a través de múltiples pools.
+	
+	\item \textbf{Tolerancia a fallos geográfica}: Continuidad de servicio incluso ante falla completa de infraestructuras específicas.
+	
+	\item \textbf{Gestión unificada}: Interfaz única para acceso a recursos distribuidos, simplificando la experiencia del usuario final.
+\end{itemize}
+
+\subsection{Verificación y diagnóstico}
+\noindent
+
+La verificación del correcto funcionamiento del universo Grid requiere validación de múltiples aspectos de la configuración distribuida.
+
+\subsubsection{Comandos de diagnóstico}
+\noindent
+
+Como se documenta en el Apéndice~\ref{fig:grid-architecture}, la verificación incluye:
+
+\textbf{Desde el Grid Manager:}
+
+\begin{verbatim}
+# Verificar conectividad con pools remotos
+condor_status -pool rb3-t06-1
+condor_status -pool rb3-t06-4
+
+# Verificar configuración del Grid Manager
+condor_config_val -schedd DAEMON_LIST
+condor_config_val CONDOR_GAHP
+
+# Monitorear logs del Grid Manager
+tail -f /var/log/condor/GridmanagerLog
+\end{verbatim}
+
+\textbf{Desde clústeres vanilla:}
+
+\begin{verbatim}
+# Verificar configuración de flocking
+condor_config_val FLOCK_FROM
+condor_config_val ENABLE_GRID_UNIVERSE
+
+# Verificar permisos para Grid Manager
+condor_config_val ALLOW_WRITE_SCHEDD
+\end{verbatim}
+
+\subsubsection{Métricas de rendimiento}
+\noindent
+
+El sistema proporciona métricas para evaluación de rendimiento:
+
+\begin{itemize}
+	\item \textbf{Tiempo de distribución}: Latencia desde envío hasta inicio de ejecución en clúster remoto.
+	
+	\item \textbf{Tasa de éxito}: Porcentaje de trabajos completados exitosamente versus fallos de transferencia.
+	
+	\item \textbf{Utilización balanceada}: Distribución equitativa de carga entre clústeres disponibles.
+	
+	\item \textbf{Disponibilidad agregada}: Porcentaje de tiempo donde al menos un clúster está disponible para nuevos trabajos.
+\end{itemize}
+
+La implementación del universo Grid en la infraestructura \GRID representa un logro significativo en la federación de recursos computacionales distribuidos, proporcionando una plataforma escalable y confiable para aplicaciones científicas que requieren acceso transparente a recursos heterogéneos distribuidos geográficamente.
