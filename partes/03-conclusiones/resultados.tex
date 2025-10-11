@@ -1,51 +1,49 @@
 \ChapterImageStar[cap:resultados]{Resultados}{./images/fondo.png}\label{cap:resultados}
 \mbox{}\\
 
-El desarrollo de esta investigación permitió obtener una serie de resultados tangibles que responden directamente a los objetivos planteados y contribuyen significativamente a la ampliación de la infraestructura HTCondor del Grupo de Investigación en Redes, Información y Distribución (GRID) de la Universidad del Quindío. Los resultados se organizan según las fases metodológicas ejecutadas y demuestran el cumplimiento exitoso de cada objetivo específico establecido.
-
-\section{Caracterización del GRID y identificación de necesidades}
+\section{Caracterización del Grupo \GRID e identificación de necesidades}
 \noindent
 
 La caracterización integral del Grupo GRID permitió identificar sus capacidades tecnológicas actuales, estructura organizacional y necesidades específicas. Se determinó que el grupo cuenta con una infraestructura de computación distribuida basada en HTCondor, compuesta por un clúster de máquinas Raspberry Pi y una infraestructura virtualizada utilizando el hipervisor XCP-ng. 
 
-El análisis de stakeholders reveló una estructura compleja de actores con distintos niveles de influencia, identificando al Grupo GRID como el interesado crítico, seguido por docentes de Ingeniería de Sistemas e investigadores. Se estableció que los principales beneficiarios serían estudiantes, grupos de investigación institucionales y la comunidad académica en general.
+El análisis de \textit{stakeholders} reveló una estructura compleja de actores con distintos niveles de influencia, identificando al Grupo GRID como el interesado crítico, seguido por docentes de Ingeniería de Sistemas e investigadores. Se estableció que los principales beneficiarios serían estudiantes, grupos de investigación institucionales y la comunidad académica en general.
 
-La caracterización evidenció la necesidad de ampliar las capacidades computacionales existentes mediante la incorporación de universos HTCondor adicionales que complementen la infraestructura vanilla actual, específicamente orientados hacia aplicaciones que requieren federación de recursos (Grid) y paralelización fuertemente acoplada (Parallel).
+La caracterización evidenció la necesidad de ampliar las capacidades computacionales existentes mediante la incorporación de universos HTCondor adicionales que complementen la infraestructura Vanilla actual, específicamente orientados hacia aplicaciones que requieren federación de recursos (Grid) y paralelización fuertemente acoplada (Parallel).
 
 \section{Revisión sistemática de la literatura}
 \noindent
 
 El estudio de mapeo sistemático (SMS) logró identificar y analizar 114 estudios relevantes de un total inicial de 847 documentos recuperados de cinco bases de datos académicas principales. El proceso metodológico riguroso aplicó criterios de inclusión y exclusión que redujeron el corpus inicial en un 43.44\%, seguido de la eliminación de duplicados y la aplicación de la técnica de bola de nieve.
 
-Los resultados del SMS revelaron que la base de datos ACM fue la fuente más productiva con el 61.16\% de los artículos, mientras que IEEE y Taylor \& Francis mostraron menor productividad. El análisis temático identificó como tópicos predominantes: \textbf{Grid Computing, HPC, Cloud Computing, HTC y Parallel}, evidenciando una concentración de la investigación en estos dominios.
+Los resultados del SMS revelaron que la base de datos ACM fue la fuente más productiva con el 61.16\% de los artículos, mientras que IEEE y Taylor \& Francis mostraron menor productividad en las condiciones propuestas por este proyecto. El análisis temático identificó como tópicos predominantes: \textbf{Grid Computing, HPC, Cloud Computing, HTC y Parallel}, evidenciando una concentración de la investigación en estos dominios.
 
 La distribución de universos HTCondor en la literatura mostró una clara predominancia del universo Vanilla (61 menciones), seguido por Grid (39 menciones) y Parallel (26 menciones), proporcionando evidencia cuantitativa para el proceso de toma de decisiones posterior.
 
 \section{Análisis de Decisiones y Resolución (DAR)}
 \noindent
 
-La aplicación de la metodología DAR del modelo CMMI permitió evaluar objetivamente los universos HTCondor mediante criterios técnicos y organizacionales claramente definidos. Los criterios evaluados incluyeron: nivel de acoplamiento, capacidad de checkpointing, popularidad académica, disponibilidad de documentación, división de roles, facilidad de implementación, compatibilidad con infraestructura existente, potencial educativo e investigativo, y soporte comunitario.
+La aplicación de la metodología DAR del modelo CMMI permitió evaluar objetivamente los universos HTCondor mediante criterios técnicos y organizacionales claramente definidos. Los criterios evaluados incluyeron: nivel de acoplamiento, capacidad de \textit{checkpointing}, popularidad académica, disponibilidad de documentación, división de roles, facilidad de implementación, compatibilidad con infraestructura existente, potencial educativo e investigativo, y soporte comunitario.
 
 El proceso de evaluación sistemática arrojó un empate técnico entre los universos \textbf{Grid} y \textbf{Parallel}, ambos obteniendo las puntuaciones más altas. Esta situación llevó a la decisión estratégica de implementar ambos universos, maximizando así el impacto y las capacidades de la infraestructura resultante.
 
-Los criterios que favorecieron estos universos incluyeron su alto potencial para investigación y docencia, amplia documentación disponible, capacidades técnicas diferenciadas y complementariedad con la infraestructura vanilla existente.
+Los criterios que favorecieron estos universos incluyeron su alto potencial para investigación y docencia, amplia documentación disponible, capacidades técnicas diferenciadas y complementariedad con la infraestructura Vanilla existente.
 
 \section{Diseño arquitectónico y especificación técnica}
 \noindent
 
-Se desarrolló una arquitectura integral que articula la integración de los universos Grid y Parallel con la infraestructura HTCondor existente del GRID. El diseño arquitectónico contempla:
+Se desarrolló una arquitectura integral que articula la integración de los universos Grid y Parallel con la infraestructura HTCondor existente del Grupo GRID. El diseño arquitectónico contempla:
 
 \subsection{Arquitectura del universo Grid}
 \noindent
 
-Se especificó una arquitectura federada donde un Grid Manager central coordina múltiples clústeres vanilla independientes. La implementación incluye la configuración de un nodo coordinador (172.30.27.11) que ejecuta los daemons especializados (SCHEDD, MASTER, GRIDMANAGER, COLLECTOR) y la adaptación de dos clústeres vanilla (B y C) para funcionar como recursos Grid.
+Se especificó una arquitectura federada donde un \textit{grid manager} central coordina múltiples clústeres Vanilla independientes. La implementación incluye la configuración de un nodo coordinador (172.30.27.11) que ejecuta los \textit{daemons} especializados (SCHEDD, MASTER, GRIDMANAGER, COLLECTOR) y la adaptación de dos clústeres Vanilla (B y C) para funcionar como recursos Grid.
 
 La arquitectura permite la transparencia de ubicación, balanceo automático de carga, tolerancia a fallos y gestión unificada de credenciales a través de diferentes dominios administrativos.
 
 \subsection{Arquitectura del universo Parallel}
 \noindent
 
-Se diseñó una infraestructura virtualizada completamente nueva utilizando máquinas virtuales con AlmaLinux 9.6 sobre el hipervisor XCP-ng existente. Esta implementación proporciona un entorno moderno y optimizado para aplicaciones MPI que requieren comunicación fuertemente acoplada.
+Se diseñó una infraestructura virtualizada completamente nueva utilizando máquinas virtuales con AlmaLinux 9.6 sobre el hipervisor XCP-ng existente. Esta implementación proporciona un entorno moderno y optimizado para aplicaciones \MPI que requieren comunicación fuertemente acoplada.
 
 La arquitectura incluye configuración especializada para OpenMPI, gestión de recursos paralelos y mecanismos de sincronización que garantizan la ejecución coordinada de procesos distribuidos.
 
@@ -57,13 +55,13 @@ La materialización de la arquitectura propuesta se realizó mediante un PMV que
 \subsection{Grid App - Interfaz de usuario}
 \noindent
 
-Se desarrolló una aplicación web Flask que funciona como interfaz unificada para la gestión de trabajos en los diferentes universos HTCondor. La aplicación incluye:
+Se desarrolló una aplicación web con Flask que funciona como interfaz unificada para la gestión de trabajos en los diferentes universos HTCondor. La aplicación incluye:
 
 \begin{itemize}
-    \item \textbf{Submit Endpoint}: Procesamiento inteligente de trabajos con generación de identificadores únicos, manejo de archivos multipart y generación automática de submit files
-    \item \textbf{Status Monitoring}: Monitoreo en tiempo real del estado de trabajos distribuidos
-    \item \textbf{Results Management}: Gestión y descarga de resultados de ejecución
-    \item \textbf{Cluster Selection}: Selección automática de recursos basada en tipo de trabajo y disponibilidad
+    \item \textbf{Punto de envío}: Procesamiento inteligente de trabajos con generación de identificadores únicos, manejo de archivos \textit{multipart} y generación automática de \textit{submit files}.
+    \item \textbf{Monitoreo de estado}: Monitoreo en tiempo real del estado de trabajos distribuidos.
+    \item \textbf{Gestión de resultados}: Gestión y descarga de resultados de ejecución.
+    \item \textbf{Selección de clústeres}: Selección automática de recursos basada en tipo de trabajo y disponibilidad.
 \end{itemize}
 
 \subsection{Infraestructura Grid implementada}
@@ -72,20 +70,20 @@ Se desarrolló una aplicación web Flask que funciona como interfaz unificada pa
 La implementación del universo Grid materializó la arquitectura federada diseñada:
 
 \begin{itemize}
-    \item \textbf{Grid Manager}: Configurado exitosamente con daemons especializados y políticas de distribución
-    \item \textbf{Expansión de infraestructura}: Implementación de un segundo clúster vanilla (Clúster C) demostrando escalabilidad
-    \item \textbf{Federación funcional}: Capacidad demostrada de distribuir trabajos transparentemente entre múltiples pools HTCondor
+    \item \textbf{\textit{Grid Manager}}: Configurado exitosamente con \textit{daemons} especializados y políticas de distribución.
+    \item \textbf{Expansión de infraestructura}: Implementación de un segundo clúster Vanilla (Clúster C) demostrando escalabilidad.
+    \item \textbf{Federación funcional}: Capacidad demostrada de distribuir trabajos transparentemente entre múltiples pools HTCondor.
 \end{itemize}
 
 \subsection{Infraestructura Parallel implementada}
 \noindent
 
-Se estableció exitosamente un entorno de ejecución parallel completamente funcional:
+Se estableció exitosamente un entorno de ejecución paralelo completamente funcional:
 
 \begin{itemize}
-    \item \textbf{Clúster virtualizado}: Implementación de múltiples VMs con configuración MPI optimizada
-    \item \textbf{Integración OpenMPI}: Configuración y validación de comunicación entre procesos paralelos
-    \item \textbf{Gestión de recursos}: Asignación coordinada de recursos para trabajos fuertemente acoplados
+    \item \textbf{Clúster virtualizado}: Implementación de múltiples VMs con configuración MPI optimizada.
+    \item \textbf{Integración OpenMPI}: Configuración y validación de comunicación entre procesos paralelos.
+    \item \textbf{Gestión de recursos}: Asignación coordinada de recursos para trabajos fuertemente acoplados.
 \end{itemize}
 
 \section{Validación técnica y funcional}
@@ -98,26 +96,26 @@ La validación integral del sistema implementado se realizó mediante tres escen
 
 \textbf{ESC-01}: Ejecución exitosa de trabajos Grid con repeticiones múltiples, validando:
 \begin{itemize}
-    \item Correcta distribución de trabajos entre clústeres
-    \item Gestión adecuada de archivos de entrada y salida
-    \item Monitoreo efectivo de estado de trabajos distribuidos
+    \item Correcta distribución de trabajos entre clústeres.
+    \item Gestión adecuada de archivos de entrada y salida.
+    \item Monitoreo efectivo de estado de trabajos distribuidos.
 \end{itemize}
 
 \textbf{ESC-02}: Validación de trabajos parametrizables con variables dinámicas, demostrando:
 \begin{itemize}
-    \item Capacidad de procesamiento de parámetros variables
-    \item Flexibilidad en configuración de trabajos
-    \item Integración correcta con la interfaz Grid App
+    \item Capacidad de procesamiento de parámetros variables.
+    \item Flexibilidad en configuración de trabajos.
+    \item Integración correcta con la interfaz \textit{Grid App}.
 \end{itemize}
 
 \subsection{Validación del universo Parallel}
 \noindent
 
-\textbf{ESC-03}: Ejecución exitosa de algoritmo quicksort paralelo, confirmando:
+\textbf{ESC-03}: Ejecución exitosa de algoritmo \textit{quicksort} paralelo, confirmando:
 \begin{itemize}
-    \item Funcionamiento correcto de comunicación MPI
-    \item Coordinación efectiva de procesos distribuidos
-    \item Capacidades de sincronización y paralelización
+    \item Funcionamiento correcto de comunicación \MPI.
+    \item Coordinación efectiva de procesos distribuidos.
+    \item Capacidades de sincronización y paralelización.
 \end{itemize}
 
 Todos los casos de prueba se ejecutaron exitosamente, validando tanto los requisitos funcionales como no funcionales especificados. Las pruebas confirmaron que el sistema es estable, reproducible y adecuado para su uso en escenarios académicos y de investigación.
@@ -125,13 +123,13 @@ Todos los casos de prueba se ejecutaron exitosamente, validando tanto los requis
 \section{Métricas de impacto y capacidades resultantes}
 \noindent
 
-La implementación exitosa del proyecto ha resultado en un incremento significativo de las capacidades computacionales del GRID:
+La implementación exitosa del proyecto ha resultado en un incremento significativo de las capacidades computacionales del Grupo GRID:
 
 \begin{itemize}
-    \item \textbf{Expansión de recursos}: De un clúster vanilla único a una infraestructura federada con tres pools independientes
-    \item \textbf{Diversificación de capacidades}: Soporte para tres universos HTCondor (Vanilla, Grid, Parallel)
-    \item \textbf{Escalabilidad demostrada}: Arquitectura probada capaz de incorporar recursos adicionales transparentemente
-    \item \textbf{Interfaz unificada}: Acceso simplificado a recursos computacionales distribuidos mediante Grid App
+    \item \textbf{Expansión de recursos}: De un clúster Vanilla único a una infraestructura federada con tres \textit{pools} independientes.
+    \item \textbf{Diversificación de capacidades}: Soporte para tres universos HTCondor (Vanilla, Grid, Parallel).
+    \item \textbf{Escalabilidad demostrada}: Arquitectura probada capaz de incorporar recursos adicionales transparentemente.
+    \item \textbf{Interfaz unificada}: Acceso simplificado a recursos computacionales distribuidos mediante \textit{Grid App}.
 \end{itemize}
 
 \section{Contribuciones al conocimiento}
@@ -140,10 +138,10 @@ La implementación exitosa del proyecto ha resultado en un incremento significat
 Este proyecto genera varias contribuciones significativas:
 
 \begin{itemize}
-    \item \textbf{Metodológica}: Marco reproducible combinando caracterización contextual, revisión sistemática, evaluación DAR y diseño arquitectónico
-    \item \textbf{Técnica}: Implementación funcional de múltiples universos HTCondor en infraestructura académica con recursos limitados
-    \item \textbf{Académica}: Documentación completa de configuraciones y procedimientos para replicación en contextos similares
-    \item \textbf{Institucional}: Fortalecimiento de capacidades de investigación y docencia en computación distribuida
+    \item \textbf{Metodológica}: Marco reproducible combinando caracterización contextual, revisión sistemática, evaluación DAR y diseño arquitectónico.
+    \item \textbf{Técnica}: Implementación funcional de múltiples universos HTCondor en infraestructura académica con recursos limitados.
+    \item \textbf{Académica}: Documentación completa de configuraciones y procedimientos para replicación en contextos similares.
+    \item \textbf{Institucional}: Fortalecimiento de capacidades de investigación y docencia en computación distribuida.
 \end{itemize}
 
-Los resultados demuestran que la incorporación de los universos Grid y Parallel en la infraestructura del GRID representa una solución viable y eficiente para expandir el portafolio de servicios de computación distribuida, sin desestimar la inversión previa en tecnologías HTCondor y proporcionando una base sólida para el crecimiento futuro de las capacidades computacionales institucionales.
+Los resultados demuestran que la incorporación de los universos Grid y Parallel en la infraestructura del Grupo \GRID representa una solución viable y eficiente para expandir el portafolio de servicios de computación distribuida, sin desestimar la inversión previa en tecnologías HTCondor y proporcionando una base sólida para el crecimiento futuro de las capacidades computacionales institucionales.

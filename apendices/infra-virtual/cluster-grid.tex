@@ -52,9 +52,9 @@ El universo Grid en la infraestructura del Grupo~\GRID implementa una arquitectu
 \begin{itemize}
 	\item \textbf{grid manager (172.30.27.11)}: Nodo coordinador que ejecuta los \textit{daemons} \texttt{SCHEDD}, \texttt{MASTER}, \texttt{GRIDMANAGER} y \texttt{COLLECTOR}, responsable de recibir trabajos desde la aplicación \textit{Grid App} y distribuirlos hacia los clústeres Vanilla disponibles.
 	
-	\item \textbf{Clúster Vanilla B}: Infraestructura computacional compuesta por un \textit{master/central manager} (172.30.27.34), un nodo \textit{submit} (172.30.27.35) y múltiples nodos \textit{Execute} (172.30.27.36-48).
+	\item \textbf{Clúster Vanilla B}: Infraestructura computacional compuesta por un \textit{master/central manager} (172.30.27.34), un nodo \textit{submit} (172.30.27.35) y múltiples nodos \textit{execute} (172.30.27.36-48).
 
-	\item \textbf{Clúster Vanilla C}: Segunda infraestructura computacional con \textit{master/central manager} (172.30.27.66), nodo \textit{submit} (172.30.27.67) y nodos \textit{Execute} (172.30.27.68-80).
+	\item \textbf{Clúster Vanilla C}: Segunda infraestructura computacional con \textit{master/central manager} (172.30.27.66), nodo \textit{submit} (172.30.27.67) y nodos \textit{execute} (172.30.27.68-80).
 \end{itemize}
 
 \begin{figure}
@@ -278,9 +278,9 @@ ALLOW_READ  = 172.30.*
 ALLOW_WRITE = 172.30.*
 \end{minted}
 
-\FloatBarrier\subsubsection{Configuración de nodos \textit{Execute}}
+\FloatBarrier\subsubsection{Configuración de nodos \textit{execute}}
 
-Los nodos \textit{Execute} proporcionan los recursos computacionales donde se ejecutan los trabajos. Su configuración permite recibir trabajos tanto locales como provenientes del \textit{grid manager}:
+Los nodos \textit{execute} proporcionan los recursos computacionales donde se ejecutan los trabajos. Su configuración permite recibir trabajos tanto locales como provenientes del \textit{grid manager}:
 
 \textbf{Configuración de \textit{daemons}:}
 
@@ -291,7 +291,7 @@ Los nodos \textit{Execute} proporcionan los recursos computacionales donde se ej
     bgcolor=lightgray!10,
     fontsize=\footnotesize,
 ]{bash}
-# Daemons ejecutados en nodos Execute
+# Daemons ejecutados en nodos execute
 DAEMON_LIST = STARTD, MASTER
 \end{minted}
 
@@ -318,7 +318,7 @@ Una configuración crítica para el funcionamiento del universo Grid es la resol
 172.30.27.34    rb3-t06-1
 # submit
 172.30.27.35    rb3-t06-2
-# Execute nodes
+# execute nodes
 172.30.27.36    rb3-t02-1
 172.30.27.37    rb3-t02-2
 172.30.27.38    rb3-t02-3
@@ -338,7 +338,7 @@ Una configuración crítica para el funcionamiento del universo Grid es la resol
 172.30.27.66    rb3-t06-4
 # submit
 172.30.27.67    rb3-t06-5
-# Execute nodes
+# execute nodes
 172.30.27.68    rb3-t04-1
 172.30.27.69    rb3-t04-2
 172.30.27.70    rb3-t04-3
