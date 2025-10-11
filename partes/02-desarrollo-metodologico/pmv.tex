@@ -6,15 +6,42 @@ Cabe destacar que para este proyecto se usó Git para el control de versiones, G
 
 \section{\textit{Grid App}}
 \noindent
-Como se mencionó en el capítulo de diseño de la solución, la aplicación \textit{Grid App} constituye la piedra angular del sistema, pues es este \textit{software} el que permite centralizar la funcionalidad de los demás componentes. El objetivo de esta aplicación es exponer una interfaz web en la que el usuario pueda cargar sus trabajos computacionales, dar ciertos parámetros para su ejecución y que luego pueda ver los resultados de sus trabajos.
+Como se mencionó en el capítulo de diseño de la solución, la aplicación \textit{Grid App} constituye la piedra angular del sistema, funcionando como la interfaz central que permite a los usuarios interactuar con la infraestructura HTCondor distribuida. Esta aplicación web desarrollada en Flask permite cargar trabajos computacionales, configurar parámetros de ejecución específicos para diferentes tipos de universos HTCondor, y visualizar los resultados de manera organizada y accesible.
 
 \subsection{Estructura del proyecto}
 \noindent
-La figura~\ref{fig:estructura-proyecto-grid-app} detalla la estructura del proyecto; el directorio \textit{scripts} contiene algunos ejecutables de Bash que usa el sistema para enviar los trabajos al Universo \textit{Parallel} y sincronizar las salidas; el directorio \textit{static} contiene algunos archivos de \CSS~y \JS~útiles para darle forma e interacción a la interfaz web; el directorio \textit{submits} está destinado a guardar los archivos de HTCondor, como los \textit{submit files} y los resultados de los trabajos; el repositorio \textit{templates} contiene el código \HTML~que conforma la estructura de las páginas web y por último; los archivos que están en la raíz del proyecto que son \textit{app.py}, que compone el código del servidor de Python y \textit{.gitignore} que le dice a Git que archivos y carpetas debe ignorar y es común a la mayoría de proyectos que usan este \CVS.
+La aplicación \textit{Grid App} está organizada siguiendo las mejores prácticas de desarrollo web con Flask:
+
+\begin{itemize}
+	\item \textbf{app.py}: Archivo principal que contiene la lógica del servidor Flask, incluyendo todos los endpoints, manejo de archivos, generación de submit files y lógica de interacción con HTCondor.
+	
+	\item \textbf{templates/}: Directorio que contiene las plantillas HTML para la interfaz de usuario:
+	\begin{itemize}
+		\item \texttt{upload.html}: Interfaz principal para la carga y configuración de trabajos.
+		\item \texttt{results.html}: Interfaz para visualización de resultados con sistema de pestañas dinámicas.
+	\end{itemize}
+	
+	\item \textbf{static/}: Directorio para archivos estáticos (CSS, JavaScript, imágenes) que proporcionan estilo e interactividad a la aplicación web.
+	
+	\item \textbf{submits/}: Directorio de trabajo donde se almacenan todos los archivos relacionados con cada trabajo:
+	\begin{itemize}
+		\item Archivos ejecutables subidos por el usuario.
+		\item Archivos de entrada (para trabajos paralelos).
+		\item Submit files generados automáticamente.
+		\item Archivos de salida y logs de HTCondor.
+		\item Metadatos del trabajo en formato JSON.
+	\end{itemize}
+	
+	\item \textbf{scripts/}: Directorio que contiene scripts auxiliares de Bash para operaciones específicas:
+	\begin{itemize}
+		\item \texttt{send-submit.sh}: Envío de trabajos a clústeres remotos via SSH.
+		\item \texttt{fetch-outputs.sh}: Sincronización de archivos de salida desde clústeres remotos.
+	\end{itemize}
+\end{itemize}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.35]{tablas-images/pmv/estructura-proyecto-grid-app.png}
+	\includegraphics[scale=0.7]{tablas-images/pmv/estructura-proyecto-grid-app.png}
 	\caption{Estructura del proyecto \textit{Grid App}}
 	\label{fig:estructura-proyecto-grid-app}
 \end{figure}
@@ -22,25 +49,65 @@ La figura~\ref{fig:estructura-proyecto-grid-app} detalla la estructura del proye
 \subsection{Código fuente}
 \noindent
 
-El código fuente de la aplicación \textit{Grid App}, está disponible en el repositorio de GitHub \href{https://github.com/JuanEstebanOsma1012/condor\_webui}{\textit{condor\_webui}} en la rama \href{https://github.com/JuanEstebanOsma1012/condor\_webui/tree/main}{\textit{main}} y su versión más actualizada y funcional a la fecha es la \href{https://github.com/JuanEstebanOsma1012/condor\_webui/releases/tag/v3.1.0}{v3.1.0}. De igual forma, en el apéndice correspondiente se muestran los contenidos y la descripción de cada archivo que compone esta aplicación.
+% TODO: Actualizar información del repositorio, rama y versión
+El código fuente de la aplicación \textit{Grid App} está disponible en el repositorio correspondiente y su implementación se presenta en los apéndices de este documento. La aplicación está desarrollada completamente en Python utilizando el framework Flask para el backend y HTML/CSS/JavaScript para la interfaz de usuario.
+
+\subsection{Características técnicas y configuración}
+\noindent
+
+\subsubsection{Configuración de la aplicación}
+\noindent
+
+La aplicación \textit{Grid App} utiliza las siguientes configuraciones globales definidas en \texttt{app.py}:
+
+\begin{itemize}
+	\item \textbf{DEFAULT\_PROJECT\_FOLDER}: Directorio base de la aplicación, configurable entre desarrollo y producción.
+	\item \textbf{SUBMIT\_FOLDER}: Directorio para almacenamiento de trabajos (\texttt{/submits/}).
+	\item \textbf{SCRIPTS\_FOLDER}: Directorio de scripts auxiliares (\texttt{/scripts/}).
+	\item \textbf{JOB\_STATUS}: Diccionario global para traducción de códigos de estado HTCondor.
+\end{itemize}
+
+\subsubsection{Manejo de archivos y permisos}
+\noindent
+
+El sistema implementa un manejo robusto de archivos:
+
+\begin{itemize}
+	\item \textbf{Permisos ejecutables}: Los archivos binarios reciben permisos \texttt{0o755} automáticamente.
+	\item \textbf{Codificación de archivos}: Lectura de salidas con \texttt{encoding='utf-8', errors='ignore'}.
+	\item \textbf{Gestión de directorios}: Creación automática con \texttt{os.makedirs(job\_dir, exist\_ok=True)}.
+\end{itemize}
+
+\subsubsection{Concurrencia y multithreading}
+\noindent
+
+Para trabajos parallel, la aplicación utiliza threading para operaciones no bloqueantes:
+
+\begin{verbatim}
+def traer_salidas():
+    subprocess.run(['./fetch-outputs.sh', job_dir, submit_ip, job_id], ...)
+
+thread = threading.Thread(target=traer_salidas)
+thread.start()
+\end{verbatim}
 
 \subsection{Componentes de la interfaz web}
 \noindent
-En esta sección se muestran las interfaces de usuario que sirve la aplicación. Además de la descripción de la utilidad de cada una.
 
-\subsubsection{Upload UI}
+\subsubsection{Upload Interface}
 \noindent
-Es la interfaz de usuario principal de toda la aplicación. Como se muestra en la figura \ref{fig:uiCargasTrabajos} está compuesta por un formulario que permite entregar información sobre el trabajo para su posterior ejecución.
+Interfaz principal implementada en \texttt{upload.html}, servida por el endpoint raíz. Proporciona un formulario multipart para carga de archivos y configuración de parámetros de ejecución específicos por tipo de universo HTCondor.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.35]{tablas-images/pmv/upload-ui-screenshot.png}
+	\includegraphics[scale=0.5]{tablas-images/pmv/upload-ui-screenshot.png}
 	\caption{Interfaz de carga de trabajos}
 	\label{fig:uiCargasTrabajos}
 \end{figure}
 
-\subsubsection{Results UI}
-En la figura \ref{fig:uiResultadosTrabajos} se muestra la interfaz de los resultados de cada trabajo distribuido. Permite una previsualización del contenido de los resultados de los trabajos y también, permite ampliar la salida completamente. Por último, muestra información general del trabajo como su UUID asignado por el sistema, el nombre del ejecutable y otros datos de interés.
+\subsubsection{Results Interface}
+\noindent
+Interfaz dinámica implementada en \texttt{results.html} que utiliza JavaScript para carga asíncrona de archivos de salida mediante peticiones AJAX al endpoint \texttt{/output/<job\_id>/<filename>}. Presenta información completa del trabajo y sistema de pestañas para navegación entre múltiples archivos de salida.
 
 \begin{figure}[H]
 	\centering
@@ -52,117 +119,120 @@ En la figura \ref{fig:uiResultadosTrabajos} se muestra la interfaz de los result
 \subsection{Componentes Backend (Endpoints)}
 \noindent
 
-Los componentes \textit{backend} de \textit{Grid App} están implementados como \textit{endpoints} en Flask y constituyen el núcleo funcional de la aplicación. Estos componentes son responsables de recibir las solicitudes del usuario, procesarlas, interactuar con HTCondor y gestionar el ciclo de vida completo de los trabajos computacionales. A continuación se describe cada uno de los \textit{endpoints} principales del sistema.
+La aplicación \textit{Grid App} está implementada como una aplicación Flask que expone múltiples endpoints para gestionar el ciclo de vida completo de los trabajos computacionales en HTCondor. El servidor Flask se ejecuta por defecto en el puerto 5000 y está configurado para aceptar conexiones desde cualquier interfaz de red (\texttt{host='0.0.0.0'}). Los endpoints principales del sistema se describen a continuación.
 
-\subsubsection{Submit Endpoint}
+\subsubsection{Root Endpoint (/)}
 \noindent
 
-El \textit{Submit Endpoint} es el componente responsable de recibir la información del trabajo computacional a ejecutar y enviarlo al clúster HTCondor correspondiente. Este \textit{endpoint} está expuesto en la ruta \texttt{/submit} y acepta peticiones de tipo POST.
+El \textit{Root Endpoint} sirve la página principal de la aplicación. Este \textit{endpoint} está expuesto en la ruta raíz (\texttt{/}) y acepta peticiones de tipo GET.
 
 \textbf{Funcionamiento:}
 
-El proceso que ejecuta este componente puede describirse en los siguientes pasos:
+Renderiza la plantilla HTML \texttt{upload.html} que contiene la interfaz principal para la carga y configuración de trabajos computacionales.
+
+\subsubsection{Submit Endpoint (/submit)}
+\noindent
+
+El \textit{Submit Endpoint} es el componente más complejo del sistema, responsable de procesar la información del trabajo computacional y coordinarlo con los diferentes tipos de universos HTCondor. Este \textit{endpoint} está expuesto en la ruta \texttt{/submit} y acepta peticiones de tipo POST.
+
+\textbf{Funcionamiento:}
 
 \begin{enumerate}
-	\item \textbf{Generación del identificador único}: Al recibir una petición, el \textit{endpoint} genera un identificador único (UUID) de 8 caracteres para el trabajo. Este identificador se utiliza para crear un directorio específico dentro de \texttt{/submits/} donde se almacenarán todos los archivos relacionados con el trabajo.
+	\item \textbf{Generación del identificador único}: Genera un UUID de 8 caracteres utilizando \texttt{str(uuid.uuid4())[:8]} para identificar únicamente cada trabajo.
 
-	\item \textbf{Procesamiento de archivos}: El componente recibe y procesa tres tipos de archivos opcionales:
+	\item \textbf{Procesamiento de archivos}: Recibe y procesa hasta tres archivos opcionales del formulario multipart:
 	      \begin{itemize}
-		      \item \textit{binary-file}: El archivo ejecutable del trabajo.
-		      \item \textit{input-file}: Archivo de entrada necesario para la ejecución (principalmente para trabajos paralelos).
-		      \item \textit{submit-file}: Archivo de configuración personalizado de HTCondor.
+		      \item \texttt{binary-file}: Ejecutable principal del trabajo.
+		      \item \texttt{input-file}: Archivo de entrada (requerido para trabajos parallel).
+		      \item \texttt{submit-file}: Submit file personalizado de HTCondor.
 	      \end{itemize}
 
-	\item \textbf{Configuración del trabajo}: El \textit{endpoint} recibe un objeto JSON con la configuración del trabajo que incluye:
+	\item \textbf{Configuración del trabajo}: Parsea la configuración JSON que incluye:
 	      \begin{itemize}
-		      \item \texttt{jobType}: Tipo de universo (vanilla o parallel).
-		      \item \texttt{cluster}: Dirección IP y puerto del clúster destino.
-		      \item \texttt{additionalArgs}: Argumentos adicionales para el ejecutable.
-		      \item Opciones específicas según el tipo de trabajo.
+		      \item \texttt{jobType}: Especifica el universo ('vanilla' o 'parallel').
+		      \item \texttt{cluster}: Dirección del clúster de destino.
+		      \item \texttt{additionalArgs}: Argumentos para el ejecutable.
+		      \item \texttt{vanillaMode}: Modo de distribución para trabajos vanilla ('range' o 'equal').
+		      \item \texttt{rangeOptions}: Configuración de variables y rangos.
+		      \item \texttt{parallelOptions}: Configuración de máquinas y núcleos.
 	      \end{itemize}
 
-	\item \textbf{Generación del archivo submit}: Si el usuario no proporciona un archivo submit personalizado, el componente genera automáticamente uno basado en la configuración recibida, utilizando la función \texttt{create\_submit\_file()}. Esta función crea archivos submit diferentes según el tipo de universo:
+	\item \textbf{Generación automática de submit files}: La función \texttt{create\_submit\_file()} genera diferentes tipos de submit files:
 
+	      \textbf{Para Universo Grid (Vanilla):}
 	      \begin{itemize}
-		      \item \textbf{Para Universo Grid (Vanilla)}: Genera un archivo submit que especifica el \textit{grid\_resource}, configura la transferencia de archivos y establece los requisitos de arquitectura. Además, maneja dos modos de distribución de trabajos:
+		      \item Configura \texttt{universe = grid} y \texttt{grid\_resource = condor}.
+		      \item Establece requisitos de arquitectura: \texttt{requirements = (Arch == ``armv7l'')}.
+		      \item Maneja distribución de trabajos:
 		            \begin{itemize}
-			            \item \textit{Modo range}: Genera múltiples trabajos con valores de variables distribuidos en rangos especificados.
-			            \item \textit{Modo equal}: Genera múltiples trabajos idénticos según el número de repeticiones especificado.
+			            \item \textit{Modo range}: Genera trabajos explícitos con variables iterativas.
+			            \item \textit{Modo equal}: Crea trabajos idénticos con \texttt{queue N}.
 		            \end{itemize}
-
-		      \item \textbf{Para Universo Parallel}: Genera un archivo submit que utiliza el \textit{openmpiscript}, especifica el número de máquinas y núcleos por máquina, configura las variables de entorno para OpenMPI y establece las políticas de transferencia de archivos y apagado.
 	      \end{itemize}
 
-	\item \textbf{Envío al clúster}: Dependiendo del tipo de trabajo, el componente ejecuta diferentes estrategias:
-
+	      \textbf{Para Universo Parallel:}
 	      \begin{itemize}
-		      \item \textbf{Trabajos Vanilla}: Ejecuta directamente el comando \texttt{condor\_submit} sobre el archivo submit generado en el directorio del trabajo.
-
-		      \item \textbf{Trabajos Parallel}: Invoca el script \texttt{send-submit.sh} que se encarga de transferir los archivos necesarios al clúster remoto mediante SSH y ejecutar \texttt{condor\_submit} en dicho clúster. Adicionalmente, inicia un hilo separado que ejecuta el script \texttt{fetch-outputs.sh} para sincronizar periódicamente los archivos de salida desde el clúster remoto.
+		      \item Configura \texttt{universe = parallel}.
+		      \item Utiliza \texttt{executable = /usr/share/doc/condor/examples/openmpiscript}.
+		      \item Establece \texttt{machine\_count} y \texttt{request\_cpus}.
+		      \item Configura variables de entorno OpenMPI.
+		      \item Establece política de apagado: \texttt{+ParallelShutdownPolicy = ``WAIT\_FOR\_NODE0''}.
 	      \end{itemize}
 
-	\item \textbf{Extracción del cluster ID}: El componente analiza la salida del comando \texttt{condor\_submit} utilizando expresiones regulares para extraer el número de clúster asignado por HTCondor al trabajo.
+	\item \textbf{Ejecución de trabajos}:
 
-	\item \textbf{Almacenamiento de información}: Finalmente, el componente guarda un archivo \texttt{job\_info.json} en el directorio del trabajo que contiene:
+	      \textbf{Trabajos Vanilla:} Ejecuta \texttt{condor\_submit} directamente en el directorio local del trabajo.
+
+	      \textbf{Trabajos Parallel:} 
 	      \begin{itemize}
-		      \item El job\_id generado.
-		      \item El cluster\_id asignado por HTCondor.
-		      \item La configuración completa del trabajo.
-		      \item El nombre del archivo binario.
-		      \item La salida del comando condor\_submit.
-		      \item La marca de tiempo de creación.
+		      \item Ejecuta el script \texttt{send-submit.sh} para transferir archivos al clúster remoto.
+		      \item Inicia un hilo separado con \texttt{threading.Thread} que ejecuta \texttt{fetch-outputs.sh}.
 	      \end{itemize}
+
+	\item \textbf{Extracción del cluster ID}: Utiliza la expresión regular \texttt{r``(\\textbackslash{}d+)\\textbackslash{}s+job\\textbackslash{}(s\\textbackslash{})\\textbackslash{}s+submitted to cluster\\textbackslash{}s+(\\textbackslash{}d+)''} para extraer el ID del clúster de la salida de \texttt{condor\_submit}.
+
+	\item \textbf{Persistencia de metadatos}: Guarda \texttt{job\_info.json} con información completa del trabajo, incluyendo configuración, timestamps y salida de HTCondor.
 \end{enumerate}
 
 \textbf{Respuesta:}
 
-El \textit{endpoint} retorna un objeto JSON con el siguiente formato:
+Retorna un JSON con la estructura:
 
 \begin{verbatim}
 {
   "success": true,
-  "job_id": "a1b2c3d4",
+  "job_id": "a1b2c3d4", 
   "cluster_id": "123",
   "message": "Trabajo enviado exitosamente"
 }
 \end{verbatim}
 
-En caso de error, retorna un código HTTP 500 con un mensaje descriptivo del error.
-
-\textit{Recursos necesarios}: Fragmento del código fuente correspondiente a la función \texttt{create\_submit\_file()} en el Apéndice XX.
-
-\subsubsection{Status Endpoint}
+\subsubsection{Job Status Endpoint (/job\_status/<job\_id>)}
 \noindent
 
-El \textit{Status Endpoint} es el componente encargado de consultar el estado actual de un trabajo en el sistema HTCondor. Este \textit{endpoint} está expuesto en la ruta \texttt{/job\_status/<job\_id>} y acepta peticiones de tipo GET.
+Este endpoint consulta el estado actual de un trabajo en los sistemas HTCondor correspondientes, manejando tanto trabajos locales (vanilla) como remotos (parallel).
 
 \textbf{Funcionamiento:}
 
-El proceso de consulta de estado se desarrolla de la siguiente manera:
-
 \begin{enumerate}
-	\item \textbf{Validación del trabajo}: El componente verifica la existencia del directorio del trabajo y del archivo \texttt{job\_info.json}. Si el trabajo no existe, retorna un error 404.
+	\item \textbf{Validación}: Verifica la existencia de \texttt{job\_info.json} y extrae el \texttt{cluster\_id}.
 
-	\item \textbf{Carga de información}: Lee el archivo \texttt{job\_info.json} para obtener el cluster\_id y el tipo de trabajo.
+	\item \textbf{Consulta de estado}: Ejecuta comandos específicos según el tipo de trabajo:
 
-	\item \textbf{Consulta en condor\_q}: Dependiendo del tipo de trabajo, ejecuta diferentes comandos:
+	      \textbf{Trabajos Vanilla:}
+	      \begin{verbatim}
+condor_q {cluster_id} -long | grep -E '^JobStatus'
+	      \end{verbatim}
 
-	      \begin{itemize}
-		      \item \textbf{Trabajos Vanilla}: Ejecuta directamente el comando:
-		            \begin{verbatim}
-		condor_q <cluster_id> -long | grep -E '^JobStatus'
-		\end{verbatim}
+	      \textbf{Trabajos Parallel:}
+	      \begin{verbatim}
+ssh -i ~/.ssh/parallel alma@{submit_ip} 
+  "condor_q {cluster_id} -long | grep -E '^JobStatus'"
+	      \end{verbatim}
 
-		      \item \textbf{Trabajos Parallel}: Ejecuta el comando remotamente mediante SSH:
-		            \begin{verbatim}
-		ssh -i ~/.ssh/parallel alma@<submit_ip>
-		  "condor_q <cluster_id> -long | grep -E '^JobStatus'"
-		\end{verbatim}
-	      \end{itemize}
+	\item \textbf{Consulta en historial}: Si no se encuentra en \texttt{condor\_q}, consulta \texttt{condor\_history} con \texttt{-limit 1}.
 
-	\item \textbf{Consulta en condor\_history}: Si el trabajo no se encuentra en \texttt{condor\_q} (lo que indica que ya terminó), el componente realiza una consulta similar en \texttt{condor\_history} para obtener el estado final del trabajo.
-
-	\item \textbf{Procesamiento de estados}: El componente analiza la salida de los comandos para extraer los códigos de estado y los traduce a nombres legibles utilizando el diccionario \texttt{JOB\_STATUS}:
+	\item \textbf{Procesamiento de estados}: Utiliza el diccionario global \texttt{JOB\_STATUS} para traducir códigos numéricos:
 
 	      \begin{table}[H]
 		      \centering
@@ -170,155 +240,175 @@ El proceso de consulta de estado se desarrolla de la siguiente manera:
 			      \hline
 			      \textbf{Código} & \textbf{Estado}        \\
 			      \hline
-			      1               & Idle (En espera)       \\
-			      2               & Running (Ejecutándose) \\
-			      3               & Removed (Removido)     \\
-			      4               & Completed (Completado) \\
-			      5               & Held (Retenido)        \\
+			      1               & Idle                   \\
+			      2               & Running                \\
+			      3               & Removed                \\
+			      4               & Completed              \\
+			      5               & Held                   \\
 			      \hline
 		      \end{tabular}
 		      \caption{Códigos de estado de HTCondor}
 		      \label{tab:job-status-codes}
 	      \end{table}
 
-	\item \textbf{Determinación del estado general}: Para trabajos con múltiples procesos, el componente determina un estado general aplicando las siguientes reglas:
+	\item \textbf{Determinación del estado general}:
 	      \begin{itemize}
-		      \item Si todos los procesos están "Completed", el estado general es "Completed".
-		      \item Si algún proceso está "Running", el estado general es "Running".
-		      \item Si hay diferentes estados entre los procesos, el estado general es "Mixed".
-		      \item Si todos tienen el mismo estado, ese es el estado general.
+		      \item \texttt{all(s == ``Completed'' for s in statuses)}: Estado ``Completed''.
+		      \item \texttt{``Running'' in statuses}: Estado ``Running''.
+		      \item \texttt{len(set(statuses)) > 1}: Estado ``Mixed''.
+		      \item Caso contrario: Primer estado de la lista.
 	      \end{itemize}
 \end{enumerate}
 
 \textbf{Respuesta:}
 
-El \textit{endpoint} retorna un objeto JSON con el siguiente formato:
-
 \begin{verbatim}
 {
   "job_id": "a1b2c3d4",
-  "cluster_id": "123",
+  "cluster_id": "123", 
   "statuses": ["Running", "Running", "Completed"],
   "overall_status": "Running"
 }
 \end{verbatim}
 
-\subsubsection{Results Endpoint}
+\subsubsection{Results Endpoint (/results/<job\_id>)}
 \noindent
 
-El \textit{Results Endpoint} es el componente responsable de leer la información relacionada con los resultados del trabajo y renderizar la página web que muestra dichos resultados al usuario. Este \textit{endpoint} está expuesto en la ruta \texttt{/results/<job\_id>} y acepta peticiones de tipo GET.
+Este endpoint renderiza la página de visualización de resultados con un sistema dinámico de pestañas para múltiples archivos de salida.
 
 \textbf{Funcionamiento:}
 
 \begin{enumerate}
-	\item \textbf{Validación del trabajo}: Verifica la existencia del directorio del trabajo. Si no existe, retorna un error 404.
+	\item \textbf{Validación}: Verifica la existencia del directorio del trabajo.
 
-	\item \textbf{Carga de información}: Lee el archivo \texttt{job\_info.json} para obtener la configuración y metadatos del trabajo.
+	\item \textbf{Carga de metadatos}: Lee \texttt{job\_info.json} para obtener la configuración del trabajo.
 
-	\item \textbf{Identificación de archivos de salida}: El componente lista los archivos de salida disponibles según el tipo de trabajo:
+	\item \textbf{Identificación de archivos de salida}:
 
-	      \begin{itemize}
-		      \item \textbf{Trabajos Vanilla}: Busca todos los archivos que coincidan con el patrón \texttt{job\_*.out} en el directorio del trabajo. Estos archivos corresponden a las salidas de cada proceso generado por el trabajo. La lista se ordena alfabéticamente para mantener consistencia en la visualización.
+	      \textbf{Trabajos Vanilla:}
+	      \begin{verbatim}
+for filename in os.listdir(job_dir):
+    if filename.startswith('job_') and filename.endswith('.out'):
+        output_files.append(filename)
+output_files.sort()
+	      \end{verbatim}
 
-		      \item \textbf{Trabajos Parallel}: Identifica únicamente el archivo \texttt{job\_0.out}, que contiene la salida consolidada del trabajo paralelo ejecutado en el nodo maestro.
-	      \end{itemize}
+	      \textbf{Trabajos Parallel:}
+	      \begin{verbatim}
+output_files = ['job_0.out']
+	      \end{verbatim}
 
-	\item \textbf{Renderizado de la página}: Invoca la plantilla \texttt{results.html} pasando como contexto:
-	      \begin{itemize}
-		      \item \texttt{job\_info}: Información completa del trabajo.
-		      \item \texttt{output\_files}: Lista de archivos de salida disponibles.
-		      \item \texttt{job\_id}: Identificador del trabajo.
-	      \end{itemize}
+	\item \textbf{Renderizado}: Utiliza \texttt{render\_template('results.html')} con contexto que incluye \texttt{job\_info}, \texttt{output\_files} y \texttt{job\_id}.
 \end{enumerate}
 
-\textbf{Respuesta:}
-
-El \textit{endpoint} retorna una página HTML renderizada que presenta:
-\begin{itemize}
-	\item Información general del trabajo (ID, cluster ID, configuración).
-	\item Una interfaz de pestañas o tarjetas para navegar entre los diferentes archivos de salida.
-	\item El contenido de cada archivo de salida.
-	\item Indicadores visuales del estado del trabajo.
-\end{itemize}
-
-\textit{Recursos necesarios}: Pantallazo de la interfaz de resultados mostrando la estructura de pestañas y el contenido de un archivo de salida.
-
-\subsubsection{Output Endpoint}
+\subsubsection{Output Endpoint (/output/<job\_id>/<filename>)}
 \noindent
 
-El \textit{Output Endpoint} es el componente encargado de leer y devolver el contenido específico de un archivo de salida individual. Este \textit{endpoint} está expuesto en la ruta \texttt{/output/<job\_id>/<filename>} y acepta peticiones de tipo GET.
+Endpoint auxiliar que sirve el contenido específico de archivos de salida individuales para carga dinámica mediante AJAX.
 
 \textbf{Funcionamiento:}
 
 \begin{enumerate}
-	\item \textbf{Construcción de la ruta}: El componente construye la ruta completa del archivo combinando el directorio del trabajo con el nombre del archivo solicitado.
+	\item \textbf{Construcción de ruta}: \texttt{os.path.join(job\_dir, filename)}
 
-	\item \textbf{Validación del archivo}: Verifica que el archivo exista. Si no existe, retorna un error 404.
+	\item \textbf{Validación}: \texttt{os.path.exists(output\_path)}
 
-	\item \textbf{Lectura del contenido}: Lee el contenido completo del archivo utilizando codificación UTF-8 e ignorando errores de codificación para manejar caracteres especiales que puedan estar presentes en las salidas.
+	\item \textbf{Lectura robusta}: 
+	      \begin{verbatim}
+with open(output_path, 'r', encoding='utf-8', errors='ignore') as file:
+    content = file.read()
+	      \end{verbatim}
 
-	\item \textbf{Respuesta}: Retorna el contenido como texto plano con el tipo MIME \texttt{text/plain}.
+	\item \textbf{Respuesta}: \texttt{Response(content, mimetype='text/plain')}
 \end{enumerate}
 
-\textbf{Uso:}
+\subsubsection{State Endpoint (/state/<id>)}
+\noindent
 
-Este \textit{endpoint} es utilizado principalmente por la interfaz de resultados para cargar dinámicamente el contenido de cada archivo cuando el usuario selecciona una pestaña o tarjeta específica, evitando así cargar todos los archivos de salida simultáneamente y mejorando el rendimiento de la aplicación cuando existen múltiples archivos de salida.
+Endpoint simplificado para consulta rápida de estado por cluster ID (funcionalidad adicional).
 
-\textbf{Respuesta:}
+\textbf{Funcionamiento:}
 
-El \textit{endpoint} retorna el contenido del archivo como texto plano. Por ejemplo:
-
-\begin{verbatim}
-El resultado de la operación es: 42
-Tiempo de ejecución: 1.234 segundos
-Memoria utilizada: 512 MB
-\end{verbatim}
+Ejecuta \texttt{condor\_q \{id\} -long | grep -E '\^{}JobStatus'} y retorna directamente el estado traducido usando el diccionario \texttt{JOB\_STATUS}.
 
 \subsection{Proceso de instalación}
 \noindent
 
-Con el fin de hacer el proceso repetible se preparó una descripción general del entorno y una serie de pasos para la instalación de la aplicación
-
 \subsubsection{Descripción general del entorno}
 \noindent
-A continuación se muestran algunas de las condiciones que cumple el entorno en el que se instaló la aplicación para que esta pudiera funcionar
+Requisitos del sistema para el despliegue de \textit{Grid App}:
 
 \begin{itemize}
-	\item Sistema operativo: Raspbian GNU/Linux 9 (stretch).
-	\item Gestor de paquetes: APT.
-	\item Usuario: pi.
-	\item Grupos: pi, sudo.
-	\item Herramientas adicionales: Bash, Git, Condor y Grid Universe instalado.
+	\item Sistema operativo: Raspbian GNU/Linux 9 (stretch) o superior.
+	\item Python: Versión 3.6 o superior con pip.
+	\item Dependencias Python: Flask y módulos estándar (uuid, threading, subprocess).
+	\item HTCondor: Instalación completa con Grid Universe configurado.
+	\item SSH: Configuración de claves para acceso a clústeres remotos (parallel jobs).
+	\item Usuario: Permisos para ejecutar comandos HTCondor y escritura en directorios de trabajo.
 \end{itemize}
 
-\subsubsection{Pasos}
+\subsubsection{Pasos de instalación}
 \noindent
 
+% TODO: Actualizar URL del repositorio, rama y comandos de instalación específicos
 Instalación de la aplicación:
 
-\begin{itemize}
-	\item git clone https://github.com/JuanEstebanOsma1012/condor\_webui /opt/app
-	\item cd /opt/app
-	\item sudo ./install.sh
-\end{itemize}
+\begin{enumerate}
+	\item Clonar el repositorio:
+	      \begin{verbatim}
+			git clone [URL_REPOSITORIO] /opt/grid-app
+		\end{verbatim}
+	
+	\item Instalar dependencias Python:
+	      \begin{verbatim}
+			cd /opt/grid-app
+			pip3 install flask
+		\end{verbatim}
+	
+	\item Configurar directorios de trabajo:
+	      \begin{verbatim}
+			mkdir -p /opt/grid-app/submits
+			mkdir -p /opt/grid-app/scripts
+			chmod 755 /opt/grid-app/scripts/*.sh
+		\end{verbatim}
+	
+	\item Configurar acceso SSH para trabajos parallel:
+	      \begin{verbatim}
+			ssh-keygen -t rsa -f ~/.ssh/parallel
+			# Copiar clave pública a clústeres remotos
+		\end{verbatim}
+\end{enumerate}
 
-Configuración del proceso para limpiar periódicamente los archivos que se suben:
+\subsubsection{Configuración del servicio}
+\noindent
 
-Para que la memoria del equipo que contiene la aplicación no se llene debido a los archivos que suben los usuarios y los que crea la propia aplicación, se hace necesario agregar un trabajo que limpie automáticamente este directorio periódicamente. Para dicho fin se muestran una serie de pasos para agregar este trabajo al \textit{crontab}, que es el servicio encargado de ejecutar trabajos periódicamente en el entorno de la aplicación.
+Para ejecutar la aplicación como servicio del sistema:
+
+% TODO: Crear script de instalación automatizado similar al de Cluster Info App
+\begin{enumerate}
+	\item Crear archivo de unidad systemd en \texttt{/etc/systemd/system/grid-app.service}.
+	\item Configurar el servicio para ejecutarse en el puerto 5000.
+	\item Habilitar y iniciar el servicio con systemctl.
+\end{enumerate}
+
+\subsubsection{Mantenimiento automático}
+\noindent
+
+Configuración de limpieza periódica del directorio de trabajos:
 
 \begin{enumerate}
-	\item Ejecutar
+	\item Agregar al crontab:
 	      \begin{verbatim}
 			crontab -e
 		\end{verbatim}
-	\item Copiar al final del archivo
+	
+	\item Agregar tarea de limpieza diaria:
 	      \begin{verbatim}
-			0 0 * * * [ -d "/opt/app/submits" ] && rm -rf /opt/app/submits/* && echo "$(date): Limpieza completada" >> /var/log/cleanup.log
+			0 2 * * * find /opt/grid-app/submits -type d -mtime +7 -exec rm -rf {} +
 		\end{verbatim}
-	\item Guardar archivo
 \end{enumerate}
 
-Cabe recalcar que los pasos y los \textit{scripts} de instalación que se presentaron anteriormente no son una guía universal ni se consideran una secuencia de pasos inmutables. Por el contrario, muestra la secuencia de pasos que se usaron para construir y desplegar este servicio en la infraestructura HTCondor del \GRID y su funcionamiento está sujeto a una larga lista de requisitos que representan todas las características del equipo en el que se ejecutó y de la red en general. Por lo que su funcionamiento en un entorno diferente está sujeto a cambios que se hagan con base en las necesidades del entorno.
+La configuración presentada representa el entorno específico utilizado durante el desarrollo y puede requerir adaptaciones según las características particulares del sistema de destino y los requisitos de la infraestructura HTCondor existente.
 
 \section{\textit{Cluster Info App}}
 \noindent
@@ -327,22 +417,108 @@ Como se mencionó en el capítulo de diseño de la solución, la aplicación \te
 
 \subsection{Estructura del proyecto}
 \noindent
-Para este caso la aplicación está compuesta por dos archivos; el primero, llamado \textit{update\_condor\_metrics.sh} es un \textit{script} de \textit{Bash} que consulta métricas del clúster como los \textit{slots} de \CPU disponibles o la cantidad de trabajos en cola; el segundo, llamado \textit{cluster-info.py} es un servidor \HTTP básico que lee las métricas de un archivo y las expone a través de una \API.
+La aplicación \textit{Cluster Info App} está compuesta por tres archivos principales que trabajan en conjunto para proporcionar métricas del clúster HTCondor:
+
+\begin{itemize}
+	\item \textbf{update\_condor\_metrics.sh}: \textit{Script} de \textit{Bash} que recopila métricas del clúster HTCondor ejecutando comandos específicos de HTCondor y generando un archivo JSON con la información.
+	\item \textbf{cluster-info.py}: Servidor HTTP ligero implementado en Python que lee las métricas del archivo JSON y las expone a través de una API REST.
+	\item \textbf{install.sh}: \textit{Script} de instalación que configura el servicio como un daemon del sistema usando systemd.
+\end{itemize}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.35]{tablas-images/pmv/estructura-proyecto-cluster-info-app.png}
+	\includegraphics[scale=0.7]{tablas-images/pmv/estructura-proyecto-cluster-info-app.png}
 	\caption{Estructura del proyecto \textit{Cluster Info App}}
 	\label{fig:estructura-proyecto-cluster-info-app}
 \end{figure}
 
-% EN ESTA SECCIÓN HAY UN BUG DE COMPILACIÓN
-% -----------------------------------------
-\subsection{Código fuente}
-% -----------------------------------------
-
+\subsection{Componentes de la aplicación}
 \noindent
-El código fuente de la aplicación \textit{Cluster Info App}, está disponible en el repositorio de GitHub \href{https://github.com/JuanEstebanOsma1012/condor\_cluster\_info\_api}{\textit{condor\_cluster\_info\_api}} en la rama \href{https://github.com/JuanEstebanOsma1012/condor\_cluster\_info\_api/tree/main}{\textit{main}} y su versión más actualizada y funcional a la fecha es la \href{https://github.com/JuanEstebanOsma1012/condor\_cluster\_info\_api/releases/tag/v1.0.0}{v1.0.0}. De igual forma, en el apéndice correspondiente se muestran los contenidos y la descripción de cada archivo que compone esta aplicación.
+
+\subsubsection{Script de recopilación de métricas (update\_condor\_metrics.sh)}
+\noindent
+
+Este componente es responsable de ejecutar comandos específicos de HTCondor para recopilar información del estado del clúster y generar un archivo JSON con las métricas. El \textit{script} recopila las siguientes métricas:
+
+\begin{itemize}
+	\item \textbf{Slots disponibles}: Utiliza el comando \texttt{condor\_status -avail -total} para obtener el número total de \textit{slots} de CPU disponibles en el clúster.
+	
+	\item \textbf{Porcentaje de trabajos exitosos}: Calcula el porcentaje de trabajos completados exitosamente mediante el análisis del historial de trabajos con \texttt{condor\_history}.
+	
+	\item \textbf{Trabajos en cola}: Extrae el número de trabajos inactivos (\textit{idle}) usando \texttt{condor\_q}.
+	
+	\item \textbf{Direcciones del sistema}: Obtiene las direcciones IP del \textit{collector} y \textit{schedd} mediante consultas a los daemons correspondientes.
+	
+	\item \textbf{Tipo de clúster}: Identifica el tipo de universo soportado por el clúster (en este caso, \textit{vanilla}).
+\end{itemize}
+
+El resultado se almacena en el archivo \texttt{/tmp/condor\_metrics.json} con el siguiente formato:
+
+\begin{verbatim}
+{
+  "slots": "8",
+  "success_jobs": "95%",
+  "idle_jobs": "3",
+  "collector_address": "192.168.1.100:9618",
+  "schedd_address": "192.168.1.100:9615",
+  "cluster_type": "vanilla"
+}
+\end{verbatim}
+
+\subsubsection{Servidor HTTP (cluster-info.py)}
+\noindent
+
+Este componente implementa un servidor HTTP ligero utilizando la librería estándar de Python \texttt{http.server}. El servidor expone las métricas del clúster a través de una API REST simple.
+
+\textbf{Características principales:}
+
+\begin{itemize}
+	\item \textbf{Puerto de servicio}: El servidor se ejecuta en el puerto 44444 por defecto.
+	
+	\item \textbf{Endpoint principal}: Responde a peticiones GET en la ruta raíz (\texttt{/}) devolviendo las métricas en formato JSON.
+	
+	\item \textbf{Soporte CORS}: Incluye cabeceras CORS para permitir peticiones desde diferentes dominios, facilitando la integración con aplicaciones web.
+	
+	\item \textbf{Manejo de errores}: Implementa manejo de excepciones devolviendo respuestas HTTP 500 con información del error en formato JSON.
+	
+	\item \textbf{Soporte para preflight requests}: Maneja peticiones OPTIONS para cumplir con los requisitos de CORS.
+\end{itemize}
+
+\textbf{Funcionamiento:}
+
+\begin{enumerate}
+	\item El servidor lee el archivo \texttt{/tmp/condor\_metrics.json} generado por el \textit{script} de métricas.
+	\item Procesa la información y la devuelve como respuesta JSON.
+	\item En caso de error (archivo no encontrado, formato incorrecto, etc.), devuelve un mensaje de error estructurado.
+\end{enumerate}
+
+\subsubsection{Script de instalación (install.sh)}
+\noindent
+
+Este componente automatiza el proceso de instalación y configuración de la aplicación como un servicio del sistema. El \textit{script} realiza las siguientes operaciones:
+
+\begin{itemize}
+	\item \textbf{Verificación de privilegios}: Valida que se ejecute con permisos de superusuario.
+	
+	\item \textbf{Instalación de dependencias}: Actualiza el sistema e instala Python 3 y pip usando el gestor de paquetes APT.
+	
+	\item \textbf{Configuración de systemd}: Crea un archivo de unidad systemd (\texttt{cluster-info.service}) que define el servicio con las siguientes características:
+	\begin{itemize}
+		\item Ejecuta bajo el usuario \texttt{pi}.
+		\item Configura reinicio automático en caso de falla.
+		\item Redirige la salida al journal del sistema.
+		\item Se ejecuta después de que la red esté disponible.
+	\end{itemize}
+	
+	\item \textbf{Habilitación del servicio}: Recarga el daemon de systemd, habilita el servicio para inicio automático y lo pone en marcha.
+	
+	\item \textbf{Verificación}: Muestra el estado del servicio para confirmar que la instalación fue exitosa.
+\end{itemize}
+
+\subsection{Código fuente}
+\noindent
+
+El código fuente de la aplicación \textit{Cluster Info App} está disponible en el repositorio correspondiente y su implementación se presenta en los apéndices de este documento. La aplicación está diseñada para ser ligera, confiable y fácil de desplegar en diferentes entornos de HTCondor.
 
 \subsection{Proceso de instalación}
 \noindent
@@ -366,26 +542,276 @@ A continuación se muestran algunas de las condiciones que cumple el entorno en 
 
 Instalación de la aplicación:
 
+\begin{enumerate}
+	\item Clonar el repositorio:
+	      \begin{verbatim}
+			git clone https://github.com/JuanEstebanOsma1012/condor_cluster_info_api /opt/cluster-info
+		\end{verbatim}
+	
+	\item Navegar al directorio:
+	      \begin{verbatim}
+			cd /opt/cluster-info
+		\end{verbatim}
+	
+	\item Ejecutar el script de instalación con privilegios de administrador:
+	      \begin{verbatim}
+			sudo ./install.sh
+		\end{verbatim}
+\end{enumerate}
+
+El script de instalación realiza automáticamente los siguientes pasos:
+
 \begin{itemize}
-	\item git clone https://github.com/JuanEstebanOsma1012/condor\_webui /opt/app
-	\item cd /opt/app
-	\item sudo ./install.sh
+	\item Actualiza el sistema e instala las dependencias necesarias (Python 3).
+	\item Crea el archivo de servicio systemd en \texttt{/etc/systemd/system/cluster-info.service}.
+	\item Configura el servicio para ejecutarse automáticamente al inicio del sistema.
+	\item Inicia el servicio y verifica su estado.
 \end{itemize}
 
-Configuración del proceso para limpiar periódicamente los archivos que se suben:
+Configuración del script de métricas:
 
-Para que la memoria del equipo que contiene la aplicación no se llene debido a los archivos que suben los usuarios y los que crea la propia aplicación, se hace necesario agregar un trabajo que limpie automáticamente este directorio periódicamente. Para dicho fin se muestran una serie de pasos para agregar este trabajo al \textit{crontab}, que es el servicio encargado de ejecutar trabajos periódicamente en el entorno de la aplicación.
+Para mantener las métricas actualizadas, se debe configurar la ejecución periódica del script \texttt{update\_condor\_metrics.sh}:
 
 \begin{enumerate}
-	\item Ejecutar
+	\item Agregar el script al crontab del usuario:
 	      \begin{verbatim}
 			crontab -e
 		\end{verbatim}
-	\item Copiar al final del archivo
+	
+	\item Agregar la siguiente línea para ejecutar el script cada minuto:
 	      \begin{verbatim}
-			0 0 * * * [ -d "/opt/app/submits" ] && rm -rf /opt/app/submits/* && echo "$(date): Limpieza completada" >> /var/log/cleanup.log
+			* * * * * /opt/cluster-info/update_condor_metrics.sh
 		\end{verbatim}
-	\item Guardar archivo
+	
+	\item Guardar el archivo.
 \end{enumerate}
 
 Cabe recalcar que los pasos y los \textit{scripts} de instalación que se presentaron anteriormente no son una guía universal ni se consideran una secuencia de pasos inmutables. Por el contrario, muestra la secuencia de pasos que se usaron para construir y desplegar este servicio en la infraestructura HTCondor del \GRID y su funcionamiento está sujeto a una larga lista de requisitos que representan todas las características del equipo en el que se ejecutó y de la red en general. Por lo que su funcionamiento en un entorno diferente está sujeto a cambios que se hagan con base en las necesidades del entorno.
+
+\section{Universo Parallel de HTCondor}
+\noindent
+
+El universo parallel de HTCondor representa una de las funcionalidades más avanzadas del sistema de gestión de trabajos distribuidos, diseñada específicamente para la ejecución de aplicaciones que requieren comunicación estrecha entre procesos distribuidos. A diferencia del universo vanilla, que está optimizado para trabajos independientes y embarazosamente paralelos, el universo parallel permite la ejecución de aplicaciones que utilizan bibliotecas de paso de mensajes como \MPI (Message Passing Interface), facilitando la implementación de algoritmos paralelos fuertemente acoplados.
+
+\subsection{Fundamentos del universo parallel}
+\noindent
+
+El universo parallel de HTCondor está diseñado para satisfacer las necesidades computacionales de aplicaciones científicas que requieren múltiples procesos ejecutándose simultáneamente con capacidad de comunicación bidireccional. Esta capacidad es fundamental para algoritmos que implementan técnicas como descomposición de dominio, métodos de elementos finitos distribuidos, simulaciones moleculares paralelas y procesamiento distribuido de grandes volúmenes de datos.
+
+\subsubsection{Características técnicas}
+\noindent
+
+Las características distintivas del universo parallel incluyen:
+
+\begin{itemize}
+	\item \textbf{Asignación simultánea de recursos}: HTCondor garantiza que todos los recursos necesarios para el trabajo (máquinas y núcleos) estén disponibles antes de iniciar la ejecución, eliminando el riesgo de deadlocks o esperas indefinidas.
+	
+	\item \textbf{Comunicación inter-proceso}: Soporte nativo para bibliotecas \MPI que permiten intercambio de mensajes entre procesos distribuidos en diferentes nodos computacionales.
+	
+	\item \textbf{Topología de red consciente}: HTCondor puede considerar la topología de red y latencia entre nodos para optimizar la asignación de recursos en trabajos que requieren comunicación intensiva.
+	
+	\item \textbf{Políticas de terminación coordinada}: Implementa mecanismos como \texttt{+ParallelShutdownPolicy = ``WAIT\_FOR\_NODE0''} para garantizar terminación ordenada de todos los procesos.
+	
+	\item \textbf{Gestión de fallos}: Capacidad de detectar fallos en nodos individuales y reaccionar apropiadamente, ya sea reubicando procesos o terminando todo el trabajo.
+\end{itemize}
+
+\subsubsection{Arquitectura y componentes}
+\noindent
+
+La implementación del universo parallel en HTCondor involucra varios componentes especializados:
+
+\begin{itemize}
+	\item \textbf{Parallel Scheduler}: Componente del \textit{schedd} responsable de la coordinación de recursos múltiples y la planificación de trabajos paralelos.
+	
+	\item \textbf{Dedicated Scheduler}: Planificador especializado que puede reservar conjuntos específicos de máquinas para trabajos paralelos de larga duración.
+	
+	\item \textbf{Shadow Process}: Proceso especializado que coordina la ejecución distribuida y mantiene comunicación con todos los procesos \textit{starter} involucrados.
+	
+	\item \textbf{MPI Implementation}: Integración con implementaciones estándar de \MPI como OpenMPI o MPICH para facilitar la comunicación entre procesos.
+\end{itemize}
+
+\subsection{Implementación en la infraestructura \GRID}
+\noindent
+
+La implementación del universo parallel en la infraestructura HTCondor del Grupo \GRID requirió el desarrollo de una nueva arquitectura virtualizada que complementara el clúster existente de Raspberry Pi. Esta decisión se fundamentó en las limitaciones documentadas de la versión HTCondor 8.4.11 utilizada en los dispositivos ARM, particularmente en el soporte para aplicaciones \MPI complejas.
+
+\subsubsection{Motivación para la infraestructura virtualizada}
+\noindent
+
+Como se detalla en el Apéndice~\ref{fig:xen-vms}, el clúster actual de Raspberry Pi ejecuta HTCondor versión 8.4.11 en arquitectura \texttt{armv7l}. Aunque esta versión es técnicamente compatible con el universo parallel, las limitaciones identificadas incluyen:
+
+\begin{itemize}
+	\item \textbf{Documentación limitada}: La documentación específica para la implementación del universo parallel en la versión 8.4.11 resultó insuficiente para una implementación robusta.
+	
+	\item \textbf{Limitaciones de arquitectura}: Las restricciones de memoria y procesamiento de los dispositivos Raspberry Pi limitan la escalabilidad de aplicaciones \MPI intensivas.
+	
+	\item \textbf{Compatibilidad con OpenMPI}: Dificultades en la integración con versiones modernas de OpenMPI en el entorno \texttt{armv7l}.
+	
+	\item \textbf{Rendimiento de red}: Las limitaciones de ancho de banda en la conectividad Ethernet de 100 Mbps afectan aplicaciones con comunicación intensiva.
+\end{itemize}
+
+\subsubsection{Arquitectura de la infraestructura virtualizada}
+\noindent
+
+La nueva infraestructura virtualizada implementa una arquitectura distribuida basada en máquinas virtuales ejecutándose sobre el hipervisor XCP-ng. Como se muestra en la Tabla~\ref{tab:nodos-htcondor}, la configuración incluye seis nodos especializados:
+
+\begin{itemize}
+	\item \textbf{Grid Manager (172.30.28.29)}: Nodo coordinador que gestiona la integración con la aplicación \textit{Grid App} y orquesta la distribución de trabajos entre diferentes infraestructuras.
+	
+	\item \textbf{Master (172.30.28.30)}: Nodo \textit{Central Manager} que ejecuta los daemons \textit{collector} y \textit{negotiator}, responsables de la coordinación central del pool HTCondor.
+	
+	\item \textbf{Submit (172.30.28.31)}: Nodo \textit{Access Point} desde el cual se envían trabajos parallel al sistema. Ejecuta el daemon \textit{schedd} especializado para trabajos paralelos.
+	
+	\item \textbf{Ejecutores (172.30.28.32--34)}: Tres nodos \textit{Execute Points} que proporcionan recursos computacionales para la ejecución de procesos \MPI distribuidos.
+\end{itemize}
+
+\subsubsection{Configuración del sistema operativo}
+\noindent
+
+La selección de AlmaLinux 9.6 (Sage Margay) x86\_64 como sistema operativo base se fundamentó en varios criterios técnicos:
+
+\begin{itemize}
+	\item \textbf{Soporte oficial}: AlmaLinux figura en la lista de sistemas operativos oficialmente soportados por HTCondor, garantizando compatibilidad y soporte a largo plazo.
+	
+	\item \textbf{Compatibilidad empresarial}: Como sucesor de CentOS, AlmaLinux proporciona estabilidad y compatibilidad con entornos empresariales de computación de alto rendimiento.
+	
+	\item \textbf{Implementación probada}: Instituciones como CERN han implementado exitosamente HTCondor sobre AlmaLinux, proporcionando casos de uso validados \citep{Bunsic2025}.
+	
+	\item \textbf{Ecosistema de paquetes}: Acceso completo al ecosistema de paquetes RPM con versiones actualizadas de OpenMPI y herramientas de desarrollo.
+\end{itemize}
+
+\subsection{Proceso de instalación y configuración}
+\noindent
+
+El proceso de instalación del universo parallel en la infraestructura \GRID sigue un enfoque sistemático que garantiza la reproducibilidad y mantenibilidad del sistema.
+
+\subsubsection{Instalación de HTCondor}
+\noindent
+
+La instalación de HTCondor se automatizó mediante un script personalizado que utiliza el instalador oficial proporcionado por el equipo de desarrollo de HTCondor. Este enfoque garantiza la instalación de la versión LTS (Long Term Support) más reciente con todas las dependencias necesarias:
+
+\begin{verbatim}
+curl -fsSL https://get.htcondor.org | sudo /bin/bash -s -- \
+    --no-dry-run --cm master --password [PASSWORD] --channel lts
+\end{verbatim}
+
+El script diferencia entre tres tipos de instalación según el rol del nodo:
+
+\begin{itemize}
+	\item \textbf{Central Manager (\texttt{--cm})}: Instala y configura los daemons \textit{collector} y \textit{negotiator} para coordinación central.
+	
+	\item \textbf{Access Point (\texttt{--ap})}: Configura el daemon \textit{schedd} optimizado para envío de trabajos parallel.
+	
+	\item \textbf{Execute Point (\texttt{--ep})}: Instala el daemon \textit{startd} configurado para recibir y ejecutar procesos \MPI.
+\end{itemize}
+
+\subsubsection{Configuración de red y comunicación}
+\noindent
+
+La configuración de red es crítica para el funcionamiento del universo parallel. Todos los nodos deben poder resolver nombres y establecer conexiones bidireccionales. La configuración del archivo \texttt{/etc/hosts} en cada nodo incluye:
+
+\begin{verbatim}
+172.30.28.30 master
+172.30.28.31 submit
+172.30.28.32 exec01
+172.30.28.33 exec02
+172.30.28.34 exec03
+\end{verbatim}
+
+Esta configuración estática garantiza resolución de nombres consistente y elimina dependencias de servicios DNS externos, mejorando la confiabilidad del sistema.
+
+\subsubsection{Instalación y configuración de OpenMPI}
+\noindent
+
+La implementación \MPI seleccionada es OpenMPI debido a su soporte nativo en HTCondor y su robustez en entornos distribuidos. La instalación en AlmaLinux se realiza mediante:
+
+\begin{verbatim}
+sudo dnf install openmpi openmpi-devel -y
+echo "module load mpi/openmpi-x86_64" >> ~/.bashrc
+\end{verbatim}
+
+Esta configuración utiliza el sistema de módulos de AlmaLinux para gestionar diferentes versiones de \MPI y facilitar la compatibilidad con aplicaciones que requieren versiones específicas.
+
+\subsection{Integración con Grid App}
+\noindent
+
+La integración del universo parallel con la aplicación \textit{Grid App} requiere consideraciones especiales debido a la naturaleza distribuida de los trabajos paralelos y los requisitos de comunicación inter-proceso.
+
+\subsubsection{Generación de submit files para trabajos parallel}
+\noindent
+
+Los trabajos parallel requieren submit files con configuraciones específicas que difieren significativamente de los trabajos vanilla. La aplicación \textit{Grid App} genera automáticamente estos archivos con las siguientes características esenciales:
+
+\begin{verbatim}
+universe = parallel
+executable = /usr/share/doc/condor/examples/openmpiscript
+arguments = [USER_EXECUTABLE] [USER_ARGUMENTS]
+input = [INPUT_FILE]
+machine_count = [MACHINE_COUNT]
+request_cpus = [CPUS_PER_MACHINE]
++ParallelShutdownPolicy = "WAIT_FOR_NODE0"
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT_OR_EVICT
+\end{verbatim}
+
+\subsubsection{Manejo de archivos distribuidos}
+\noindent
+
+Los trabajos parallel requieren un manejo especial de archivos debido a su ejecución distribuida:
+
+\begin{itemize}
+	\item \textbf{Transferencia de archivos}: HTCondor gestiona automáticamente la distribución de archivos de entrada a todos los nodos participantes.
+	
+	\item \textbf{Sincronización de salidas}: La aplicación \textit{Grid App} implementa threading para la recolección asíncrona de archivos de salida desde el nodo submit remoto.
+	
+	\item \textbf{Gestión de logs}: Los logs de \MPI se centralizan en el nodo coordinador (rank 0) para facilitar la depuración y monitoreo.
+\end{itemize}
+
+\subsubsection{Monitoreo y estado de trabajos parallel}
+\noindent
+
+El monitoreo de trabajos parallel presenta desafíos únicos debido a su naturaleza multi-proceso. La aplicación \textit{Grid App} implementa consultas especializadas:
+
+\begin{verbatim}
+ssh -i ~/.ssh/parallel alma@[SUBMIT_IP] \
+    "condor_q [CLUSTER_ID] -long | grep -E '^JobStatus'"
+\end{verbatim}
+
+Esta consulta remota permite obtener el estado de todos los procesos involucrados en el trabajo parallel, proporcionando visibilidad completa del progreso de ejecución.
+
+\subsection{Casos de uso y aplicaciones}
+\noindent
+
+El universo parallel implementado en la infraestructura \GRID está diseñado para soportar una amplia gama de aplicaciones científicas y de ingeniería que requieren paralelización fuertemente acoplada.
+
+\subsubsection{Aplicaciones objetivo}
+\noindent
+
+Las aplicaciones típicas que se benefician del universo parallel incluyen:
+
+\begin{itemize}
+	\item \textbf{Simulaciones numéricas}: Modelado de fluidos computacionales (CFD), análisis de elementos finitos y simulaciones moleculares que requieren intercambio frecuente de datos entre procesos.
+	
+	\item \textbf{Algoritmos de álgebra lineal}: Factorizaciones matriciales distribuidas, resolución de sistemas lineales grandes y cálculo de valores propios que aprovechan bibliotecas como ScaLAPACK\@.
+	
+	\item \textbf{Procesamiento de imágenes}: Algoritmos de procesamiento distribuido que operan sobre grandes conjuntos de datos con patrones de comunicación regulares.
+	
+	\item \textbf{Optimización distribuida}: Algoritmos genéticos paralelos, búsqueda distribuida y métodos de optimización que requieren sincronización periódica.
+\end{itemize}
+
+\subsubsection{Ventajas sobre el universo vanilla}
+\noindent
+
+Para aplicaciones apropiadas, el universo parallel ofrece ventajas significativas:
+
+\begin{itemize}
+	\item \textbf{Eficiencia computacional}: Eliminación de overhead de comunicación mediante redes optimizadas y latencia reducida entre procesos.
+	
+	\item \textbf{Escalabilidad controlada}: Capacidad de reservar recursos específicos y garantizar topologías de comunicación óptimas.
+	
+	\item \textbf{Gestión de memoria distribuida}: Acceso a conjuntos de memoria agregada que exceden las limitaciones de nodos individuales.
+	
+	\item \textbf{Sincronización garantizada}: Mecanismos de barrera y sincronización que garantizan consistencia en algoritmos distribuidos.
+\end{itemize}
+
+La implementación del universo parallel en la infraestructura \GRID representa una expansión significativa de las capacidades computacionales disponibles, complementando el universo vanilla existente y proporcionando una plataforma robusta para aplicaciones de computación de alto rendimiento que requieren paralelización fuertemente acoplada.
