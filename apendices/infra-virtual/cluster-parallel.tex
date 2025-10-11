@@ -157,6 +157,8 @@ Para HTcondor es muy importante que los nodos puedan comunicarse entre sí, para
 172.30.28.35 exec04
 \end{minted}
 
+
+
 Después de dicha configuración podremos ejecutar el comando \texttt{condor\_status} y ver lo siguiente impreso en consola:
 
 \begin{minted}[
@@ -180,7 +182,6 @@ slot1@exec03 LINUX      X86_64 Unclaimed Idle      0.000 1763  6+02:34:43
 
 \end{minted}
 
-%!TODO
 \FloatBarrier\subsection{Instalación de un implementación \MPI}
 
 Para permitir la comunicación entre trabajos distribuidos fuertemente acoplados en un pool HTCondor, es necesario implementar una tecnología basada en el estándar~\MPI. En este contexto, se seleccionó OpenMPI debido a que, según la documentación oficial de HTCondor \cite{HTCondor_Parallel}, esta implementación particular del estándar MPI cuenta con soporte nativo, lo que facilita su integración con el sistema de gestión de trabajos. El script de instalación de OpenMPI para el sistema operativo Alma Linux se presenta a continuación:
@@ -193,9 +194,64 @@ Para permitir la comunicación entre trabajos distribuidos fuertemente acoplados
     bgcolor=lightgray!10,
     fontsize=\footnotesize,
 ]{bash}
+# Debemos estar dentro de la carpeta que contiene el archibo .tar de openmpi
+# en nuestro caso el archivo tar fue openmpi-4.1.5.tar.gz para todas las máquinas
+ ./configure --prefix=/opt/openmpi
 sudo dnf update -y
-sudo dnf install openmpi openmpi-devel -y
 
-echo "module load mpi/openmpi-x86_64" >> ~/.bashrc
-source ~/.bashrc
+dnf install -y gcc gcc-c++ gcc-gfortran make libtool m4 automake wget tar
+
+
 \end{minted}
+
+
+\FloatBarrier\subsection{Configurción de OpenMPI en Condor}
+
+Como primer paso, es necesario crear un nuevo archivo de configuración en el que se especifique cuál será el Scheduler dedicado para los nodos ejecutores. Además, deben definirse ciertos parámetros para que estos nodos prioricen los trabajos dedicados y se les indique que no suspendan los trabajos enviados. La documentación oficial de HTCondor \cite{HTCondor_Parallel} recomienda reservar un conjunto de máquinas exclusivas para el universo parallel. En el caso de este clúster, se optó por realizar esta configuración en el archivo \texttt{/etc/condor/config.d/50-parallel.config} en cada uno de los nodos ejecutores, cuyo contenido se muestra a continuación:
+
+
+
+% HTCondor 50-parallel.config file
+\begin{minted}[
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1.2,
+    bgcolor=lightgray!10,
+    fontsize=\footnotesize,
+]{bash}
+DedicatedScheduler = "DedicatedScheduler@submit"
+STARTD_ATTRS = $(STARTD_ATTRS), DedicatedScheduler
+##-------------------------------------------------------------------
+## 2) Always run jobs, but prefer dedicated ones
+##--------------------------------------------------------------------
+START          = True
+SUSPEND        = False
+CONTINUE       = True
+PREEMPT        = False
+KILL           = False
+WANT_SUSPEND   = False
+WANT_VACATE    = False
+RANK = Scheduler =?= $(DedicatedScheduler) 
+##--------------------------------------------------------------------
+MPI_CONDOR_RSH_PATH = $(LIBEXEC)
+CONDOR_SSHD = /usr/sbin/sshd
+CONDOR_SSH_KEYGEN = /usr/bin/ssh-keygen
+OPENMPI_INSTALL_PATH = /opt/openmpi/bin/ # Lugar común donde se está instalado OpenMPI en los nodos workers
+MOUNT_UNDER_SCRATCH = /tpm
+\end{minted}
+
+También es necesario especificar en la máquina submit la ubicación donde está instalado OpenMPI en los nodos ejecutores. En este caso, la configuración correspondiente se encuentra en el archivo \texttt{/etc/condor/02-openmpi.config}. El contenido de este archivo se muestra a continuación:
+
+% HTCondor submit  02-openmpi.config file
+\begin{minted}[
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1.2,
+    bgcolor=lightgray!10,
+    fontsize=\footnotesize,
+]{bash}
+OPENMPI_INSTALL_PATH = /opt/openmpi
+MOUNT_UNDER_SCRATCH = /tmp
+\end{minted}
+
+
