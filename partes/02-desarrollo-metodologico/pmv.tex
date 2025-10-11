@@ -315,7 +315,7 @@ Endpoint auxiliar que sirve el contenido específico de archivos de salida indiv
 
 	\item \textbf{Lectura robusta}: 
 	      \begin{verbatim}
-with open(output_path, 'r', encoding='utf-8', errors='ignore') as file:
+with open(output_path, 'r') as file:
     content = file.read()
 	      \end{verbatim}
 
@@ -404,7 +404,8 @@ Configuración de limpieza periódica del directorio de trabajos:
 	
 	\item Agregar tarea de limpieza diaria:
 	      \begin{verbatim}
-			0 2 * * * find /opt/grid-app/submits -type d -mtime +7 -exec rm -rf {} +
+			0 2 * * * find /opt/grid-app/submits \
+				-type d -mtime +7 -exec rm -rf {} +
 		\end{verbatim}
 \end{enumerate}
 
@@ -502,7 +503,7 @@ Este componente automatiza el proceso de instalación y configuración de la apl
 	
 	\item \textbf{Instalación de dependencias}: Actualiza el sistema e instala Python 3 y pip usando el gestor de paquetes APT.
 	
-	\item \textbf{Configuración de systemd}: Crea un archivo de unidad systemd (\texttt{cluster-info.service}) que define el servicio con las siguientes características:
+	\item \textbf{Configuración de systemd}: Crea un archivo (\texttt{cluster-info.service}) que define el servicio con las siguientes características:
 	\begin{itemize}
 		\item Ejecuta bajo el usuario \texttt{pi}.
 		\item Configura reinicio automático en caso de falla.
@@ -545,7 +546,9 @@ Instalación de la aplicación:
 \begin{enumerate}
 	\item Clonar el repositorio:
 	      \begin{verbatim}
-			git clone https://github.com/JuanEstebanOsma1012/condor_cluster_info_api /opt/cluster-info
+			git clone \
+			https://github.com/JuanEstebanOsma1012/condor_cluster_info_api \
+			/opt/cluster-info
 		\end{verbatim}
 	
 	\item Navegar al directorio:
@@ -563,7 +566,8 @@ El script de instalación realiza automáticamente los siguientes pasos:
 
 \begin{itemize}
 	\item Actualiza el sistema e instala las dependencias necesarias (Python 3).
-	\item Crea el archivo de servicio systemd en \texttt{/etc/systemd/system/cluster-info.service}.
+	\item Crea el archivo de servicio systemd en
+	\texttt{/etc/systemd/system/cluster-info.service}.
 	\item Configura el servicio para ejecutarse automáticamente al inicio del sistema.
 	\item Inicia el servicio y verifica su estado.
 \end{itemize}
@@ -610,7 +614,8 @@ Las características distintivas del universo parallel incluyen:
 	
 	\item \textbf{Topología de red consciente}: HTCondor puede considerar la topología de red y latencia entre nodos para optimizar la asignación de recursos en trabajos que requieren comunicación intensiva.
 	
-	\item \textbf{Políticas de terminación coordinada}: Implementa mecanismos como \texttt{+ParallelShutdownPolicy = ``WAIT\_FOR\_NODE0''} para garantizar terminación ordenada de todos los procesos.
+	\item \textbf{Políticas de terminación coordinada}: Implementa mecanismos como \\
+	\texttt{+ParallelShutdownPolicy = ``WAIT\_FOR\_NODE0''} para garantizar terminación ordenada de todos los procesos.
 	
 	\item \textbf{Gestión de fallos}: Capacidad de detectar fallos en nodos individuales y reaccionar apropiadamente, ya sea reubicando procesos o terminando todo el trabajo.
 \end{itemize}
@@ -869,7 +874,8 @@ La infraestructura Grid implementa una topología en estrella donde un Grid Mana
 	
 	\item \textbf{Clúster Vanilla B}: Infraestructura computacional con 15 nodos de ejecución (172.30.27.36--48), coordinados por un Central Manager (172.30.27.34) y un nodo Submit (172.30.27.35).
 	
-	\item \textbf{Clúster Vanilla C}: Segunda infraestructura con 13 nodos de ejecución (172.30.27.68--80), gestionados por su propio Central Manager (172.30.27.66) y nodo Submit (172.30.27.67).
+	\item \textbf{Clúster Vanilla C}: Segunda infraestructura con 13 nodos de ejecución
+	(172.30.27.68--80), gestionados por su propio Central Manager (172.30.27.66) y nodo Submit (172.30.27.67).
 \end{itemize}
 
 Esta arquitectura fue expandida durante el desarrollo del proyecto, pasando de un único clúster vanilla a dos clústeres independientes, demostrando la escalabilidad inherente del universo Grid y su capacidad para incorporar nuevos recursos de manera transparente.
@@ -921,11 +927,13 @@ Los clústeres vanilla fueron adaptados durante este proyecto para funcionar com
 Los nodos Submit de cada clúster vanilla fueron configurados para aceptar trabajos remotos provenientes del Grid Manager:
 
 \begin{itemize}
-	\item \textbf{Habilitación del universo Grid}: Configuración explícita mediante \texttt{ENABLE\_GRID\_UNIVERSE = True}.
+	\item \textbf{Habilitación del universo Grid}: Configuración explícita mediante
+	\texttt{ENABLE\_GRID\_UNIVERSE = True}.
 	
 	\item \textbf{Permisos para Grid Manager}: Configuración de ACLs específicas permitiendo acceso desde el Grid Manager (172.30.27.43).
 	
-	\item \textbf{Soporte para usuarios anónimos}: Habilitación de \texttt{SCHEDD.ALLOW\_ANONYMOUS\_USER = True} para facilitar la ejecución de trabajos remotos.
+	\item \textbf{Soporte para usuarios anónimos}: Habilitación de
+	\texttt{SCHEDD.ALLOW\_ANONYMOUS\_USER = True} para facilitar la ejecución de trabajos remotos.
 \end{itemize}
 
 \textbf{Configuración de Central Managers:}
