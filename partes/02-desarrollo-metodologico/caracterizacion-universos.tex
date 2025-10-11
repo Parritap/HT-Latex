@@ -1,7 +1,7 @@
 \ChapterImageStar[cap:caracterizacion-universos]{Caracterización de los Universos HTCondor}{./images/fondo.png}\label{cap:caracterizacion-universos}
 \mbox{}\\
 
-En esta sección se presenta una descripción detallada de los distintos universos que conforman HTCondor. Cada universo representa un entorno de ejecución específico, diseñado para satisfacer diferentes necesidades computacionales y facilitar la integración de diversas aplicaciones científicas y técnicas. Se analizan sus principales características, ventajas y limitaciones, proporcionando una visión integral que permitirá seleccionar el universo más adecuado según los requerimientos de cada proyecto.
+En esta sección se presenta una descripción detallada de los distintos universos que conforman HTCondor. Cada universo representa un entorno de ejecución específico, diseñado para satisfacer diferentes necesidades computacionales y facilitar la integración de diversas aplicaciones científicas y técnicas. Se analizan sus principales características, ventajas y limitaciones, proporcionando una visión integral que permita seleccionar el universo más adecuado según los requerimientos de cada proyecto.
 
 
 
@@ -9,13 +9,13 @@ En esta sección se presenta una descripción detallada de los distintos univers
 
 Como se ha mencionado anteriormente, HTCondor es un sofisticado sistema de software diseñado para la \textbf{Computación de Alto Rendimiento} (\HTC) que gestiona vastos recursos computacionales al emparejar a los propietarios de recursos con los consumidores de recursos \citep{HTCondor}. Un concepto fundamental dentro de este software es el de los \textit{Universos}, los cuales definen el entorno de ejecución específico, las reglas de gestión de recursos y la semántica de fallos.
 
-La selección del universo se define en el archivo de descripción de envío (también conocido como \textit{submit file}) y determina principalmente la forma en que el trabajo interactúa con el pool de recursos computacionales. Esta elección especifica aspectos como por ejemplo si la ejecución será local o remota, como ocurre en el universo \textit{GRID}, o si se debe buscar algún binario específico para la ejecución, como en el caso del universo \textit{java}. Hasta la fecha de redacción de este documento, los principales universos soportados son los siguientes \citep{HTCondor-choosing-universe}:
+La selección del universo se define en el archivo de descripción de envío (también conocido como \textit{submit file}) y determina principalmente la forma en que el trabajo interactúa con el pool de recursos computacionales. Esta elección especifica aspectos como por ejemplo si la ejecución será local o remota, tal y como ocurre en el universo \textit{Grid}, o si se debe buscar algún binario específico para la ejecución, como en el caso del universo \textit{java}. Hasta la fecha de redacción de este documento, los principales universos soportados son los siguientes \citep{HTCondor-choosing-universe}:
 
 \begin{itemize}
-	\item \textbf{Vanilla}
+	\item \textbf{\textit{Vanilla}}
 	\item \textbf{Grid}
 	\item \textbf{Java}
-	\item \textbf{Scheduler}
+	\item \textbf{\textit{Scheduler}}
 	\item \textbf{Local}
 	\item \textbf{Parallel}
 	\item \textbf{VM}
@@ -23,32 +23,21 @@ La selección del universo se define en el archivo de descripción de envío (ta
 	\item \textbf{Docker}
 \end{itemize}
 
-\subsection{Vanilla}
+\subsection{\textit{Vanilla}}
 
-El universo Vanilla sirve como el entorno de ejecución \textbf{predeterminado} y más ampliamente utilizado en HTCondor. Está destinado específicamente a la gran mayoría de los programas de usuario, ofreciendo las menores restricciones y el más alto nivel de compatibilidad general. Si un administrador o usuario no especifica explícitamente un universo en el archivo submit, se asume automáticamente que el universo escogido es el  \texttt{universe = vanilla} \citep{CERNBatchDocs}.
-
-\subsubsection{Mecanismo e Interacción con el Daemon}
-
-Los trabajos enviados al universo Vanilla se ejecutan como procesos estándar gestionados por los demonios centrales de HTCondor. La ejecución implica la interacción entre:
-
-\begin{itemize}
-	\item El daemon \texttt{condor\_starter} en el nodo worker
-	\item El daemon \texttt{condor\_shadow} en el nodo submit
-\end{itemize}
-
-Esta relación establecida facilita la gestión, el seguimiento del estado y la aplicación de políticas de recursos. La flexibilidad del universo Vanilla se extiende a la compatibilidad con diversos tipos de ejecutables, incluidos programas compilados y scripts de shell complejos.
+El universo \textit{Vanilla} sirve como el entorno de ejecución \textbf{predeterminado} y más ampliamente utilizado en HTCondor. Está destinado específicamente a la gran mayoría de los programas de usuario, ofreciendo las menores restricciones y el más alto nivel de compatibilidad general. Si un administrador o usuario no especifica explícitamente un universo en el archivo \textit{submit}, se asume automáticamente que el universo escogido es el \textit{Vanilla} \citep{CERNBatchDocs}.
 
 
 
-La flexibilidad inherente del universo Vanilla significa que, para cargas de trabajo nuevas o especializadas, los administradores y desarrolladores frecuentemente priorizan adaptarlas para que se ejecuten dentro de este entorno. Por ejemplo, algunos trabajos requieren de envolver aplicaciones paralelas o pilas de dependencias complejas dentro de contenedores (Docker o Singularity) y lanzarlas como un simple \textit{wrapper} ejecutable bajo el universo Vanilla, estableciendo efectivamente el universo Vanilla como la capa de compatibilidad universal para los flujos de trabajo modernos de alto rendimiento \citep{Emilio_DockerHTCondor, HTCondor_Parallel}.
+La flexibilidad inherente del universo \textit{Vanilla} significa que, para cargas de trabajo nuevas o especializadas, los administradores y desarrolladores frecuentemente priorizan adaptarlas para que se ejecuten dentro de este entorno. Por ejemplo, algunos trabajos requieren de envolver aplicaciones paralelas o pilas de dependencias complejas dentro de contenedores (\textit{Docker o Singularity}) y lanzarlas como un simple \textit{wrapper} ejecutable bajo el universo \textit{Vanilla}, estableciendo efectivamente el universo \textit{Vanilla} como la capa de compatibilidad universal para los flujos de trabajo modernos de alto rendimiento \citep{Emilio_DockerHTCondor, HTCondor_Parallel}.
 
 
 \subsection{Local}
 
-El universo Local es aquel con el cual es posible ejecutar trabajos en la máquina submit.
+El universo \textit{Local} es aquel con el cual es posible ejecutar trabajos en la máquina \textit{submit}.
 
 Los trabajos en el universo local presentan las siguientes características \citep{HTCondor-choosing-universe}:
-\\\\
+
 \begin{itemize}
 	\item Se ejecutan \textbf{inmediatamente} tras el envío
 	\item No entran en el ciclo de negociación
@@ -56,9 +45,9 @@ Los trabajos en el universo local presentan las siguientes características \cit
 \end{itemize}
 
 
-\subsection{Scheduler}
+\subsection{\textit{Scheduler}}
 
-Según la documentación oficial de \cite{HTCondor-choosing-universe}, el universo Scheduler es esencialmente el mismo que el universo Local, sin embargo, a diferencia de este último, el universo scheduler no utiliza un demonio \texttt{condor\_starter} para gestionar el trabajo y, por lo tanto, ofrece funciones y soporte de políticas limitados.
+Según la documentación oficial de \cite{HTCondor-choosing-universe}, el universo \textit{Scheduler} es esencialmente el mismo que el universo \textit{Local}, sin embargo, a diferencia de este último, el universo \textit{Scheduler} no utiliza un demonio \texttt{condor\_starter} para gestionar el trabajo y por lo tanto, ofrece funciones y soporte de políticas limitados.
 
 \section{Universos con entornos de ejecución especializados}
 
@@ -66,19 +55,19 @@ Estos universos están diseñados para cargas de trabajo que requieren entornos 
 
 \subsection{Universo Java}
 
-El universo Java está ajustado para trabajos escritos en este lenguaje, diseñados para ejecutarse en la Máquina Virtual de Java (JVM). Aunque es posible ejecutar aplicaciones Java en el universo Vanilla, el universo Java incluye características especializadas que simplifican y facilitan su ejecución. Por ejemplo, como señalan \cite{Thain2002}, anteriormente los usuarios debían enviar el binario de la JVM bajo el universo \textit{standard} (un universo antiguo de HTCondor que ha sido reemplazado por el universo Vanilla) para ejecutar programas Java. Actualmente, basta con enviar el archivo \texttt{.class} en el archivo submit, permitiendo que el trabajo se ejecute directamente en los workers que cumplen con los requisitos necesarios para ejecutar un trabajo Java.
+El universo Java está ajustado para trabajos escritos en este lenguaje, diseñados para ejecutarse en la Máquina Virtual de Java (JVM). Aunque es posible ejecutar aplicaciones Java en el universo \textit{Vanilla}, el universo Java incluye características especializadas que simplifican y facilitan su ejecución. Por ejemplo, como señalan \cite{Thain2002}, anteriormente los usuarios debían enviar el binario de la JVM bajo el universo \textit{standard} (un universo antiguo de HTCondor que ha sido reemplazado por el universo \textit{Vanilla}) para ejecutar programas Java. Actualmente, basta con enviar el archivo \texttt{.class} en el archivo \textit{submit}, permitiendo que el trabajo se ejecute directamente en los nodos ejecutores que cumplen con los requisitos necesarios para ejecutar un trabajo Java.
 
 \subsection{Parallel}
 
-El universo Parallel está diseñado para soportar trabajos que requieren ejecución síncrona en múltiples máquinas de ejecución dedicadas. Es esencial para aplicaciones estrechamente acopladas, más comúnmente aquellas que utilizan el paradigma \textbf{Message Passing Interface (MPI)}, y reemplaza al universo \texttt{mpi} más antiguo \citep{HTCondor-env-services}.
+El universo \textit{Parallel} está diseñado para dar soporte a trabajos que requieren ejecución síncrona en múltiples máquinas de ejecución dedicadas. Es esencial para aplicaciones estrechamente acopladas, más comúnmente aquellas que utilizan el paradigma \textbf{\textit{Message Passing Interface} (MPI)}, y reemplaza al universo \textbf{mpi} más antiguo \citep{HTCondor-env-services}.
 
 
-según la documentación oficial de \citep{HTCondor-env-services} en el universo Parallel:
+Según la documentación oficial de \citep{HTCondor-env-services} en el universo \textit{Parallel}:
 
 \begin{itemize}
-	\item El envío del trabajo específica el número total de slots requeridos usando \texttt{machine\_count}
-	\item El Negociador de HTCondor asegura que todos los recursos necesarios se reclamen \textbf{concurrentemente} antes de que la ejecución pueda comenzar
-	\item HTCondor designa uno de los nodos como ``nodo 0'', que típicamente ejecuta el proceso maestro
+	\item El envío del trabajo especifica el número total de \textit{slots} (o nodos ejecutores) requeridos usando \texttt{machine\_count}
+	\item El demonio negociador de HTCondor asegura que todos los recursos necesarios se reclamen \textbf{concurrentemente} antes de que la ejecución pueda comenzar.
+	\item HTCondor designa uno de los nodos como ``\textbf{nodo 0}'', que típicamente ejecuta el proceso maestro.
 \end{itemize}
 
 HTCondor gestiona la configuración de la comunicación, incluida la generación y copia de claves SSH a través de los nodos asignados para permitir la comunicación sin contraseña necesaria para iniciar la aplicación paralela. También requiere una configuración específica del comportamiento de terminación del trabajo a través de atributos como \texttt{+ParallelShutdownPolicy}~\citep{HTCondor-env-services}.
@@ -92,26 +81,26 @@ La necesidad de entornos de ejecución que encapsulen las dependencias de la apl
 
 \subsection{Docker}
 
-El universo Docker permite que un trabajo HTCondor se ejecute directamente dentro de un contenedor Docker. Este universo proporciona aislamiento de procesos a nivel de sistema operativo, utilizando la funcionalidad estándar de Docker para ejecutar imágenes definidas por el usuario.
+El universo \textit{Docker} permite que un trabajo HTCondor se ejecute directamente dentro de un contenedor Docker. Este universo proporciona aislamiento de procesos a nivel de sistema operativo, utilizando la funcionalidad estándar de Docker para ejecutar imágenes definidas por el usuario.
 
 \subsubsection{Requisitos e Integración}
 
-La ejecución en el universo Docker requiere:
+La ejecución en el universo \textit{Docker} requiere:
 
 \begin{itemize}
-	\item El servicio Docker debe estar preinstalado y configurado en los nodos worker
-	\item El envío del trabajo debe especificar el nombre de la imagen del contenedor usando \texttt{docker\_image}
+	\item El servicio Docker debe estar preinstalado y configurado en los nodos ejecutores.
+	\item El envío del trabajo debe especificar el nombre de la imagen del contenedor usando \texttt{docker\_image}.
 \end{itemize}
 
 
 \subsection{Container}
 
-El universo Container ofrece un enfoque más flexible que el universo Docker, abstrayendo la tecnología de contenerización subyacente para soportar sistemas como Singularity (ahora Apptainer). Esencialmente, lo que el universo Container procura es proponer una sintaxis que no de privilegio a un \textit{runtime} en específico  (como sí pasa en el universo Docker), de manera que cualquier máquina con un runtime compatible con la imagen de especificada por el usuario pueda ser usada \citep{HTCondor-env-services}.
+El universo \textit{Container} ofrece un enfoque más flexible que el universo Docker, abstrayendo la tecnología de contenerización subyacente para dar soporte a sistemas como Singularity (ahora Apptainer). Esencialmente, lo que el universo \textit{Container} procura es ofrecer una sintaxis que no dé privilegio a un \textit{runtime} específico (como sí ocurre en el universo \textit{Docker}), de manera que cualquier máquina con un \textit{runtime} compatible con la imagen especificada por el usuario pueda ser usada \citep{HTCondor-env-services}.
 
 
 \subsection{VM}
 
-El universo VM facilita la ejecución de una imagen de disco de máquina virtual como un trabajo HTCondor.
+El universo \textit{VM} facilita la ejecución de una imagen de disco de máquina virtual como un trabajo HTCondor.
 \subsubsection{Mecanismo e Integración con el Hipervisor}
 
 En este universo:
@@ -127,4 +116,4 @@ Estos universos abordan la necesidad de integrar y gestionar recursos computacio
 
 \subsection{Grid}
 
-El universo Grid permite a los usuarios de HTCondor enviar trabajos a sistemas de gestión remotos, actuando como un puente hacia sistemas de lotes externos como Slurm, LSF u otros pools de HTCondor a través del daemon \texttt{condor\_gridmanager}. La gestión de trabajos se realiza mediante protocolos de comunicación especializados \citep{HTCondor-Grid-universe}, lo que permite a las organizaciones utilizar recursos distribuidos a través de dominios administrativos dispares. Esta capacidad facilita colaboraciones científicas a gran escala y la federación de clústeres universitarios o nacionales \citep{Padmanabhan2011}.
+El universo \textit{Grid} permite a los usuarios de HTCondor enviar trabajos a sistemas de gestión remotos, actuando como un puente hacia sistemas de lotes externos como Slurm, LSF u otros \textit{pools} de HTCondor a través del demonio \texttt{condor\_gridmanager}. La gestión de trabajos se realiza mediante protocolos de comunicación especializados \citep{HTCondor-Grid-universe}, lo que permite a las organizaciones utilizar recursos distribuidos a través de dominios administrativos dispares. Esta capacidad facilita colaboraciones científicas a gran escala y la federación de clústeres universitarios o nacionales \citep{Padmanabhan2011}.

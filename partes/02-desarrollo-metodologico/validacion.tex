@@ -1,11 +1,11 @@
 \ChapterImageStar[cap:validacion]{Implementación y validación de la solución}{./images/fondo.png}\label{cap:validacion}
 \mbox{}\\
-En este capítulo se detalla el proceso de validación de la solución implementada, que incluye pruebas técnicas exhaustivas de los tres universos HTCondor desarrollados (Grid, Vanilla y Parallel), así como la validación de la funcionalidad completa del sistema a través de casos de prueba específicos que cubren los requisitos funcionales y no funcionales establecidos.
+En este capítulo se detalla el proceso de validación de la solución implementada, el cual incluye pruebas técnicas exhaustivas de los tres universos HTCondor desarrollados (\textit{Grid, Vanilla} y \textit{Parallel}), así como la validación de la funcionalidad completa del sistema a través de casos de prueba específicos que abarcan los requisitos funcionales y no funcionales establecidos.
 
 \section{Metodología de pruebas}
 \noindent
 
-La validación de la solución se realizó mediante pruebas manuales exhaustivas, ejecutadas directamente sobre la infraestructura HTCondor implementada. Esta metodología se seleccionó debido a la naturaleza distribuida del sistema y la necesidad de validar la integración completa entre todos los componentes desarrollados, incluyendo la aplicación \textit{Grid App}, la infraestructura HTCondor federada y los diferentes universos de ejecución.
+La validación de la solución se realizó mediante pruebas manuales exhaustivas, ejecutadas directamente sobre la infraestructura HTCondor implementada. Esta metodología se seleccionó debido a la naturaleza distribuida del sistema y la necesidad de validar la integración completa entre todos los componentes desarrollados, incluidos la aplicación \textit{Grid App}, la infraestructura HTCondor federada y los diferentes universos de ejecución.
 
 \subsection{Entorno de pruebas}
 \noindent
@@ -15,7 +15,7 @@ Las pruebas se ejecutaron en el entorno de producción de la infraestructura HTC
 \begin{itemize}
 	\item \textbf{Grid Manager}: Nodo coordinador (172.30.27.11) ejecutando HTCondor 8.4.11 sobre Raspbian GNU/Linux 9
 	\item \textbf{Clúster Vanilla B}: 15 nodos de ejecución (172.30.27.36-48) con Central Manager y Submit node
-	\item \textbf{Clúster Vanilla C}: 13 nodos de ejecución (172.30.27.68-80) con Central Manager y Submit node  
+	\item \textbf{Clúster Vanilla C}: 13 nodos de ejecución (172.30.27.68-80) con Central Manager y Submit node
 	\item \textbf{Infraestructura Parallel}: Clúster virtualizado con AlmaLinux 9.6 y HTCondor LTS sobre hipervisor XCP-ng
 	\item \textbf{Grid App}: Aplicación Flask desplegada en el Grid Manager para gestión de trabajos
 \end{itemize}
@@ -28,7 +28,7 @@ Cada caso de prueba fue evaluado considerando:
 \begin{itemize}
 	\item \textbf{Funcionalidad}: Correcta ejecución del flujo de trabajo definido
 	\item \textbf{Integridad de datos}: Preservación de archivos de entrada y generación adecuada de salidas
-	\item \textbf{Distribución inteligente}: Selección automática de clúster basada en disponibilidad y tipo de universo
+	\item \textbf{Distribución inteligente}: Selección automática de clúster con base en disponibilidad y tipo de universo
 	\item \textbf{Monitoreo}: Capacidad de seguimiento del estado de trabajos en tiempo real
 	\item \textbf{Tolerancia a errores}: Manejo apropiado de condiciones de error y recuperación
 \end{itemize}
@@ -36,24 +36,24 @@ Cada caso de prueba fue evaluado considerando:
 \section{Casos de prueba ejecutados}
 \noindent
 
-Se ejecutaron tres escenarios de prueba principales, presentados en la sección de diseño, que cubren las funcionalidades críticas del sistema, validando tanto los requisitos funcionales como no funcionales especificados en el diseño de la solución.
+Se ejecutaron tres escenarios de prueba principales, presentados en la sección de diseño, que abarcan las funcionalidades críticas del sistema y validan tanto los requisitos funcionales como no funcionales especificados en el diseño de la solución.
 
 \subsection{ESC-01: Ejecución de trabajos Grid con repeticiones iguales}
 \noindent
 
-Este caso de prueba válida la capacidad del sistema para ejecutar múltiples instancias de un mismo trabajo con parámetros idénticos, distribuidas a través del Universo Grid hacia clústeres Vanilla disponibles.
+Este caso de prueba se validó la capacidad del sistema para ejecutar múltiples instancias de un mismo trabajo con parámetros idénticos, distribuidas a través del universo \textit{Grid} hacia clústeres \textit{Vanilla} disponibles.
 
 \subsubsection{Configuración del trabajo de prueba}
 \noindent
 
-Para este escenario se utilizó un script en Bash que implementa el método de Monte Carlo para aproximar el valor de $\pi$:
+Para este escenario se utilizó un \textit{script} en Bash que implementa el método de Monte Carlo para aproximar el valor de $\pi$:
 
 \textbf{Características del trabajo:}
 \begin{itemize}
-	\item \textbf{Tipo de archivo}: Script Bash (\texttt{montecarlo\_pi.sh})
+	\item \textbf{Tipo de archivo}: \textit{Script} Bash (\texttt{montecarlo\_pi.sh})
 	\item \textbf{Argumentos adicionales}: \texttt{100} (número de iteraciones para la aproximación)
-	\item \textbf{Naturaleza del trabajo}: Distribuido (Universo Grid)
-	\item \textbf{Distribución}: Repeticiones con mismos parámetros
+	\item \textbf{Naturaleza del trabajo}: Distribuido (universo Grid)
+	\item \textbf{Distribución}: Repeticiones con parámetros idénticos
 	\item \textbf{Cantidad de repeticiones}: \texttt{5}
 	\item \textbf{Selección de clúster}: Automática basada en disponibilidad
 \end{itemize}
@@ -65,22 +65,22 @@ La prueba se ejecutó siguiendo los pasos definidos en la Tabla~\ref{table:esc-0
 
 \begin{enumerate}
 	\item \textbf{Acceso a la aplicación}: Se accedió exitosamente a la interfaz web de \textit{Grid App}
-	
+
 	\item \textbf{Carga de binario}: El script de Monte Carlo fue cargado correctamente a través del selector de archivos
-	
+
 	\item \textbf{Configuración de argumentos}: Se estableció el argumento \texttt{100} para el número de iteraciones
-	
-	\item \textbf{Selección de universo}: Se configuró la naturaleza del trabajo como ``Distribuido'' (Grid Universe)
-	
-	\item \textbf{Configuración de distribución}: Se seleccionó ``Repeticiones con mismos parámetros''
-	
+
+	\item \textbf{Selección de universo}: Se configuró la naturaleza del trabajo como ``Distribuido'' (universo \textit{Grid})
+
+	\item \textbf{Configuración de distribución}: Se seleccionó ``Repeticiones con parámetros idénticos''
+
 	\item \textbf{Definición de repeticiones}: Se especificaron \texttt{5} repeticiones del trabajo
-	
-	\item \textbf{Selección automática de clúster}: El sistema presentó únicamente los clústeres vanilla disponibles (Clúster B y C), seleccionando automáticamente el más favorable basado en métricas de \textit{Cluster Info App}
-	
-	\item \textbf{Envío del trabajo}: El sistema generó correctamente el submit file Grid y ejecutó el envío
-	
-	\item \textbf{Monitoreo de resultados}: Se visualizaron progresivamente los resultados de cada repetición a medida que completaban su ejecución
+
+	\item \textbf{Selección automática de clúster}: El sistema presentó únicamente los clústeres \textit{Vanilla} disponibles (Clúster B y C), seleccionando automáticamente el más favorable con base en las métricas de \textit{Cluster Info App}
+
+	\item \textbf{Envío del trabajo}: El sistema generó correctamente el archivo \textit{submit } de \textit{Grid} y ejecutó el envío
+
+	\item \textbf{Monitoreo de resultados}: Se visualizaron progresivamente los resultados de cada repetición conforme iban completando su ejecución
 \end{enumerate}
 
 \section{Análisis de cobertura de requisitos}
@@ -92,12 +92,12 @@ La validación cubrió exhaustivamente todos los requisitos funcionales y no fun
 \noindent
 
 \begin{itemize}
-	\item \textbf{RF1 (Carga de archivos)}: El sistema cargó correctamente el script Bash
-	\item \textbf{RF2 (Configuración de argumentos)}: Los argumentos fueron incorporados al submit file dinámico
-	\item \textbf{RF3 (Selección de universo)}: El universo Grid fue configurado apropiadamente
-	\item \textbf{RF4 (Distribución de trabajos)}: Las 5 repeticiones fueron distribuidas correctamente
-	\item \textbf{RF7 (Monitoreo)}: El estado de cada trabajo fue monitoreado en tiempo real
-	\item \textbf{RF8 (Visualización de resultados)}: Los resultados fueron presentados de forma organizada
+	\item \textbf{RF1 (Carga de archivos)}: El sistema cargó correctamente el script de Bash
+	\item \textbf{RF2 (Configuración de argumentos)}: Los argumentos se incorporaron al archivo submit dinámico
+	\item \textbf{RF3 (Selección de universo)}: El universo Grid se configuró apropiadamente
+	\item \textbf{RF4 (Distribución de trabajos)}: Las 5 repeticiones se distribuyeron correctamente
+	\item \textbf{RF7 (Monitoreo)}: El estado de cada trabajo se monitoreó en tiempo real
+	\item \textbf{RF8 (Visualización de resultados)}: Los resultados se presentaron de forma organizada
 \end{itemize}
 
 \subsection{Requisitos no funcionales validados}
@@ -109,12 +109,12 @@ La validación cubrió exhaustivamente todos los requisitos funcionales y no fun
 	\item \textbf{RNF3 (Confiabilidad)}: No se presentaron fallos durante la ejecución de las pruebas realizadas
 \end{itemize}
 
-El sistema ejecutó exitosamente las 5 repeticiones del algoritmo Monte Carlo, cada una generando una aproximación independiente de $\pi$ con el nivel de precisión especificado.
+El sistema ejecutó exitosamente las 5 repeticiones del algoritmo de Monte Carlo, generando cada una una aproximación independiente de $\pi$ con el nivel de precisión especificado.
 
 \subsection{ESC-02: Ejecución de trabajos Grid con variables parametrizables}
 \noindent
 
-Este escenario válido la capacidad del sistema para generar múltiples trabajos con parámetros variables, implementando la funcionalidad de parametrización automática que permite estudios paramétricos distribuidos.
+Este escenario validó la capacidad del sistema para generar múltiples trabajos con parámetros variables, implementando la funcionalidad de parametrización automática que permite estudios paramétricos distribuidos.
 
 \subsubsection{Configuración del trabajo de prueba}
 \noindent
@@ -125,20 +125,20 @@ Para este caso se utilizó un binario compilado en C que calcula la cantidad de 
 \begin{itemize}
 	\item \textbf{Tipo de archivo}: Binario ejecutable C (\texttt{primos})
 	\item \textbf{Argumentos adicionales}: \texttt{<x> <y>} (notación especial para argumentos dinámicos)
-	\item \textbf{Naturaleza del trabajo}: Distribuido (Universo Grid)
+	\item \textbf{Naturaleza del trabajo}: Distribuido (universo Grid)
 	\item \textbf{Distribución}: Repeticiones con variables parametrizables
 	\item \textbf{Configuración de variable \texttt{<x>}}:
-	\begin{itemize}
-		\item Valor inicial: \texttt{20000000}
-		\item Valor final: \texttt{29000000} 
-		\item Incremento: \texttt{1000000}
-	\end{itemize}
+	      \begin{itemize}
+		      \item Valor inicial: \texttt{20000000}
+		      \item Valor final: \texttt{29000000}
+		      \item Incremento: \texttt{1000000}
+	      \end{itemize}
 	\item \textbf{Configuración de variable \texttt{<y>}}:
-	\begin{itemize}
-		\item Valor inicial: \texttt{20999999}
-		\item Valor final: \texttt{29999999}
-		\item Incremento: \texttt{1000000}
-	\end{itemize}
+	      \begin{itemize}
+		      \item Valor inicial: \texttt{20999999}
+		      \item Valor final: \texttt{29999999}
+		      \item Incremento: \texttt{1000000}
+	      \end{itemize}
 	\item \textbf{Trabajos generados}: \texttt{10} (calculados automáticamente por el sistema)
 \end{itemize}
 
@@ -149,18 +149,18 @@ La prueba siguió los pasos extendidos definidos en la Tabla~\ref{table:esc-02}:
 
 \begin{enumerate}
 	\item \textbf{Carga del binario}: El ejecutable C fue cargado exitosamente
-	
+
 	\item \textbf{Configuración de argumentos parametrizables}: Se establecieron los argumentos \texttt{<x> <y>} con notación especial
-	
+
 	\item \textbf{Selección de variables}: El sistema detectó automáticamente las variables \texttt{<x>} y \texttt{<y>} de los argumentos
-	
+
 	\item \textbf{Configuración de rangos}: Se definieron los valores inicial, final e incremento para ambas variables
-	
-	\item \textbf{Cálculo automático}: El sistema calculó automáticamente que se generarían 10 trabajos basándose en la configuración de rangos
-	
-	\item \textbf{Distribución inteligente}: Los trabajos fueron distribuidos automáticamente entre los clústeres vanilla disponibles
-	
-	\item \textbf{Monitoreo distribuido}: Se monitoreó el progreso de los 10 trabajos ejecutándose en paralelo across múltiples clústeres
+
+	\item \textbf{Cálculo automático}: El sistema calculó automáticamente que se generarían 10 trabajos con base en la configuración de rangos
+
+	\item \textbf{Distribución inteligente}: Los trabajos se distribuyeron automáticamente entre los clústeres vanilla disponibles
+
+	\item \textbf{Monitoreo distribuido}: Se monitoreó el progreso de los 10 trabajos que se ejecutaban en paralelo a través de múltiples clústeres
 \end{enumerate}
 
 \subsubsection{Resultados obtenidos}
@@ -176,12 +176,12 @@ Trabajo 3: primos 22000000 22999999
 Trabajo 10: primos 29000000 29999999
 \end{verbatim}
 
-Todos los trabajos completaron exitosamente, validando la capacidad de parametrización automática y distribución inteligente del sistema.
+Todos los trabajos se completaron exitosamente, validando la capacidad de parametrización automática y distribución inteligente del sistema.
 
-\subsection{ESC-03: Ejecución de trabajos en Universo Parallel}
+\subsection{ESC-03: Ejecución de trabajos en universo Parallel}
 \noindent
 
-Este caso válido la integración del universo Parallel con la aplicación \textit{Grid App}, demostrando la capacidad de ejecutar aplicaciones \MPI que requieren comunicación estrecha entre procesos distribuidos.
+Este caso validó la integración del universo Parallel con la aplicación \textit{Grid App}, demostrando la capacidad de ejecutar aplicaciones \MPI que requieren comunicación estrecha entre procesos distribuidos.
 
 \subsubsection{Configuración del trabajo de prueba}
 \noindent
@@ -193,10 +193,10 @@ Se utilizó una implementación paralela del algoritmo quicksort que opera sobre
 	\item \textbf{Tipo de archivo}: Binario \MPI (\texttt{quick-sort-parallel})
 	\item \textbf{Argumentos adicionales}: \texttt{list10K} (nombre del archivo de entrada)
 	\item \textbf{Archivo de entrada}: \texttt{list10K.txt} (dataset con 10,000 elementos para ordenar)
-	\item \textbf{Naturaleza del trabajo}: Paralelo (Universo Parallel)
+	\item \textbf{Naturaleza del trabajo}: Paralelo (universo Parallel)
 	\item \textbf{Cantidad de máquinas}: \texttt{3}
 	\item \textbf{Núcleos por máquina}: \texttt{1}
-	\item \textbf{Clúster target}: Infraestructura virtualizada Parallel (automáticamente seleccionada)
+	\item \textbf{Clúster objetivo}: Infraestructura virtualizada Parallel (seleccionada automáticamente)
 \end{itemize}
 
 \subsubsection{Ejecución de la prueba}
@@ -206,17 +206,17 @@ La validación siguió los pasos específicos del universo Parallel según la Ta
 
 \begin{enumerate}
 	\item \textbf{Carga de archivos}: Se cargaron tanto el binario \MPI como el archivo de entrada \texttt{list10K}
-	
-	\item \textbf{Selección de universo Parallel}: El sistema configuró automáticamente el submit file para Universo Parallel
-	
+
+	\item \textbf{Selección de universo Parallel}: El sistema configuró automáticamente el archivo submit para el universo Parallel
+
 	\item \textbf{Configuración de recursos}: Se especificaron 3 máquinas con 1 núcleo cada una
-	
-	\item \textbf{Selección automática de clúster}: El sistema presentó únicamente la infraestructura virtualizada Parallel, ya que es el único clúster que soporta este universo
-	
-	\item \textbf{Transferencia remota}: Los archivos fueron transferidos automáticamente al clúster Parallel via SSH
-	
+
+	\item \textbf{Selección automática de clúster}: El sistema presentó únicamente la infraestructura virtualizada Parallel, ya que es el único clúster que admite este universo
+
+	\item \textbf{Transferencia remota}: Los archivos fueron transferidos automáticamente al clúster Parallel a través de SSH
+
 	\item \textbf{Ejecución coordinada}: El algoritmo quick-sort-parallel se ejecutó distribuido a través de 3 procesos \MPI coordinados
-	
+
 	\item \textbf{Recolección de resultados}: Los resultados fueron sincronizados de vuelta al Grid Manager mediante threading asíncrono
 \end{enumerate}
 
@@ -233,37 +233,37 @@ La validación siguió los pasos específicos del universo Parallel según la Ta
 	\item \textbf{Transferencia bidireccional}: Los archivos fueron transferidos y sincronizados correctamente entre Grid Manager y clúster Parallel
 \end{itemize}
 
-El dataset de 10,000 elementos fue ordenado exitosamente mediante el algoritmo paralelo distribuido, demostrando la funcionalidad completa del universo Parallel integrado con \textit{Grid App}.
+El conjunto de datos de 10,000 elementos se ordenó exitosamente mediante el algoritmo paralelo distribuido, demostrando la funcionalidad completa del universo Parallel integrado con \textit{Grid App}.
 
 \section{Validación de selección inteligente de clústeres}
 \noindent
 
-Un aspecto crítico validado durante las pruebas fue la capacidad del sistema para presentar únicamente los clústeres compatibles con el tipo de trabajo seleccionado, implementando selección inteligente basada en las capacidades de cada infraestructura.
+Un aspecto crítico validado durante las pruebas fue la capacidad del sistema para presentar únicamente los clústeres compatibles con el tipo de trabajo seleccionado, implementando una selección inteligente basada en las capacidades de cada infraestructura.
 
 \subsection{Lógica de presentación de clústeres}
 \noindent
 
-El sistema implementa la siguiente lógica de presentación:
+El sistema implementa la siguiente lógica de presentación de clústeres:
 
 \begin{itemize}
-	\item \textbf{Trabajos Vanilla/Grid}: Presenta clústeres vanilla disponibles (Clúster B y C) basándose en métricas de \textit{Cluster Info App}
-	\item \textbf{Trabajos Parallel}: Presenta únicamente la infraestructura virtualizada que soporta universo Parallel y OpenMPI
-	\item \textbf{Selección automática}: Considera disponibilidad de slots, carga actual y historial de rendimiento
+	\item \textbf{Trabajos Vanilla/Grid}: Presenta clústeres vanilla disponibles (Clúster B y C) con base en las métricas de \textit{Cluster Info App}
+	\item \textbf{Trabajos Parallel}: Presenta únicamente la infraestructura virtualizada que admite el universo Parallel y OpenMPI
+	\item \textbf{Selección automática}: Considera la disponibilidad de slots, la carga actual y el historial de rendimiento
 \end{itemize}
 
-Esta funcionalidad fue validada exitosamente durante todas las pruebas, eliminando la posibilidad de error del usuario al seleccionar clústeres incompatibles.
+Esta funcionalidad se validó exitosamente durante todas las pruebas, eliminando la posibilidad de error del usuario al seleccionar clústeres incompatibles.
 
 \section{Análisis de cobertura de requisitos}
 \noindent
 
-La validación cubrió exhaustivamente todos los requisitos funcionales y no funcionales especificados:
+La validación abarcó de manera exhaustiva todos los requisitos funcionales y no funcionales especificados:
 
 \subsection{Requisitos funcionales validados}
 \noindent
 
 \begin{itemize}
 	\item \textbf{RF1}: Carga de archivos ejecutables
-	\item \textbf{RF2}: Configuración de argumentos  
+	\item \textbf{RF2}: Configuración de argumentos
 	\item \textbf{RF3}: Selección de universo HTCondor
 	\item \textbf{RF4}: Distribución de trabajos Grid
 	\item \textbf{RF5}: Carga de archivos de entrada (Parallel)
@@ -287,8 +287,8 @@ La validación cubrió exhaustivamente todos los requisitos funcionales y no fun
 Durante la ejecución de las pruebas se generaron evidencias que documentan el correcto funcionamiento del sistema:
 
 \begin{itemize}
-	\item \textbf{Submit files generados}: Documentación de los archivos de configuración HTCondor generados automáticamente
-	\item \textbf{Logs de ejecución}: Registros detallados de la ejecución de trabajos en cada universo
+	\item \textbf{Archivos submit generados}: Documentación de los archivos de configuración HTCondor generados automáticamente
+	\item \textbf{Registros de ejecución}: Bitácoras detalladas de la ejecución de trabajos en cada universo
 	\item \textbf{Archivos de salida}: Resultados completos de cada trabajo ejecutado
 	\item \textbf{Métricas de rendimiento}: Tiempos de ejecución y utilización de recursos
 \end{itemize}
@@ -296,18 +296,18 @@ Durante la ejecución de las pruebas se generaron evidencias que documentan el c
 \section{Conclusiones de la validación}
 \noindent
 
-Las pruebas de validación demostraron que:
+Las pruebas de validación demostraron lo siguiente:
 
 \begin{enumerate}
-	\item \textbf{Funcionalidad completa}: Todos los casos de prueba se ejecutaron correctamente, validando la funcionalidad del sistema
-	
-	\item \textbf{Integración apropiada}: La integración entre \textit{Grid App}, universos HTCondor y infraestructura distribuida funciona según lo diseñado
-	
-	\item \textbf{Selección inteligente}: El sistema presenta únicamente los clústeres compatibles con cada tipo de trabajo
-	
-	\item \textbf{Capacidad distribuida}: La ejecución de trabajos distribuidos a través de múltiples clústeres fue validada
-	
-	\item \textbf{Usabilidad adecuada}: La interfaz permite la gestión de trabajos distribuidos de manera satisfactoria
+	\item \textbf{Funcionalidad completa}: Todos los casos de prueba se ejecutaron correctamente, validando así la funcionalidad del sistema
+
+	\item \textbf{Integración apropiada}: La integración entre \textit{Grid App}, los universos HTCondor y la infraestructura distribuida funciona según lo diseñado
+
+	\item \textbf{Selección inteligente}: El sistema presenta únicamente los clústeres compatibles con cada tipo de trabajo seleccionado
+
+	\item \textbf{Capacidad distribuida}: Se validó la ejecución de trabajos distribuidos a través de múltiples clústeres
+
+	\item \textbf{Usabilidad adecuada}: La interfaz permite gestionar trabajos distribuidos de manera satisfactoria
 \end{enumerate}
 
 La solución implementada cumple con los objetivos establecidos, proporcionando una plataforma funcional para la ejecución de trabajos computacionales distribuidos en la infraestructura HTCondor del Grupo \GRID.
