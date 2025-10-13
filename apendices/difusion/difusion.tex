@@ -1,0 +1,29 @@
+\phantomsection
+
+% Increment the chapter counter so \thechapter shows the correct number
+% and make it referenceable with \ref
+\refstepcounter{chapter}
+\label{chap:apendices-difusion}
+
+% Manually add this appendix to the Table of Contents
+\addcontentsline{toc}{chapter}{Apéndice \thechapter: Eventos de difusión}
+
+% Add vertical space above the title (mimics standard chapter spacing)
+\vspace{40pt}
+
+% Display the actual chapter title (centered, large, bold)
+{\centering \normalfont\huge\bfseries Apéndice~\thechapter: Plantilla análisis DAR~\par}
+
+% Add spacing between title and horizontal rule
+\vspace{10pt}
+
+% Draw a horizontal line across the page for visual separation
+{\centering \rule{\textwidth}{0.4pt} \par}
+
+% Add vertical space between title section and content
+\vspace{40pt}
+
+% Set the running headers for left and right pages
+\markboth{Apéndice \thechapter: Plantilla análisis DAR}{Apéndice \thechapter: Plantilla análisis DAR}
+
+
