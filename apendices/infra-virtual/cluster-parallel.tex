@@ -182,7 +182,7 @@ slot1@exec03 LINUX      X86_64 Unclaimed Idle      0.000 1763  6+02:34:43
 \end{minted}
 
 
-\FloatBarrier\subsection{Instalación de un implementación \MPI}
+\FloatBarrier\subsection{Instalación de una implementación \MPI}
 
 Para permitir la comunicación entre trabajos distribuidos fuertemente acoplados en un pool HTCondor, es necesario implementar una tecnología basada en el estándar~\MPI. En este contexto, se seleccionó OpenMPI debido a que, según la documentación oficial de HTCondor \cite{HTCondor_Parallel}, esta implementación particular del estándar MPI cuenta con soporte nativo, lo que facilita su integración con el sistema de gestión de trabajos. Para el presente clúster se instaló la versión \texttt{4.1.5} la cuál se encuentra en la página oficial de \href{https://www.open-mpi.org/software/ompi/v4.1/}{OpenMPI}. El script de instalación de OpenMPI para el sistema operativo Alma Linux se presenta a continuación:
 

@@ -9,7 +9,7 @@
 
 % ##### Forar más espacio entre parrafos ########
 
-\setlength{\parskip}{1em}  % Space between paragraphs
+\setlength{\parskip}{0.7em}  % Space between paragraphs
 \setlength{\parindent}{0pt}  % Remove paragraph indentation (optional)
 
 % ##### Configuración de espaciado en listas ########
@@ -48,6 +48,80 @@
 		at ([xshift=\pageNumXOffset, yshift=\pageNumYOffset]current page.south west) {\thepage};
 	\end{tikzpicture}%
 }
+
+% ##### Custom Figure Commands ########
+
+% Custom command for figures with shadow box
+% Usage: \shadowfigure{image_path}{caption_text}{label}
+\newcommand{\shadowfigure}[3]{
+	\begin{figure}[H]
+		\centering
+		\begin{tcolorbox}[
+				colback=white,
+				colframe=gray!50,
+				boxrule=1pt,
+				arc=2pt,
+				boxsep=5pt,
+				left=3pt,
+				right=3pt,
+				top=3pt,
+				bottom=3pt,
+				drop shadow
+			]
+			\includegraphics[width=0.95\textwidth,keepaspectratio]{#1}
+		\end{tcolorbox}
+		\caption{#2}\label{#3}
+	\end{figure}
+}
+
+% Custom command with auto-generated label (only 2 parameters)
+% Usage: \shadowfig{image_path}{caption_text}
+\newcommand{\shadowfig}[2]{
+	\begin{figure}[H]
+		\centering
+		\begin{tcolorbox}[
+				colback=white,
+				colframe=gray!50,
+				boxrule=1pt,
+				arc=2pt,
+				boxsep=5pt,
+				left=3pt,
+				right=3pt,
+				top=3pt,
+				bottom=3pt,
+				drop shadow
+			]
+			\includegraphics[width=0.95\textwidth,keepaspectratio]{#1}
+		\end{tcolorbox}
+		\caption{#2}
+	\end{figure}
+}
+
+% Custom command with optional width parameter
+% Usage: \shadowfigurewidth[0.8]{image_path}{caption_text}{label}
+% Default width is 0.95 if not specified
+\newcommand{\shadowfigurewidth}[4][0.95]{
+	\begin{figure}[H]
+		\centering
+		\begin{tcolorbox}[
+				colback=white,
+				colframe=gray!50,
+				boxrule=1pt,
+				arc=2pt,
+				boxsep=5pt,
+				left=3pt,
+				right=3pt,
+				top=3pt,
+				bottom=3pt,
+				drop shadow
+			]
+			\includegraphics[width=#1\textwidth,keepaspectratio]{#2}
+		\end{tcolorbox}
+		\caption{#3}\label{#4}
+	\end{figure}
+}
+
+%############################
 
 
 % ################## Babel mod for tables  ##################
