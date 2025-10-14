@@ -54,8 +54,6 @@ output/
 .DS_Store
 Thumbs.db
 
-*.sh
 
 #Archivos del paquete minted the latex
 _minted/
-
