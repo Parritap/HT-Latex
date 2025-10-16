@@ -1,10 +1,10 @@
 #!/bin/bash
 
-preambulo="Ponencia para CEIFI 2025-02 --- "
-where="/Users/esteban/git-repos/ht-latex/apendices/difusion/ceifi.tex"
-times=28
+preambulo="Ponencias GRID 2025-01 ---"
+where="/Users/esteban/git-repos/ht-latex/apendices/difusion/grid-2025-I.tex"
+times=20
 
 # Print numbers from 1 to num
 for ((i=1; i<=times; i++)); do
-    echo "\shadowfig{tablas-images/difusion/CEIFI-2025-02/$i.png}{$preambulo diapositiva $i}" >> $where
+    echo "\shadowfig{tablas-images/difusion/GRID-2025-01/$i.png}{$preambulo Diapositiva $i}" >> $where
 done

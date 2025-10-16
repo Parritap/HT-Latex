@@ -14,29 +14,29 @@ La aplicación \textit{Grid App} está organizada siguiendo las mejores práctic
 
 \begin{itemize}
 	\item \textbf{app.py}: Archivo principal que contiene la lógica del servidor Flask, incluyendo todos los \textit{endpoints}, manejo de archivos, generación de \textit{submit files} y lógica de interacción con HTCondor.
-	
+
 	\item \textbf{templates/}: Directorio que contiene las plantillas \HTML para la interfaz de usuario:
-	\begin{itemize}
-		\item \texttt{upload.html}: Interfaz principal para la carga y configuración de trabajos.
-		\item \texttt{results.html}: Interfaz para visualización de resultados con sistema de pestañas dinámicas.
-	\end{itemize}
-	
+	      \begin{itemize}
+		      \item \texttt{upload.html}: Interfaz principal para la carga y configuración de trabajos.
+		      \item \texttt{results.html}: Interfaz para visualización de resultados con sistema de pestañas dinámicas.
+	      \end{itemize}
+
 	\item \textbf{static/}: Directorio para archivos estáticos (CSS, JavaScript, imágenes) que proporcionan estilo e interactividad a la aplicación web.
-	
+
 	\item \textbf{submits/}: Directorio de trabajo donde se almacenan todos los archivos relacionados con cada trabajo:
-	\begin{itemize}
-		\item Archivos ejecutables subidos por el usuario.
-		\item Archivos de entrada (para trabajos paralelos).
-		\item \textit{Submit files} generados automáticamente.
-		\item Archivos de salida y \textit{logs} de HTCondor.
-		\item Metadatos del trabajo en formato \JSON.
-	\end{itemize}
-	
+	      \begin{itemize}
+		      \item Archivos ejecutables subidos por el usuario.
+		      \item Archivos de entrada (para trabajos paralelos).
+		      \item \textit{Submit files} generados automáticamente.
+		      \item Archivos de salida y \textit{logs} de HTCondor.
+		      \item Metadatos del trabajo en formato \JSON.
+	      \end{itemize}
+
 	\item \textbf{scripts/}: Directorio que contiene scripts auxiliares de Bash para operaciones específicas:
-	\begin{itemize}
-		\item \texttt{seno-submit.sh}: Envío de trabajos a clústeres remotos vía SSH.
-		\item \texttt{fetch-outputs.sh}: Sincronización de archivos de salida desde clústeres remotos.
-	\end{itemize}
+	      \begin{itemize}
+		      \item \texttt{send-submit.sh}: Envío de trabajos a clústeres remotos vía SSH.
+		      \item \texttt{fetch-outputs.sh}: Sincronización de archivos de salida desde clústeres remotos.
+	      \end{itemize}
 \end{itemize}
 
 \begin{figure}[H]
@@ -183,7 +183,7 @@ El \textit{Submit Endpoint} es el componente más complejo del sistema, responsa
 
 	      \textbf{Trabajos Vanilla:} Ejecuta \texttt{condor\_submit} directamente en el directorio local del trabajo.
 
-	      \textbf{Trabajos Parallel:} 
+	      \textbf{Trabajos Parallel:}
 	      \begin{itemize}
 		      \item Ejecuta el script \texttt{send-submit.sh} para transferir archivos al clúster remoto.
 		      \item Inicia un hilo separado con \texttt{threading.Thread} que ejecuta \texttt{fetch-outputs.sh}.
@@ -238,13 +238,13 @@ ssh -i ~/.ssh/parallel alma@{submit_ip}
 		      \centering
 		      \begin{tabular}{|c|l|}
 			      \hline
-			      \textbf{Código} & \textbf{Estado}        \\
+			      \textbf{Código} & \textbf{Estado} \\
 			      \hline
-			      1               & Idle                   \\
-			      2               & Running                \\
-			      3               & Removed                \\
-			      4               & Completed              \\
-			      5               & Held                   \\
+			      1               & Idle            \\
+			      2               & Running         \\
+			      3               & Removed         \\
+			      4               & Completed       \\
+			      5               & Held            \\
 			      \hline
 		      \end{tabular}
 		      \caption{Códigos de estado de HTCondor}
@@ -313,7 +313,7 @@ Endpoint auxiliar que sirve el contenido específico de archivos de salida indiv
 
 	\item \textbf{Validación}: \texttt{os.path.exists(output\_path)}
 
-	\item \textbf{Lectura robusta}: 
+	\item \textbf{Lectura robusta}:
 	      \begin{verbatim}
 with open(output_path, 'r') as file:
     content = file.read()
@@ -358,20 +358,20 @@ Instalación de la aplicación:
 	      \begin{verbatim}
 			git clone [URL_REPOSITORIO] /opt/grid-app
 		\end{verbatim}
-	
+
 	\item Instalar dependencias Python:
 	      \begin{verbatim}
 			cd /opt/grid-app
 			pip3 install flask
 		\end{verbatim}
-	
+
 	\item Configurar directorios de trabajo:
 	      \begin{verbatim}
 			mkdir -p /opt/grid-app/submits
 			mkdir -p /opt/grid-app/scripts
 			chmod 755 /opt/grid-app/scripts/*.sh
 		\end{verbatim}
-	
+
 	\item Configurar acceso SSH para trabajos parallel:
 	      \begin{verbatim}
 			ssh-keygen -t rsa -f ~/.ssh/parallel
@@ -384,7 +384,7 @@ Instalación de la aplicación:
 
 Para ejecutar la aplicación como servicio del sistema:
 
-% TODO: Crear script de instalación automatizado similar al de Cluster Info App
+% !TODO: Crear script de instalación automatizado similar al de Cluster Info App
 \begin{enumerate}
 	\item Crear archivo de unidad systemd en \texttt{/etc/systemd/system/grid-app.service}.
 	\item Configurar el servicio para ejecutarse en el puerto 5000.
@@ -401,7 +401,7 @@ Configuración de limpieza periódica del directorio de trabajos:
 	      \begin{verbatim}
 			crontab -e
 		\end{verbatim}
-	
+
 	\item Agregar tarea de limpieza diaria:
 	      \begin{verbatim}
 			0 2 * * * find /opt/grid-app/submits \
@@ -443,13 +443,13 @@ Este componente es responsable de ejecutar comandos específicos de HTCondor par
 
 \begin{itemize}
 	\item \textbf{Slots disponibles}: Utiliza el comando \texttt{condor\_status -avail -total} para obtener el número total de \textit{slots} de CPU disponibles en el clúster.
-	
+
 	\item \textbf{Porcentaje de trabajos exitosos}: Calcula el porcentaje de trabajos completados exitosamente mediante el análisis del historial de trabajos con \texttt{condor\_history}.
-	
+
 	\item \textbf{Trabajos en cola}: Extrae el número de trabajos inactivos (\textit{idle}) usando \texttt{condor\_q}.
-	
+
 	\item \textbf{Direcciones del sistema}: Obtiene las direcciones IP del \textit{collector} y \textit{schedd} mediante consultas a los \textit{daemons} correspondientes.
-	
+
 	\item \textbf{Tipo de clúster}: Identifica el tipo de universo soportado por el clúster (en este caso, Vanilla).
 \end{itemize}
 
@@ -475,13 +475,13 @@ Este componente implementa un servidor HTTP ligero utilizando la librería está
 
 \begin{itemize}
 	\item \textbf{Puerto de servicio}: El servidor se ejecuta en el puerto 44444 por defecto.
-	
+
 	\item \textbf{Endpoint principal}: Responde a peticiones GET en la ruta raíz (\texttt{/}) devolviendo las métricas en formato JSON.
-	
+
 	\item \textbf{Soporte CORS}: Incluye cabeceras CORS para permitir peticiones desde diferentes dominios, facilitando la integración con aplicaciones web.
-	
+
 	\item \textbf{Manejo de errores}: Implementa manejo de excepciones devolviendo respuestas HTTP 500 con información del error en formato JSON.
-	
+
 	\item \textbf{Soporte para preflight requests}: Maneja peticiones OPTIONS para cumplir con los requisitos de CORS.
 \end{itemize}
 
@@ -500,19 +500,19 @@ Este componente automatiza el proceso de instalación y configuración de la apl
 
 \begin{itemize}
 	\item \textbf{Verificación de privilegios}: Valida que se ejecute con permisos de superusuario.
-	
+
 	\item \textbf{Instalación de dependencias}: Actualiza el sistema e instala Python 3 y pip usando el gestor de paquetes APT.
-	
+
 	\item \textbf{Configuración de systemd}: Crea un archivo (\texttt{cluster-info.service}) que define el servicio con las siguientes características:
-	\begin{itemize}
-		\item Ejecuta bajo el usuario \texttt{pi}.
-		\item Configura reinicio automático en caso de falla.
-		\item Redirige la salida al journal del sistema.
-		\item Se ejecuta después de que la red esté disponible.
-	\end{itemize}
-	
+	      \begin{itemize}
+		      \item Ejecuta bajo el usuario \texttt{pi}.
+		      \item Configura reinicio automático en caso de falla.
+		      \item Redirige la salida al journal del sistema.
+		      \item Se ejecuta después de que la red esté disponible.
+	      \end{itemize}
+
 	\item \textbf{Habilitación del servicio}: Recarga el daemon de systemd, habilita el servicio para inicio automático y lo pone en marcha.
-	
+
 	\item \textbf{Verificación}: Muestra el estado del servicio para confirmar que la instalación fue exitosa.
 \end{itemize}
 
@@ -550,12 +550,12 @@ Instalación de la aplicación:
 			https://github.com/JuanEstebanOsma1012/condor_cluster_info_api \
 			/opt/cluster-info
 		\end{verbatim}
-	
+
 	\item Navegar al directorio:
 	      \begin{verbatim}
 			cd /opt/cluster-info
 		\end{verbatim}
-	
+
 	\item Ejecutar el script de instalación con privilegios de administrador:
 	      \begin{verbatim}
 			sudo ./install.sh
@@ -567,7 +567,7 @@ El script de instalación realiza automáticamente los siguientes pasos:
 \begin{itemize}
 	\item Actualiza el sistema e instala las dependencias necesarias (Python 3).
 	\item Crea el archivo de servicio systemd en
-	\texttt{/etc/systemd/system/cluster-info.service}.
+	      \texttt{/etc/systemd/system/cluster-info.service}.
 	\item Configura el servicio para ejecutarse automáticamente al inicio del sistema.
 	\item Inicia el servicio y verifica su estado.
 \end{itemize}
@@ -581,12 +581,12 @@ Para mantener las métricas actualizadas, se debe configurar la ejecución peri�
 	      \begin{verbatim}
 			crontab -e
 		\end{verbatim}
-	
+
 	\item Agregar la siguiente línea para ejecutar el script cada minuto:
 	      \begin{verbatim}
 			* * * * * /opt/cluster-info/update_condor_metrics.sh
 		\end{verbatim}
-	
+
 	\item Guardar el archivo.
 \end{enumerate}
 
@@ -609,14 +609,14 @@ Las características distintivas del universo parallel incluyen:
 
 \begin{itemize}
 	\item \textbf{Asignación simultánea de recursos}: HTCondor garantiza que todos los recursos necesarios para el trabajo (máquinas y núcleos) estén disponibles antes de iniciar la ejecución, eliminando el riesgo de deadlocks o esperas indefinidas.
-	
+
 	\item \textbf{Comunicación inter-proceso}: Soporte nativo para bibliotecas \MPI que permiten intercambio de mensajes entre procesos distribuidos en diferentes nodos computacionales.
-	
+
 	\item \textbf{Topología de red consciente}: HTCondor puede considerar la topología de red y latencia entre nodos para optimizar la asignación de recursos en trabajos que requieren comunicación intensiva.
-	
+
 	\item \textbf{Políticas de terminación coordinada}: Implementa mecanismos como \\
-	\texttt{+ParallelShutdownPolicy = ``WAIT\_FOR\_NODE0''} para garantizar terminación ordenada de todos los procesos.
-	
+	      \texttt{+ParallelShutdownPolicy = ``WAIT\_FOR\_NODE0''} para garantizar terminación ordenada de todos los procesos.
+
 	\item \textbf{Gestión de fallos}: Capacidad de detectar fallos en nodos individuales y reaccionar apropiadamente, ya sea reubicando procesos o terminando todo el trabajo.
 \end{itemize}
 
@@ -627,11 +627,11 @@ La implementación del universo parallel en HTCondor involucra varios componente
 
 \begin{itemize}
 	\item \textbf{Parallel Scheduler}: Componente del \textit{schedd} responsable de la coordinación de recursos múltiples y la planificación de trabajos paralelos.
-	
+
 	\item \textbf{Dedicated Scheduler}: Planificador especializado que puede reservar conjuntos específicos de máquinas para trabajos paralelos de larga duración.
-	
+
 	\item \textbf{Shadow Process}: Proceso especializado que coordina la ejecución distribuida y mantiene comunicación con todos los procesos \textit{starter} involucrados.
-	
+
 	\item \textbf{MPI Implementation}: Integración con implementaciones estándar de \MPI como OpenMPI o MPICH para facilitar la comunicación entre procesos.
 \end{itemize}
 
@@ -647,11 +647,11 @@ Como se detalla en el Apéndice~\ref{fig:xen-vms}, el clúster actual de Raspber
 
 \begin{itemize}
 	\item \textbf{Documentación limitada}: La documentación específica para la implementación del universo parallel en la versión 8.4.11 resultó insuficiente para una implementación robusta.
-	
+
 	\item \textbf{Limitaciones de arquitectura}: Las restricciones de memoria y procesamiento de los dispositivos Raspberry Pi limitan la escalabilidad de aplicaciones \MPI intensivas.
-	
+
 	\item \textbf{Compatibilidad con OpenMPI}: Dificultades en la integración con versiones modernas de OpenMPI en el entorno \texttt{armv7l}.
-	
+
 	\item \textbf{Rendimiento de red}: Las limitaciones de ancho de banda en la conectividad Ethernet de 100 Mbps afectan aplicaciones con comunicación intensiva.
 \end{itemize}
 
@@ -662,11 +662,11 @@ La nueva infraestructura virtualizada implementa una arquitectura distribuida ba
 
 \begin{itemize}
 	\item \textbf{Grid Manager (172.30.28.29)}: Nodo coordinador que gestiona la integración con la aplicación \textit{Grid App} y orquesta la distribución de trabajos entre diferentes infraestructuras.
-	
+
 	\item \textbf{Master (172.30.28.30)}: Nodo \textit{Central Manager} que ejecuta los daemons \textit{collector} y \textit{negotiator}, responsables de la coordinación central del pool HTCondor.
-	
+
 	\item \textbf{Submit (172.30.28.31)}: Nodo \textit{Access Point} desde el cual se envían trabajos parallel al sistema. Ejecuta el daemon \textit{schedd} especializado para trabajos paralelos.
-	
+
 	\item \textbf{Ejecutores (172.30.28.32--34)}: Tres nodos \textit{Execute Points} que proporcionan recursos computacionales para la ejecución de procesos \MPI distribuidos.
 \end{itemize}
 
@@ -677,11 +677,11 @@ La selección de AlmaLinux 9.6 (Sage Margay) x86\_64 como sistema operativo base
 
 \begin{itemize}
 	\item \textbf{Soporte oficial}: AlmaLinux figura en la lista de sistemas operativos oficialmente soportados por HTCondor, garantizando compatibilidad y soporte a largo plazo.
-	
+
 	\item \textbf{Compatibilidad empresarial}: Como sucesor de CentOS, AlmaLinux proporciona estabilidad y compatibilidad con entornos empresariales de computación de alto rendimiento.
-	
+
 	\item \textbf{Implementación probada}: Instituciones como CERN han implementado exitosamente HTCondor sobre AlmaLinux, proporcionando casos de uso validados \citep{Bunsic2025}.
-	
+
 	\item \textbf{Ecosistema de paquetes}: Acceso completo al ecosistema de paquetes RPM con versiones actualizadas de OpenMPI y herramientas de desarrollo.
 \end{itemize}
 
@@ -704,9 +704,9 @@ El script diferencia entre tres tipos de instalación según el rol del nodo:
 
 \begin{itemize}
 	\item \textbf{Central Manager (\texttt{--cm})}: Instala y configura los daemons \textit{collector} y \textit{negotiator} para coordinación central.
-	
+
 	\item \textbf{Access Point (\texttt{--ap})}: Configura el daemon \textit{schedd} optimizado para envío de trabajos parallel.
-	
+
 	\item \textbf{Execute Point (\texttt{--ep})}: Instala el daemon \textit{startd} configurado para recibir y ejecutar procesos \MPI.
 \end{itemize}
 
@@ -766,9 +766,9 @@ Los trabajos parallel requieren un manejo especial de archivos debido a su ejecu
 
 \begin{itemize}
 	\item \textbf{Transferencia de archivos}: HTCondor gestiona automáticamente la distribución de archivos de entrada a todos los nodos participantes.
-	
+
 	\item \textbf{Sincronización de salidas}: La aplicación \textit{Grid App} implementa threading para la recolección asíncrona de archivos de salida desde el nodo submit remoto.
-	
+
 	\item \textbf{Gestión de logs}: Los logs de \MPI se centralizan en el nodo coordinador (rank 0) para facilitar la depuración y monitoreo.
 \end{itemize}
 
@@ -796,11 +796,11 @@ Las aplicaciones típicas que se benefician del universo parallel incluyen:
 
 \begin{itemize}
 	\item \textbf{Simulaciones numéricas}: Modelado de fluidos computacionales (CFD), análisis de elementos finitos y simulaciones moleculares que requieren intercambio frecuente de datos entre procesos.
-	
+
 	\item \textbf{Algoritmos de álgebra lineal}: Factorizaciones matriciales distribuidas, resolución de sistemas lineales grandes y cálculo de valores propios que aprovechan bibliotecas como ScaLAPACK\@.
-	
+
 	\item \textbf{Procesamiento de imágenes}: Algoritmos de procesamiento distribuido que operan sobre grandes conjuntos de datos con patrones de comunicación regulares.
-	
+
 	\item \textbf{Optimización distribuida}: Algoritmos genéticos paralelos, búsqueda distribuida y métodos de optimización que requieren sincronización periódica.
 \end{itemize}
 
@@ -811,11 +811,11 @@ Para aplicaciones apropiadas, el universo parallel ofrece ventajas significativa
 
 \begin{itemize}
 	\item \textbf{Eficiencia computacional}: Eliminación de overhead de comunicación mediante redes optimizadas y latencia reducida entre procesos.
-	
+
 	\item \textbf{Escalabilidad controlada}: Capacidad de reservar recursos específicos y garantizar topologías de comunicación óptimas.
-	
+
 	\item \textbf{Gestión de memoria distribuida}: Acceso a conjuntos de memoria agregada que exceden las limitaciones de nodos individuales.
-	
+
 	\item \textbf{Sincronización garantizada}: Mecanismos de barrera y sincronización que garantizan consistencia en algoritmos distribuidos.
 \end{itemize}
 
@@ -838,11 +838,11 @@ Las características distintivas del universo Grid incluyen:
 
 \begin{itemize}
 	\item \textbf{Federación de recursos}: Capacidad de coordinar trabajos a través de múltiples pools HTCondor independientes, cada uno con su propia configuración y políticas de uso.
-	
+
 	\item \textbf{Transparencia de ubicación}: Los usuarios pueden enviar trabajos sin conocer la ubicación física específica donde se ejecutarán, siendo el sistema responsable de la selección óptima de recursos.
-	
+
 	\item \textbf{Balanceo de carga}: Distribución inteligente de trabajos basada en la disponibilidad de recursos y la carga actual.
-	
+
 	\item \textbf{Tolerancia a fallos}: Capacidad de redirigir trabajos entre diferentes clústeres en caso de falla o indisponibilidad de recursos específicos.
 \end{itemize}
 
@@ -853,9 +853,9 @@ La implementación del universo Grid en HTCondor involucra varios componentes es
 
 \begin{itemize}
 	\item \textbf{Grid Manager}: \textit{Daemon} responsable de la coordinación central, gestión de trabajos Grid y comunicación con pools remotos.
-	
+
 	\item \textbf{GAHP (Grid ASCII Helper Protocol)}: Protocolo y conjunto de herramientas que facilitan la comunicación entre el Grid Manager local y los schedulers remotos.
-	
+
 	\item \textbf{Grid Resource}: Abstracción que representa un pool HTCondor remoto accesible a través del universo Grid.
 \end{itemize}
 
@@ -871,11 +871,11 @@ La infraestructura Grid implementa una topología en estrella donde un Grid Mana
 
 \begin{itemize}
 	\item \textbf{Grid Manager (172.30.27.11)}: Nodo coordinador ejecutando los daemons \texttt{SCHEDD}, \texttt{MASTER}, \texttt{GRIDMANAGER} y \texttt{COLLECTOR}, responsable de recibir trabajos desde la aplicación \textit{Grid App} y distribuirlos hacia los clústeres disponibles.
-	
+
 	\item \textbf{Clúster Vanilla B}: Infraestructura computacional con 15 nodos de ejecución (172.30.27.36--48), coordinados por un Central Manager (172.30.27.34) y un nodo Submit (172.30.27.35).
-	
+
 	\item \textbf{Clúster Vanilla C}: Segunda infraestructura con 13 nodos de ejecución
-	(172.30.27.68--80), gestionados por su propio Central Manager (172.30.27.66) y nodo Submit (172.30.27.67).
+	      (172.30.27.68--80), gestionados por su propio Central Manager (172.30.27.66) y nodo Submit (172.30.27.67).
 \end{itemize}
 
 Esta arquitectura fue expandida durante el desarrollo del proyecto, pasando de un único clúster vanilla a dos clústeres independientes, demostrando la escalabilidad inherente del universo Grid y su capacidad para incorporar nuevos recursos de manera transparente.
@@ -928,12 +928,12 @@ Los nodos Submit de cada clúster vanilla fueron configurados para aceptar traba
 
 \begin{itemize}
 	\item \textbf{Habilitación del universo Grid}: Configuración explícita mediante
-	\texttt{ENABLE\_GRID\_UNIVERSE = True}.
-	
+	      \texttt{ENABLE\_GRID\_UNIVERSE = True}.
+
 	\item \textbf{Permisos para Grid Manager}: Configuración de ACLs específicas permitiendo acceso desde el Grid Manager (172.30.27.43).
-	
+
 	\item \textbf{Soporte para usuarios anónimos}: Habilitación de
-	\texttt{SCHEDD.ALLOW\_ANONYMOUS\_USER = True} para facilitar la ejecución de trabajos remotos.
+	      \texttt{SCHEDD.ALLOW\_ANONYMOUS\_USER = True} para facilitar la ejecución de trabajos remotos.
 \end{itemize}
 
 \textbf{Configuración de Central Managers:}
@@ -985,11 +985,11 @@ El sistema implementa lógica de distribución que considera múltiples factores
 
 \begin{itemize}
 	\item \textbf{Disponibilidad de recursos}: Consulta en tiempo real de slots disponibles en cada clúster vanilla.
-	
+
 	\item \textbf{Carga actual}: Análisis del número de trabajos en cola para balancear la distribución.
-	
+
 	\item \textbf{Historial de rendimiento}: Consideración de métricas históricas de éxito y tiempo de ejecución.
-	
+
 	\item \textbf{Políticas de priorización}: Aplicación de reglas configurables para casos de uso específicos.
 \end{itemize}
 
@@ -1018,11 +1018,11 @@ La expansión de un clúster vanilla único a dos clústeres independientes se f
 
 \begin{itemize}
 	\item \textbf{Demostración de escalabilidad}: Validar que la arquitectura Grid puede incorporar recursos adicionales de manera transparente.
-	
+
 	\item \textbf{Incremento de capacidad}: Duplicar los recursos computacionales disponibles de 15 a 28 nodos de ejecución.
-	
+
 	\item \textbf{Redundancia operacional}: Proporcionar continuidad de servicio en caso de falla completa de un clúster.
-	
+
 	\item \textbf{Balanceo de carga}: Distribuir trabajos de manera más eficiente según la disponibilidad instantánea de recursos.
 \end{itemize}
 
@@ -1033,11 +1033,11 @@ La integración del segundo clúster siguió un proceso sistemático:
 
 \begin{enumerate}
 	\item \textbf{Replicación de configuración}: Aplicación de la configuración base del Clúster B adaptada para las direcciones IP del Clúster C.
-	
+
 	\item \textbf{Actualización de tablas de enrutamiento}: Modificación del archivo \texttt{/etc/hosts} en todos los nodos para incluir los nuevos recursos.
-	
+
 	\item \textbf{Configuración de permisos}: Extensión de las ACLs para permitir comunicación bidireccional entre todos los componentes.
-	
+
 	\item \textbf{Validación de conectividad}: Verificación de la capacidad de envío y ejecución de trabajos en el nuevo clúster.
 \end{enumerate}
 
@@ -1086,11 +1086,11 @@ Las aplicaciones típicas que aprovechan las capacidades del universo Grid inclu
 
 \begin{itemize}
 	\item \textbf{Procesamiento batch de alto volumen}: Aplicaciones que requieren procesamiento de grandes cantidades de trabajos independientes con diferentes requisitos de recursos.
-	
+
 	\item \textbf{Análisis paramétrico}: Estudios que involucran ejecución de la misma aplicación con diferentes parámetros de entrada, beneficiándose de distribución automática.
-	
+
 	\item \textbf{Workflows científicos}: Pipelines de procesamiento que pueden ser distribuidos a través de múltiples clústeres para acelerar el tiempo total de ejecución.
-	
+
 	\item \textbf{Aplicaciones con tolerancia a latencia}: Trabajos que no requieren comunicación entre procesos y pueden tolerar variaciones en tiempo de ejecución entre diferentes infraestructuras.
 \end{itemize}
 
@@ -1101,11 +1101,11 @@ Para aplicaciones apropiadas, el universo Grid ofrece ventajas significativas:
 
 \begin{itemize}
 	\item \textbf{Escalabilidad horizontal}: Capacidad de agregar nuevos clústeres sin reconfiguración de clientes existentes.
-	
+
 	\item \textbf{Utilización optimizada}: Distribución inteligente de trabajos que maximiza el uso de recursos disponibles a través de múltiples pools.
-	
+
 	\item \textbf{Tolerancia a fallos geográfica}: Continuidad de servicio incluso ante falla completa de infraestructuras específicas.
-	
+
 	\item \textbf{Gestión unificada}: Interfaz única para acceso a recursos distribuidos, simplificando la experiencia del usuario final.
 \end{itemize}
 
@@ -1150,11 +1150,11 @@ El sistema proporciona métricas para evaluación de rendimiento:
 
 \begin{itemize}
 	\item \textbf{Tiempo de distribución}: Latencia desde envío hasta inicio de ejecución en clúster remoto.
-	
+
 	\item \textbf{Tasa de éxito}: Porcentaje de trabajos completados exitosamente versus fallos de transferencia.
-	
+
 	\item \textbf{Utilización balanceada}: Distribución equitativa de carga entre clústeres disponibles.
-	
+
 	\item \textbf{Disponibilidad agregada}: Porcentaje de tiempo donde al menos un clúster está disponible para nuevos trabajos.
 \end{itemize}
 

@@ -4,23 +4,23 @@
 	\fontsize{9pt}{10pt}\selectfont % Tamaño de fuente 8pt
 	\begin{tabular}{|p{2cm}|p{4cm}|p{2.5cm}|p{4.7cm}|} % Total: 14cm
 		\hline
-		\textbf{ID del escenario de pruebas} & ESC-01 & \textbf{ID de requisito} & RF1, RF2, RF3, RF4, RF7, RF8, RNF1, RNF2, RNF3 \\
-        \textbf{Título de la prueba} & Ejecución de trabajos en Universo Grid con repeticiones de iguales parámetros & \textbf{Prerrequisitos} & Grid Manager configurado con al menos un cluster soportando Vanilla \\
-        \textbf{Descripción del caso de prueba} & Validar que el sistema soporta ejecución en Universo Grid hacia el Universo Vanilla & \textbf{Prioridad de la prueba} & Alta \\
-        \hline
-        \multicolumn{4}{|c|}{\textbf{Pasos de ejecución de las pruebas}} \\
-        \hline
-        \textbf{ID de paso} & \textbf{Acción} & \textbf{Datos de prueba} & \textbf{Resultado esperado} \\
-		1 & Ingresar a la página & Link de la aplicación & Página principal de la aplicación mostrada \\
-        2 & Subir binario a través del selector de archivos & Binario de ejecución & Binario almacenado en el sistema de envío \\
-        3 & Escribir argumentos adicionales (Opcional) & Argumentos adicionales & Argumentos seteados en el submit file dinámico \\
-        4 & Seleccionar la naturaleza del trabajo (Distribuido) & Naturalezas permitidas & Universo seteado en el submit file dinámico \\
-        5 & Seleccionar la información de distribución (Repeticiones con mismos parámetros) & Distribuciones permitidas & Agregada estructura necesaria al Submit file \\
-        6 & Seleccionar cantidad de repeticiones & Repeticiones necesarias & Ciclo de envío en el archivo de shell creado \\
-        7 & Seleccionar cluster más favorable & Métricas de clústeres & Recurso remoto del grid en el submit file establecido \\
-        8 & Enviar trabajo & Submit file generado & Shell de envío y submit file ejecutado \\
-        9 & Ver resultados a medida que van terminando & Resultados de trabajos & Salida de cada ejecución mostrada de forma organizada \\
-        \hline
+		\textbf{ID del escenario de pruebas}    & ESC-01                                                                              & \textbf{ID de requisito}        & RF1, RF2, RF3, RF4, RF7, RF8, RNF1, RNF2, RNF3                      \\
+		\textbf{Título de la prueba}            & Ejecución de trabajos en Universo Grid con repeticiones de iguales parámetros       & \textbf{Prerrequisitos}         & Grid Manager configurado con al menos un clúster soportando Vanilla \\
+		\textbf{Descripción del caso de prueba} & Validar que el sistema soporta ejecución en Universo Grid hacia el Universo Vanilla & \textbf{Prioridad de la prueba} & Alta                                                                \\
+		\hline
+		\multicolumn{4}{|c|}{\textbf{Pasos de ejecución de las pruebas}}                                                                                                                                                                      \\
+		\hline
+		\textbf{ID de paso}                     & \textbf{Acción}                                                                     & \textbf{Datos de prueba}        & \textbf{Resultado esperado}                                         \\
+		1                                       & Ingresar a la página                                                                & Link de la aplicación           & Página principal de la aplicación mostrada                          \\
+		2                                       & Subir binario a través del selector de archivos                                     & Binario de ejecución            & Binario almacenado en el sistema de envío                           \\
+		3                                       & Escribir argumentos adicionales (Opcional)                                          & Argumentos adicionales          & Argumentos seteados en el submit file dinámico                      \\
+		4                                       & Seleccionar la naturaleza del trabajo (Distribuido)                                 & Naturalezas permitidas          & Universo seteado en el submit file dinámico                         \\
+		5                                       & Seleccionar la información de distribución (Repeticiones con mismos parámetros)     & Distribuciones permitidas       & Agregada estructura necesaria al Submit file                        \\
+		6                                       & Seleccionar cantidad de repeticiones                                                & Repeticiones necesarias         & Ciclo de envío en el archivo de shell creado                        \\
+		7                                       & Seleccionar clúster más favorable                                                   & Métricas de clústeres           & Recurso remoto del grid en el submit file establecido               \\
+		8                                       & Enviar trabajo                                                                      & Submit file generado            & Shell de envío y submit file ejecutado                              \\
+		9                                       & Ver resultados a medida que van terminando                                          & Resultados de trabajos          & Salida de cada ejecución mostrada de forma organizada               \\
+		\hline
 	\end{tabular}
 	\caption{Información ESC-01}
 	\label{table:esc-01}
@@ -32,27 +32,27 @@
 	\fontsize{9pt}{10pt}\selectfont % Tamaño de fuente 8pt
 	\begin{tabular}{|p{2cm}|p{4cm}|p{2.5cm}|p{4.7cm}|} % Total: 14cm
 		\hline
-		\textbf{ID del escenario de pruebas} & ESC-02 & \textbf{ID de requisito} & RF1, RF2, RF3, RF4, RF7, RF8, RNF1, RNF2, RNF3 \\
-        \textbf{Título de la prueba} & Ejecución de trabajos en Universo Grid con variables parametrizables & \textbf{Prerrequisitos} & Grid Manager configurado con al menos un cluster soportando Vanilla \\
-        \textbf{Descripción del caso de prueba} & Validar que el sistema soporta ejecución en Universo Grid hacia el Universo Vanilla & \textbf{Prioridad de la prueba} & Alta \\
-        \hline
-        \multicolumn{4}{|c|}{\textbf{Pasos de ejecución de las pruebas}} \\
-        \hline
-        \textbf{ID de paso} & \textbf{Acción} & \textbf{Datos de prueba} & \textbf{Resultado esperado} \\
-		1 & Ingresar a la página & Link de la aplicación & Página principal de la aplicación mostrada \\
-        2 & Subir binario a través del selector de archivos & Binario de ejecución & Binario almacenado en el sistema de envío \\
-        3 & Escribir argumentos adicionales (Opcional) & Argumentos adicionales & Argumentos seteados en el submit file dinámico \\
-        4 & Seleccionar la naturaleza del trabajo (Distribuido) & Naturalezas permitidas & Universo seteado en el submit file dinámico \\
-        5 & Seleccionar la información de distribución (Repeticiones con mismos parámetros) & Distribuciones permitidas & Agregada estructura necesaria al Submit file \\
-        6 & Seleccionar variable parametrizable (De los argumentos adicionales) & Variables parametrizables & Ciclo de envío en el archivo de shell creado \\
-        7 & Establecer valor inicial & Valor inicial & Valor inicial del ciclo establecido \\
-        8 & Establecer valor final & Valor final & Valor final del ciclo establecido \\
-        9 & Establecer incremento & Incremento & Incremento del ciclo establecido \\
-        10 & Ver cantidad de repeticiones & Repeticiones necesarias & Cantidad de repeticiones calculadas \\
-        11 & Seleccionar clúster más favorable & Métricas de clústeres & Recurso remoto del grid en el submit file establecido \\
-        12 & Enviar trabajo & Submit file generado & Shell de envío y submit file ejecutado \\
-        13 & Ver resultados a medida que van terminando & Resultados de trabajos & Salida de cada ejecución mostrada de forma organizada \\
-        \hline
+		\textbf{ID del escenario de pruebas}    & ESC-02                                                                              & \textbf{ID de requisito}        & RF1, RF2, RF3, RF4, RF7, RF8, RNF1, RNF2, RNF3                      \\
+		\textbf{Título de la prueba}            & Ejecución de trabajos en Universo Grid con variables parametrizables                & \textbf{Prerrequisitos}         & Grid Manager configurado con al menos un clúster soportando Vanilla \\
+		\textbf{Descripción del caso de prueba} & Validar que el sistema soporta ejecución en Universo Grid hacia el Universo Vanilla & \textbf{Prioridad de la prueba} & Alta                                                                \\
+		\hline
+		\multicolumn{4}{|c|}{\textbf{Pasos de ejecución de las pruebas}}                                                                                                                                                                      \\
+		\hline
+		\textbf{ID de paso}                     & \textbf{Acción}                                                                     & \textbf{Datos de prueba}        & \textbf{Resultado esperado}                                         \\
+		1                                       & Ingresar a la página                                                                & Link de la aplicación           & Página principal de la aplicación mostrada                          \\
+		2                                       & Subir binario a través del selector de archivos                                     & Binario de ejecución            & Binario almacenado en el sistema de envío                           \\
+		3                                       & Escribir argumentos adicionales (Opcional)                                          & Argumentos adicionales          & Argumentos seteados en el submit file dinámico                      \\
+		4                                       & Seleccionar la naturaleza del trabajo (Distribuido)                                 & Naturalezas permitidas          & Universo seteado en el submit file dinámico                         \\
+		5                                       & Seleccionar la información de distribución (Repeticiones con mismos parámetros)     & Distribuciones permitidas       & Agregada estructura necesaria al Submit file                        \\
+		6                                       & Seleccionar variable parametrizable (De los argumentos adicionales)                 & Variables parametrizables       & Ciclo de envío en el archivo de shell creado                        \\
+		7                                       & Establecer valor inicial                                                            & Valor inicial                   & Valor inicial del ciclo establecido                                 \\
+		8                                       & Establecer valor final                                                              & Valor final                     & Valor final del ciclo establecido                                   \\
+		9                                       & Establecer incremento                                                               & Incremento                      & Incremento del ciclo establecido                                    \\
+		10                                      & Ver cantidad de repeticiones                                                        & Repeticiones necesarias         & Cantidad de repeticiones calculadas                                 \\
+		11                                      & Seleccionar clúster más favorable                                                   & Métricas de clústeres           & Recurso remoto del grid en el submit file establecido               \\
+		12                                      & Enviar trabajo                                                                      & Submit file generado            & Shell de envío y submit file ejecutado                              \\
+		13                                      & Ver resultados a medida que van terminando                                          & Resultados de trabajos          & Salida de cada ejecución mostrada de forma organizada               \\
+		\hline
 	\end{tabular}
 	\caption{Información ESC-02}
 	\label{table:esc-02}
@@ -64,23 +64,23 @@
 	\fontsize{9pt}{10pt}\selectfont % Tamaño de fuente 9pt
 	\begin{tabular}{|p{2cm}|p{4cm}|p{2.5cm}|p{4.7cm}|} % Total: 14cm
 		\hline
-		\textbf{ID del escenario de pruebas} & ESC-03 & \textbf{ID de requisito} & RF1, RF2, RF3, RF4, RF5, RF6, RF8, RNF1, RNF2, RNF3 \\
-		\textbf{Título de la prueba} & Ejecución de trabajos en Universo Parallel & \textbf{Prerrequisitos} & Grid Manager configurado con al menos un clúster soportando Parallel \\
-		\textbf{Descripción del caso de prueba} & Validar que el sistema soporta ejecución en Universo Parallel & \textbf{Prioridad de la prueba} & Alta \\
+		\textbf{ID del escenario de pruebas}    & ESC-03                                                        & \textbf{ID de requisito}        & RF1, RF2, RF3, RF4, RF5, RF6, RF8, RNF1, RNF2, RNF3                        \\
+		\textbf{Título de la prueba}            & Ejecución de trabajos en Universo Parallel                    & \textbf{Prerrequisitos}         & Grid Manager configurado con al menos un clúster soportando Parallel       \\
+		\textbf{Descripción del caso de prueba} & Validar que el sistema soporta ejecución en Universo Parallel & \textbf{Prioridad de la prueba} & Alta                                                                       \\
 		\hline
-		\multicolumn{4}{|c|}{\textbf{Pasos de ejecución de las pruebas}} \\
+		\multicolumn{4}{|c|}{\textbf{Pasos de ejecución de las pruebas}}                                                                                                                                                       \\
 		\hline
-		\textbf{ID de paso} & \textbf{Acción} & \textbf{Datos de prueba} & \textbf{Resultado esperado} \\
+		\textbf{ID de paso}                     & \textbf{Acción}                                               & \textbf{Datos de prueba}        & \textbf{Resultado esperado}                                                \\
 		\hline
-		1 & Ingresar a la página & Link de la aplicación & Página principal de la aplicación mostrada \\
-		2 & Subir binario a través del selector de archivos & Binario de ejecución & Binario almacenado en el sistema de envío \\
-		3 & Escribir argumentos adicionales (Opcional) & Argumentos adicionales & Argumentos establecidos en el \textit{submit file} dinámico \\
-		4 & Seleccionar la naturaleza del trabajo (Paralelo) & Naturalezas permitidas & Universo establecido en el \textit{submit file} dinámico \\
-		5 & Escribir cantidad de máquinas requeridas & Máquinas requeridas & Parámetro ``\textit{machine\_count}'' del \textit{submit file} establecido \\
-		6 & Escribir cantidad de núcleos solicitados por máquina & Núcleos requeridos & Parámetro ``\textit{required\_cpus}'' del \textit{submit file} establecido \\
-		7 & Seleccionar clúster más favorable & Métricas de clústeres & Recurso remoto establecido \\
-		8 & Enviar trabajo & \textit{Submit file} generado & \textit{Script} de envío y \textit{submit file} ejecutado \\
-		9 & Ver resultados a medida que van terminando & Resultados de trabajos & Salida de cada ejecución mostrada de forma organizada \\
+		1                                       & Ingresar a la página                                          & Link de la aplicación           & Página principal de la aplicación mostrada                                 \\
+		2                                       & Subir binario a través del selector de archivos               & Binario de ejecución            & Binario almacenado en el sistema de envío                                  \\
+		3                                       & Escribir argumentos adicionales (Opcional)                    & Argumentos adicionales          & Argumentos establecidos en el \textit{submit file} dinámico                \\
+		4                                       & Seleccionar la naturaleza del trabajo (Paralelo)              & Naturalezas permitidas          & Universo establecido en el \textit{submit file} dinámico                   \\
+		5                                       & Escribir cantidad de máquinas requeridas                      & Máquinas requeridas             & Parámetro ``\textit{machine\_count}'' del \textit{submit file} establecido \\
+		6                                       & Escribir cantidad de núcleos solicitados por máquina          & Núcleos requeridos              & Parámetro ``\textit{required\_cpus}'' del \textit{submit file} establecido \\
+		7                                       & Seleccionar clúster más favorable                             & Métricas de clústeres           & Recurso remoto establecido                                                 \\
+		8                                       & Enviar trabajo                                                & \textit{Submit file} generado   & \textit{Script} de envío y \textit{submit file} ejecutado                  \\
+		9                                       & Ver resultados a medida que van terminando                    & Resultados de trabajos          & Salida de cada ejecución mostrada de forma organizada                      \\
 		\hline
 	\end{tabular}
 	\caption{Información ESC-03}

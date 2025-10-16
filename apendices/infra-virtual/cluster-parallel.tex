@@ -23,7 +23,7 @@
 \vspace{40pt}
 
 % Set the running headers for left and right pages
-\markboth{Apéndice \thechapter: Implementación del clúster virtualizado HTCondor}{Apéndice \thechapter: Implementación del clúster virtualizado HTCondor}
+\markboth{Apéndice \thechapter: Implementación del clúster virtualizado HTCondor}{Apéndice~\thechapter: Implementación del clúster virtualizado HTCondor}
 
 
 \FloatBarrier\subsection{Instalación en un entorno virtualizado}
@@ -46,7 +46,7 @@ $$CondorPlatform: ARMV7L-Raspbian_ $
 
 Si bien esta versión es compatible con el \textbf{universo parallel}, la limitada documentación disponible para la version \texttt{8.4.11} en particular representó un obstáculo para implementar algoritmos que utilizaran OpenMPI. Por esta razón, y siguiendo la recomendación del asesor de este proyecto, se decidió implementar dicho universo en una infraestructura virtualizada.
 
-\FloatBarrier\subsubsection{Infraestrutura virtualizada}
+\FloatBarrier\subsubsection{Infraestructura virtualizada}
 
 El primer paso hacia la implementación de la nueva infraestructura HTCondor fue desplegar máquinas virtuales en la infraestructura del \GRID. Para ello se utilizó un servidor dedicado que ejecuta el hipervisor \cite{xcpng_intro}, en el cual se configuraron 5 máquinas virtuales con el sistema operativo~\texttt{AlmaLinux 9.6 (Sage Margay) x86\_64}. Las máquinas pueden verse, mediante la interfaz Xen-Orchestra en la figura \ref{fig:xen-vms}. Esta configuración difiere significativamente de la arquitectura armv7l de 32 bits que utiliza el clúster de Raspberry Pi actual. La elección de este sistema operativo no fue trivial, se fundamentó en varios criterios: según la documentación oficial, AlmaLinux es uno de los sistemas operativos oficialmente soportados por HTCondor~\cite{HTCondor_install}, además de haber sido implementado exitosamente por instituciones como el CERN \citep{Bunsic2025}.
 
@@ -207,7 +207,7 @@ sudo make install
 \end{minted}
 
 
-\FloatBarrier\subsection{Configurción de OpenMPI en HTCondor}
+\FloatBarrier\subsection{Configuración de OpenMPI en HTCondor}
 
 El primer paso consiste en crear un archivo de configuración en el que se defina el \textbf{Scheduler dedicado} para los nodos ejecutores. Además, es necesario establecer parámetros que permitan a estos nodos priorizar los trabajos dedicados y evitar la suspensión de tareas enviadas. Según la documentación oficial de HTCondor \cite{HTCondor_Parallel}, se recomienda reservar un conjunto de máquinas exclusivas para el universo parallel. En este clúster, esta configuración se implementó en el archivo \texttt{/etc/condor/config.d/50-parallel.config} de cada nodo ejecutor, cuyo contenido se muestra a continuación:
 
